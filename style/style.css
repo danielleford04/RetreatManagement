@@ -1,0 +1,39 @@
+.nav-tabs {
+  margin: 15px !important;
+}
+
+.nav {
+  margin-bottom: 15px;
+}
+
+.side-nav div {
+  margin-top: 50px;
+}
+
+.btn {
+  margin: 3px;
+}
+
+#add-new-event {
+  position: fixed;
+  right: 10%;
+}
+
+.container {
+  margin-left:0 !important;
+}
+
+.btn-sm {
+  width: 150px;
+}
+
+ @media(min-width:768px) {
+   .main-content {
+     float:right;
+     width:80%; }
+
+   .side-nav {
+     float:left;
+     width:20%;
+     margin-top: 100px; }
+}
