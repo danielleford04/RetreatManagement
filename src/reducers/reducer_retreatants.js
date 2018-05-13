@@ -1,12 +1,3 @@
-// export default function() {
-//   return [
-//     { name: 'Bob James', email:'fake@glkasjd.com'},
-//     { name: 'Denise Hill', email: 'aksjd@kjahdskj.com'},
-//     { name: 'April Ludgate', email: 'email@email.com'},
-//     { name: 'Michelle Ng', email: 'michelle@gnaskjd.com'}
-//   ]
-// }
-
 import _ from 'lodash';
 import { FETCH_RETREATANTS } from '../actions/index';
 

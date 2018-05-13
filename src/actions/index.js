@@ -6,6 +6,7 @@ const ROOT_URL = 'http://localhost:3000';
 
 // export const FETCH_WEATHER = 'FETCH_WEATHER';
 export const FETCH_RETREATANTS = 'FETCH_RETREATANTS';
+export const CREATE_RETREATANT = 'create_retreatant';
 
 // export function fetchWeather(city) {
 //   const url = `${ROOT_URL}&q=${city},us`
@@ -25,4 +26,13 @@ export function fetchRetreatants() {
     payload: request
   };
 
+}
+
+export function createRetreatant(values) {
+  const request = axios.post(`${ROOT_URL}/retreatants`, values);
+
+  return {
+    type: CREATE_RETREATANT,
+    payload: request
+  }
 }
