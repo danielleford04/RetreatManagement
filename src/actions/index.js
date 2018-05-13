@@ -28,8 +28,9 @@ export function fetchRetreatants() {
 
 }
 
-export function createRetreatant(values) {
-  const request = axios.post(`${ROOT_URL}/retreatants`, values);
+export function createRetreatant(values, callback) {
+  const request = axios.post(`${ROOT_URL}/retreatants`, values)
+    .then(() => callback());
 
   return {
     type: CREATE_RETREATANT,

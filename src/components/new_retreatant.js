@@ -30,7 +30,9 @@ class NewRetreatant extends Component {
   }
 
   onSubmit(values) {
-    this.props.createRetreatant(values);
+    this.props.createRetreatant(values, () => {
+      this.props.history.push('/retreatants')
+    });
   }
 
   render() {
@@ -41,7 +43,7 @@ class NewRetreatant extends Component {
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field name="name" component={this.renderNameField} />
           <Field name="email" component={this.renderEmailField} />
-          <Field name="note" component={this.renderNoteField} />
+          <Field name="notes" component={this.renderNoteField} />
           <button type="submit" className="btn btn-primary">Add Retreatant</button>
         </form>
       </div>

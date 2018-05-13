@@ -23,13 +23,14 @@ class RetreatantsPage extends Component {
           <th scope="row">1</th>
           <td>{retreatant.name}</td>
           <td>{retreatant.email}</td>
-          <td></td>
+          <td>{retreatant.note}</td>
         </tr>
       );
     })
   }
 
   render() {
+    console.log(this.props.retreatants)
     return (
       <div>
       <h3> Retreatants </h3>
