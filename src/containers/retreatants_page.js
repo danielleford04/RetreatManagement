@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import SweetAlert from 'sweetalert2-react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchRetreatants } from '../actions';
 
 class RetreatantsPage extends Component {
@@ -32,7 +33,7 @@ class RetreatantsPage extends Component {
     return (
       <div>
       <h3> Retreatants </h3>
-      <button type="button" className="btn btn-primary">Add New Retreatant</button>
+      <Link to="/add_retreatant" className="btn btn-primary">Add New Retreatant</Link>
           <table className="table">
             <thead>
               <tr>
