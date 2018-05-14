@@ -1,8 +1,10 @@
-export default function() {
-  return [
-    { name: 'July Vail Retreat'},
-    { name: 'April 22 Daylong'},
-    { name: 'October Estes Park Retreat'},
-    { name: 'November Daylong'}
-  ]
+import { FETCH_EVENTS } from '../actions/index';
+
+export default function(state = [], action) {
+  switch(action.type) {
+    case FETCH_EVENTS:
+      return action.payload.data;
+    default:
+      return state;
+  }
 }

@@ -15,8 +15,10 @@
 }
 
 #add-new-event {
-  position: fixed;
-  right: 10%;
+  float: right;
+}
+#add-new-event a {
+  border-color: #eceeef #eceeef #ddd;
 }
 
 .container {

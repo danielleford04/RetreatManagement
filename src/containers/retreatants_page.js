@@ -16,21 +16,19 @@ class RetreatantsPage extends Component {
   //   };
   // }
   renderList() {
-    // return this.props.retreatants.map((retreatant) => {
-    return _.map(this.props.retreatants, retreatant => {
+    return this.props.retreatants.map((retreatant, index) => {
       return (
         <tr key={retreatant.name} >
-          <th scope="row">1</th>
+          <th scope="row">{index+1}</th>
           <td>{retreatant.name}</td>
           <td>{retreatant.email}</td>
-          <td>{retreatant.note}</td>
+          <td>{retreatant.notes}</td>
         </tr>
       );
     })
   }
 
   render() {
-    console.log(this.props.retreatants)
     return (
       <div>
       <h3> Retreatants </h3>
@@ -48,8 +46,11 @@ class RetreatantsPage extends Component {
               {this.renderList()}
             </tbody>
           </table>
-          <p>TODO:<br/>count in table<br/>sample meal plan automatically done<br/>waitlist people<br/>keep track of $ or scholarships<br/>
-              sweet alert for adding retreatants<br/>even if no sample meal plan done, place to enter people for meal plan, button that says finalize meal plan which allows app to send out</p>
+          <p>TODO:<br/>sample meal plan automatically done<br/>waitlist people<br/>keep track of $ or scholarships<br/>
+              sweet alert for adding retreatants
+              <br/>even if no sample meal plan done, place to enter people for meal plan, button that says finalize meal plan which allows app to send out
+              <br /> delete retreatant
+              </p>
 
       </div>
     )

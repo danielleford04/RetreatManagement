@@ -10,6 +10,7 @@ import ScheduledEmail from '../components/scheduled_email.js';
 import StoredForms from '../containers/stored_forms.js';
 import NewTask from '../components/new_task.js';
 import NewRetreatant from '../components/new_retreatant.js';
+import NewEvent from '../components/new_event.js';
 import SentEmail from '../components/sent_email.js';
 import TwoWeeksOut from '../components/two_weeks_out.js';
 import OneWeekOut from '../components/one_week_out.js';
@@ -29,6 +30,7 @@ class MainContent extends Component {
             <Route path="/scheduled_email" component={ScheduledEmail} />
             <Route path="/sent_email" component={SentEmail} />
             <Route path="/create_task" component={NewTask} />
+            <Route path="/new_event" component={NewEvent} />
             <Route path="/two_weeks_out" component={TwoWeeksOut} />
             <Route path="/one_week_out" component={OneWeekOut} />
             <Route path="/" component={SelectedContent} />

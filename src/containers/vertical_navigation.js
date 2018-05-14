@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 class VerticalNavigation extends Component {
   renderList() {
-    return this.props.eventTasks.map((eventTask) => {
+    return this.props.eventPhases.map((eventPhase) => {
       return (
-        <li key={eventTask.name} className="nav-item">
-          <a className="nav-link" href="/registration">{eventTask.name}</a>
+        <li key={eventPhase.name} className="nav-item">
+          <a className="nav-link" href="/registration">{eventPhase.name}</a>
         </li>
       );
     })
@@ -24,7 +24,7 @@ class VerticalNavigation extends Component {
 function mapStateToProps(state) {
   //whatever is returned will show up as props inside of verticalnavigation
   return {
-    eventTasks: state.eventTasks
+    eventPhases: state.eventPhases
   }
 }
 
