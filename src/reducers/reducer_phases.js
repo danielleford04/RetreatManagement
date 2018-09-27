@@ -4,7 +4,7 @@ export default function() {
     { name: 'Preparation'},
     { name: 'Arrival'},
     { name: 'During'},
-    { name: 'Take Down'},
+    { name: 'Closing'},
     { name: 'Follow Up'}
   ]
 }

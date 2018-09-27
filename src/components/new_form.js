@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { createRetreatant } from '../actions';
+import { createStoredForm } from '../actions';
 
-class NewRetreatant extends Component {
+class NewForm extends Component {
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -12,15 +12,15 @@ class NewRetreatant extends Component {
       </div>
     )
   }
-  renderEmailField(field) {
+  renderFileField(field) {
     return (
       <div className="form-group">
-        <label>Email:</label>
-        <input type="email" className="form-control" {...field.input}/>
+        <label>File:</label>
+        <input type="file" value={null} className="form-control" {...field.input}/>
       </div>
     )
   }
-  renderNoteField(field) {
+  renderNotesField(field) {
     return (
       <div className="form-group">
         <label>Notes:</label>
@@ -30,29 +30,27 @@ class NewRetreatant extends Component {
   }
 
   onSubmit(values) {
-    this.props.createRetreatant(values, () => {
-      this.props.history.push('/retreatants')
+    this.props.createStoredForm(values, () => {
+      this.props.history.push('/')
     });
   }
-
   render() {
     const { handleSubmit } = this.props;
     return(
       <div>
-        <h3> Add a New Retreatant </h3>
+        <h3> Upload a Form </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field name="name" component={this.renderNameField} />
-          <Field name="email" component={this.renderEmailField} />
-          <Field name="notes" component={this.renderNoteField} />
-          <button type="submit" className="btn btn-primary">Add Retreatant</button>
+          <Field name="file" component={this.renderFileField} />
+          <Field name="notes" component={this.renderNotesField} />
+          <button type="submit" className="btn btn-primary">Upload Form</button>
         </form>
       </div>
     );
   }
 }
-
 export default reduxForm({
-  form: 'RetreatantsNewForm'
+  form: 'FormNewForm'
 })(
-  connect(null, { createRetreatant })(NewRetreatant)
+  connect(null, { createStoredForm })(NewForm)
 );

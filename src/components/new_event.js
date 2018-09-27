@@ -20,6 +20,14 @@ class NewEvent extends Component {
       </div>
     )
   }
+  renderRetreatantCountField(field) {
+    return (
+      <div className="form-group">
+        <label>Event Capacity:</label>
+        <input type="number" className="form-control" {...field.input}/>
+      </div>
+    )
+  }
   renderEventTypeField(field) {
     return (
       <div className="form-group">
@@ -30,10 +38,6 @@ class NewEvent extends Component {
            <option value="class">Class</option>
          </select>
        </div>
-      // <div className="form-group">
-      //   <label>Event Body:</label>
-      //   <input type="textarea" className="form-control" {...field.input}/>
-      // </div>
     )
   }
 
@@ -51,6 +55,7 @@ class NewEvent extends Component {
           <Field name="name" component={this.renderNameField} />
           <Field name="type" component={this.renderEventTypeField} />
           <Field name="start_date" component={this.renderDateField} />
+          <Field name="retreatantCount" component={this.renderRetreatantCountField} />
           <button type="submit" className="btn btn-primary">Create Event</button>
         </form>
       <p>To Do: <br/>End date if residential <br/>Better datepicker.</p>

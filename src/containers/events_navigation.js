@@ -27,7 +27,7 @@ class EventsNavigation extends Component {
 
         <li className="nav-item" id="add-new-event">
           <Link to="/new_event" className="nav-link">
-            Add New Event
+            New Event
           </Link>
         </li>
       </ul>

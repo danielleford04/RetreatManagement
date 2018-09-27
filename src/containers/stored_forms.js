@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class StoredForms extends Component {
@@ -18,7 +19,7 @@ class StoredForms extends Component {
     return(
       <div>
         <h3> Stored Forms </h3>
-        <button type="button" className="btn btn-primary">Upload New Form</button>
+        <Link to="/new_form" className="btn btn-primary">Upload New Form</Link>
         <table className="table">
           <thead>
             <tr>

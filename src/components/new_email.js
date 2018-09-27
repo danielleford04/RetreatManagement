@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { createEmail } from '../actions';
 
-class ScheduleEmail extends Component {
+class NewEmail extends Component {
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -24,7 +24,7 @@ class ScheduleEmail extends Component {
     return (
       <div className="form-group">
         <label>Email Body:</label>
-        <input type="textarea" className="form-control" {...field.input}/>
+        <textarea className="form-control" {...field.input}/>
       </div>
     )
   }
@@ -62,5 +62,5 @@ class ScheduleEmail extends Component {
 export default reduxForm({
   form: 'EmailNewForm'
 })(
-  connect(null, { createEmail })(ScheduleEmail)
+  connect(null, { createEmail })(NewEmail)
 );

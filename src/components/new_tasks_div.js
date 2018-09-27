@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class NewTasksDiv extends Component {
   render() {
     return(
       <div>
-      <a href="create_task" type="button" className="btn btn-info btn-sm">Add New Task</a>
-      <a type="button" href="/schedule_email" className="btn btn-info btn-sm">Send/Schedule<br/> New Email</a>
+        <a href="/create_task" type="button" className="btn btn-info btn-sm">New Task</a>
+        <a href="/new_email" type="button"  className="btn btn-info btn-sm">New Email</a>
       </div>
     );
   }

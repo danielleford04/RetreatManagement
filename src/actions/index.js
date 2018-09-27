@@ -10,6 +10,7 @@ export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
+export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 
 // export function fetchWeather(city) {
 //   const url = `${ROOT_URL}&q=${city},us`
@@ -65,6 +66,17 @@ export function createEvent(values, callback) {
 
   return {
     type: CREATE_EVENT,
+    payload: request
+  }
+}
+
+export function createStoredForm(values, callback) {
+  console.log(values);
+  const request = axios.post(`${ROOT_URL}/storedForms`, values)
+    .then(() => callback());
+
+  return {
+    type: CREATE_STORED_FORM,
     payload: request
   }
 }
