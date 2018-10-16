@@ -9,6 +9,7 @@ class NewRetreatant extends Component {
     super(props, context);
     this.state = {
       showSuccessModal: false,
+      showErrorModal: false,
     };
   }
   renderNameField(field) {
@@ -38,7 +39,9 @@ class NewRetreatant extends Component {
 
   onSubmit(values) {
     this.props.createRetreatant(values, () => {
-      this.setState({ showSuccessModal: true })
+      this.setState({ showSuccessModal: true })},
+      () => {
+        this.setState({ showErrorModal: true })
 
     });
   }
@@ -64,6 +67,15 @@ class NewRetreatant extends Component {
             type="success"
             text="This retreatant was successfully added."
             onConfirm={() => this.props.history.push('/retreatants')}
+          />
+        </div>
+        <div>
+          <SweetAlert
+            show={this.state.showErrorModal}
+            title="Error"
+            type="error"
+            text="There was an error adding this retreatant. Please try again."
+            onConfirm={() => this.setState({ showErrorModal: false })}
           />
         </div>
         </div>

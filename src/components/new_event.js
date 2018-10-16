@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import SweetAlert from 'sweetalert2-react';
 import { createEvent } from '../actions';
 
 class NewEvent extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      showSuccessModal: false,
+      showErrorModal: false,
+    };
+  }
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -43,12 +51,15 @@ class NewEvent extends Component {
 
   onSubmit(values) {
     this.props.createEvent(values, () => {
-      this.props.history.push('/')
+      this.setState({ showSuccessModal: true })},
+      () => {
+        this.setState({ showErrorModal: true })
     });
   }
   render() {
     const { handleSubmit } = this.props;
     return(
+      <div>
       <div>
         <h3> Create Event </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -59,6 +70,25 @@ class NewEvent extends Component {
           <button type="submit" className="btn btn-primary">Create Event</button>
         </form>
       <p>To Do: <br/>End date if residential <br/>Better datepicker.</p>
+      </div>
+      <div>
+        <SweetAlert
+          show={this.state.showSuccessModal}
+          title="Success!"
+          type="success"
+          text="This event was successfully created."
+          onConfirm={() => this.props.history.push('/')}
+        />
+      </div>
+      <div>
+        <SweetAlert
+          show={this.state.showErrorModal}
+          title="Error"
+          type="error"
+          text="There was an error creating this event. Please try again."
+          onConfirm={() => this.setState({ showErrorModal: false })}
+        />
+      </div>
       </div>
     );
   }

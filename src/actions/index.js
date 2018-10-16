@@ -31,10 +31,10 @@ export function fetchRetreatants() {
   };
 }
 
-export function createRetreatant(values, callback) {
+export function createRetreatant(values, callback, error) {
   const request = axios.post(`${ROOT_URL}/retreatants`, values)
-    .then(() => callback());
-
+    .then(() => callback())
+    .catch(() => error());
   return {
     type: CREATE_RETREATANT,
     payload: request
@@ -60,9 +60,10 @@ export function fetchEvents() {
   };
 }
 
-export function createEvent(values, callback) {
+export function createEvent(values, callback, error) {
   const request = axios.post(`${ROOT_URL}/events`, values)
-    .then(() => callback());
+    .then(() => callback())
+    .catch(() => error());
 
   return {
     type: CREATE_EVENT,
