@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import SweetAlert from 'sweetalert2-react';
 import { createRetreatant } from '../actions';
 
 class NewRetreatant extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      showSuccessModal: false,
+    };
+  }
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -31,13 +38,16 @@ class NewRetreatant extends Component {
 
   onSubmit(values) {
     this.props.createRetreatant(values, () => {
-      this.props.history.push('/retreatants')
+      this.setState({ showSuccessModal: true })
+
     });
   }
+
 
   render() {
     const { handleSubmit } = this.props;
     return(
+      <div>
       <div>
         <h3> Add a New Retreatant </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -47,6 +57,16 @@ class NewRetreatant extends Component {
           <button type="submit" className="btn btn-primary">Add Retreatant</button>
         </form>
       </div>
+        <div>
+          <SweetAlert
+            show={this.state.showSuccessModal}
+            title="Success!"
+            type="success"
+            text="This retreatant was successfully added."
+            onConfirm={() => this.props.history.push('/retreatants')}
+          />
+        </div>
+        </div>
     );
   }
 }

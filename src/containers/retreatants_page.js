@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import SweetAlert from 'sweetalert2-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchRetreatants } from '../actions';
@@ -9,16 +8,16 @@ class RetreatantsPage extends Component {
   componentDidMount() {
     this.props.fetchRetreatants();
   }
-  // constructor(props, context) {
-  //   super(props, context);
-  //   this.state = {
-  //     show: false,
-  //   };
-  // }
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      showSuccessModal: false,
+    };
+  }
   renderList() {
     return this.props.retreatants.map((retreatant, index) => {
       return (
-        <tr key={retreatant.name} >
+        <tr key={retreatant.email} >
           <th scope="row">{index+1}</th>
           <td>{retreatant.name}</td>
           <td>{retreatant.email}</td>
