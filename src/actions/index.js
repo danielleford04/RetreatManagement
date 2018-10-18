@@ -4,7 +4,6 @@ const API_KEY = 'd336b62acf09e0ddcfce3f02d89f52e0';
 // const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 const ROOT_URL = 'http://localhost:3000';
 
-// export const FETCH_WEATHER = 'FETCH_WEATHER';
 export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
@@ -12,18 +11,10 @@ export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
+export const CREATE_TASK = 'CREATE_TASK';
+export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
 export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
-
-// export function fetchWeather(city) {
-//   const url = `${ROOT_URL}&q=${city},us`
-//   const request = axios.get(url);
-//
-//   return {
-//     type: FETCH_WEATHER,
-//     payload: request
-//   }
-// }
 
 export function fetchEventRetreatants(event_id) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
@@ -83,6 +74,27 @@ export function fetchEventPhases(event_id) {
   };
 }
 
+export function createTask(values, callback, error) {
+  const request = axios.post(`${ROOT_URL}/tasks`, values)
+    .then(() => callback())
+    .catch(() => error());
+
+  return {
+    type: CREATE_TASK,
+    payload: request
+  }
+}
+
+export function createInstruction(values, callback, error) {
+  const request = axios.post(`${ROOT_URL}/instructions`, values)
+    .then(() => callback())
+    .catch(() => error());
+
+  return {
+    type: CREATE_INSTRUCTION,
+    payload: request
+  }
+}
 
 export function setActiveEvent(id) {
   return {

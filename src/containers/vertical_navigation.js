@@ -10,14 +10,12 @@ class VerticalNavigation extends Component {
     };
   }
   componentDidUpdate() {
-    console.log(this.props.activeEvent)
     if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
     this.props.fetchEventPhases(this.props.activeEvent);
       this.setState({ lastActiveEvent: this.props.activeEvent })
   }
   }
   renderList() {
-    console.log(this.props.eventPhases)
     return this.props.eventPhases.map((eventPhase) => {
       return (
         <li key={eventPhase.name} className="nav-item">

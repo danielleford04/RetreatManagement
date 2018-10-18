@@ -12,6 +12,11 @@ class NewEvent extends Component {
       showErrorModal: false,
     };
   }
+  componentWillMount () {
+  this.props.initialize({
+    type: 'residential'
+  });
+}
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -40,7 +45,7 @@ class NewEvent extends Component {
     return (
       <div className="form-group">
          <label>Event Type:</label>
-         <select className="form-control" {...field.select}>
+         <select className="form-control" {...field.input}>
            <option value="residential">Residential Retreat</option>
            <option value="day">Day Long</option>
            <option value="class">Class</option>
