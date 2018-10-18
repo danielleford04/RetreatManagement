@@ -11,6 +11,7 @@ export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
+export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
 export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
 export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 
@@ -72,6 +73,16 @@ export function createEvent(values, callback, error) {
     payload: request
   }
 }
+
+export function fetchEventPhases(event_id) {
+  const request = axios.get(`${ROOT_URL}/phases/event/${event_id}`);
+
+  return {
+    type: FETCH_EVENT_PHASES,
+    payload: request
+  };
+}
+
 
 export function setActiveEvent(id) {
   return {

@@ -54,7 +54,6 @@ class RetreatantsPage extends Component {
             </tbody>
           </table>
           <p>TODO:<br/>sample meal plan automatically done<br/>waitlist people<br/>keep track of $ or scholarships<br/>
-              sweet alert for adding retreatants
               <br/>even if no sample meal plan done, place to enter people for meal plan, button that says finalize meal plan which allows app to send out
               <br /> delete retreatant
               </p>
