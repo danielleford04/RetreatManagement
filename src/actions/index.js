@@ -8,6 +8,7 @@ const ROOT_URL = 'http://localhost:3000';
 export const FETCH_RETREATANTS = 'FETCH_RETREATANTS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
+export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
@@ -70,6 +71,13 @@ export function createEvent(values, callback, error) {
     type: CREATE_EVENT,
     payload: request
   }
+}
+
+export function setActiveEvent(id) {
+  return {
+      type: SET_ACTIVE_EVENT,
+      id,
+    };
 }
 
 export function fetchStoredForms() {

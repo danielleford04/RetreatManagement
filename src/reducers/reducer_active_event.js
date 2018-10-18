@@ -1,4 +1,4 @@
-import { FETCH_EVENTS } from '../actions/index';
+import { FETCH_EVENTS, SET_ACTIVE_EVENT } from '../actions/index';
 
 export default function(state = null, action) {
   switch(action.type) {
@@ -25,6 +25,9 @@ export default function(state = null, action) {
     }
 
       return soonest.id;
+      case SET_ACTIVE_EVENT:
+      console.log('action',action)
+      return action.id;
     default:
       return state;
   }
