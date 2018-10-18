@@ -21,6 +21,7 @@ class EventsNavigation extends Component {
   }
 
   render() {
+    console.log(3, this.props)
     return(
       <ul className="nav nav-tabs">
         {this.renderList()}
@@ -37,7 +38,8 @@ class EventsNavigation extends Component {
 
 function mapStateToProps(state) {
   return {
-    events: state.events
+    events: state.events,
+    activeEvent: state.activeEvent,
   }
 }
 

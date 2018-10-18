@@ -10,6 +10,7 @@ export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
+export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
 export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 
 // export function fetchWeather(city) {
@@ -71,11 +72,25 @@ export function createEvent(values, callback, error) {
   }
 }
 
-export function createStoredForm(values, callback) {
-  console.log(values);
-  const request = axios.post(`${ROOT_URL}/storedForms`, values)
-    .then(() => callback());
+export function fetchStoredForms() {
+  const request = axios.get(`${ROOT_URL}/storedForms`);
 
+  return {
+    type: FETCH_STORED_FORMS,
+    payload: request
+  };
+}
+
+export function createStoredForm(values, callback, error) {
+  const formData = new FormData();
+    formData.append('file',values.file);
+    formData.append('name',values.name);
+    values.notes ? formData.append('note',values.notes) : null ;
+
+  const request = axios.post(`${ROOT_URL}/storedForms/`,  formData)
+
+    .then(() => callback())
+    .catch(() => error());
   return {
     type: CREATE_STORED_FORM,
     payload: request

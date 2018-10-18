@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { fetchStoredForms } from '../actions';
 
 class StoredForms extends Component {
+  componentDidMount() {
+    this.props.fetchStoredForms();
+  }
+
   renderList() {
     return this.props.storedForms.map((storedForm) => {
       return (
         <tr key={storedForm.name} >
           <td>{storedForm.name}</td>
-          <td>{storedForm.date}</td>
-          <td>{storedForm.notes}</td>
+          <td>{storedForm.upload_date}</td>
+          <td>{storedForm.note}</td>
         </tr>
       );
     })
@@ -39,8 +44,8 @@ class StoredForms extends Component {
 
 function mapStateToProps(state) {
   return {
-    storedForms: state.storedForms
+    storedForms: state.storedForms,
   }
 }
 
-export default connect(mapStateToProps)(StoredForms);
+export default connect(mapStateToProps, { fetchStoredForms })(StoredForms);

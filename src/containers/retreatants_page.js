@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,12 +6,6 @@ import { fetchRetreatants } from '../actions';
 class RetreatantsPage extends Component {
   componentDidMount() {
     this.props.fetchRetreatants();
-  }
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      showSuccessModal: false,
-    };
   }
   renderList() {
     return this.props.retreatants.map((retreatant, index) => {
