@@ -13,6 +13,7 @@ import NewTask from '../components/new_task.js';
 import NewRetreatant from '../components/new_retreatant.js';
 import NewEvent from '../components/new_event.js';
 import SentEmail from '../components/sent_email.js';
+import PhaseInstructions from '../containers/phase.js';
 import TwoWeeksOut from '../components/two_weeks_out.js';
 import OneWeekOut from '../components/one_week_out.js';
 
@@ -20,6 +21,8 @@ class MainContent extends Component {
   render() {
     return(
       <BrowserRouter>
+      <div>
+      <SideBar />
         <div className="main-content">
           <EventsNavigation />
           <Switch>
@@ -35,8 +38,10 @@ class MainContent extends Component {
             <Route path="/new_event" component={NewEvent} />
             <Route path="/two_weeks_out" component={TwoWeeksOut} />
             <Route path="/one_week_out" component={OneWeekOut} />
+            <Route path="/instructions" component={PhaseInstructions} />
             <Route path="/" component={SelectedContent} />
           </Switch>
+        </div>
         </div>
       </BrowserRouter>
     );

@@ -8,6 +8,7 @@ export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
+export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
@@ -99,6 +100,13 @@ export function createInstruction(values, callback, error) {
 export function setActiveEvent(id) {
   return {
       type: SET_ACTIVE_EVENT,
+      id,
+    };
+}
+
+export function setActivePhase(id) {
+  return {
+      type: SET_ACTIVE_PHASE,
       id,
     };
 }

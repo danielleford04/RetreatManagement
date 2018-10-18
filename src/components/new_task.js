@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import SweetAlert from 'sweetalert2-react';
 import { createTask, createInstruction } from '../actions';
 //TODO: phase ids for values, also success/error modals
 class NewTask extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      showSuccessModal: false,
+      showErrorModal: false,
+    };
+  }
   componentWillMount () {
   this.props.initialize({
     type: 'instruction',
-    phase: 'registration'
+    phase: 'Registration'
   });
 }
   renderNameField(field) {
@@ -31,12 +39,12 @@ class NewTask extends Component {
       <div className="form-group">
          <label>Event Phase:</label>
          <select className="form-control" {...field.input}>
-           <option defaultValue value="registration">Registration</option>
-           <option value="preparation">Preparation</option>
-           <option value="arrival">Arrival</option>
-           <option value="onRetreat">On Retreat</option>
-           <option value="tearDown">Tear Down</option>
-           <option value="followUp">Follow Up</option>
+           <option value="Registration">Registration</option>
+           <option value="Preparation">Preparation</option>
+           <option value="Arrival">Arrival</option>
+           <option value="During">On Retreat</option>
+           <option value="Closing">Closing</option>
+           <option value="Follow Up">Follow Up</option>
          </select>
        </div>
     )
@@ -62,14 +70,24 @@ class NewTask extends Component {
   }
 
   onSubmit(values) {
-    console.log(values)
+    for (let phase of this.props.eventPhases) {
+      if (phase.name === values.phase) {
+        values.phase_id = phase._id;
+      }
+    }
     if(values.type==="instruction") {
     this.props.createInstruction(values, () => {
-      this.props.history.push('/')
+      this.setState({ showSuccessModal: true })},
+      () => {
+        this.setState({ showErrorModal: true })
+
     });
   } else {
     this.props.createTask(values, () => {
-      this.props.history.push('/')
+      this.setState({ showSuccessModal: true })},
+      () => {
+        this.setState({ showErrorModal: true })
+
     });
   }
   }
@@ -77,20 +95,45 @@ class NewTask extends Component {
     const { handleSubmit } = this.props;
     return(
       <div>
+      <div>
         <h3> Create Task </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field name="phase_id" component={this.renderPhaseField} />
+          <Field name="phase" component={this.renderPhaseField} />
           <Field name="type" component={this.renderTypeField} />
           <Field name="name" component={this.renderNameField} />
           <Field name="content" component={this.renderTaskField} />
           <button type="submit" className="btn btn-primary">Create Event</button>
         </form>
       </div>
+      <div>
+        <SweetAlert
+          show={this.state.showSuccessModal}
+          title="Success!"
+          type="success"
+          text="This task was successfully added."
+          onConfirm={() => this.props.history.push('/instructions')}
+        />
+      </div>
+      <div>
+        <SweetAlert
+          show={this.state.showErrorModal}
+          title="Error"
+          type="error"
+          text="There was an error adding this task. Please try again."
+          onConfirm={() => this.setState({ showErrorModal: false })}
+        />
+      </div>
+      </div>
     );
+  }
+}
+function mapStateToProps(state) {
+  return {
+    eventPhases: state.eventPhases,
   }
 }
 export default reduxForm({
   form: 'TaskNewForm'
 })(
-  connect(null, { createTask, createInstruction })(NewTask)
+  connect(mapStateToProps, { createTask, createInstruction })(NewTask)
 );

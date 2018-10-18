@@ -67,7 +67,7 @@ class NewRetreatant extends Component {
             title="Success!"
             type="success"
             text="This retreatant was successfully added."
-            onConfirm={() => this.props.history.push('/retreatants/updated')}
+            onConfirm={() => this.props.history.push('/retreatants')}
           />
         </div>
         <div>

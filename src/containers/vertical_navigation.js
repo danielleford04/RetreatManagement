@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchEventPhases } from '../actions';
-
+import { Link } from 'react-router-dom';
+import { fetchEventPhases, setActivePhase } from '../actions';
+//TODO styling change to indicate active link
 class VerticalNavigation extends Component {
   constructor(props, context) {
     super(props, context);
@@ -16,10 +17,11 @@ class VerticalNavigation extends Component {
   }
   }
   renderList() {
-    return this.props.eventPhases.map((eventPhase) => {
+    console.log(this.props.activePhase)
+    return this.props.eventPhases.map((phase) => {
       return (
-        <li key={eventPhase.name} className="nav-item">
-          <a className="nav-link" href="/registration">{eventPhase.name}</a>
+        <li key={phase.name} className="nav-item">
+          <Link className="nav-link " onClick={() =>this.props.setActivePhase(phase._id)} to="/instructions">{phase.name}</Link>
         </li>
       );
     })
@@ -39,7 +41,8 @@ function mapStateToProps(state) {
   return {
     eventPhases: state.eventPhases,
     activeEvent: state.activeEvent,
+    activePhase: state.activePhase,
   }
 }
 
-export default connect(mapStateToProps, { fetchEventPhases })(VerticalNavigation);
+export default connect(mapStateToProps, { fetchEventPhases, setActivePhase })(VerticalNavigation);
