@@ -11,10 +11,6 @@ class EventsNavigation extends Component {
   }
 
   renderList() {
-    const action = {
-      type: 'SET_ACTIVE_EVENT',
-      payload: 'new name',
-  };
     return this.props.events.map((event) => {
       return (
         <li key={event._id} className="nav-item ">

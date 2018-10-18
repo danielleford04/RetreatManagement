@@ -5,7 +5,7 @@ const API_KEY = 'd336b62acf09e0ddcfce3f02d89f52e0';
 const ROOT_URL = 'http://localhost:3000';
 
 // export const FETCH_WEATHER = 'FETCH_WEATHER';
-export const FETCH_RETREATANTS = 'FETCH_RETREATANTS';
+export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
@@ -24,11 +24,11 @@ export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 //   }
 // }
 
-export function fetchRetreatants() {
-  const request = axios.get(`${ROOT_URL}/retreatants`);
+export function fetchEventRetreatants(event_id) {
+  const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
 
   return {
-    type: FETCH_RETREATANTS,
+    type: FETCH_EVENT_RETREATANTS,
     payload: request
   };
 }

@@ -26,7 +26,6 @@ export default function(state = null, action) {
 
       return soonest.id;
       case SET_ACTIVE_EVENT:
-      console.log('action',action)
       return action.id;
     default:
       return state;

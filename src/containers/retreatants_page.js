@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchRetreatants } from '../actions';
+import { fetchEventRetreatants } from '../actions';
 
 class RetreatantsPage extends Component {
-  componentDidMount() {
-    this.props.fetchRetreatants();
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      lastActiveEvent: this.props.activeEvent,
+    };
   }
+  componentDidMount() {
+    if (this.props.activeEvent) {
+      this.props.fetchEventRetreatants(this.props.activeEvent);
+    }
+  }
+  componentDidUpdate() {
+    if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
+    this.props.fetchEventRetreatants(this.props.activeEvent);
+      this.setState({ lastActiveEvent: this.props.activeEvent })
+  }
+  }
+
   renderList() {
     return this.props.retreatants.map((retreatant, index) => {
       return (
@@ -51,8 +66,9 @@ class RetreatantsPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    retreatants: state.retreatants
+    retreatants: state.retreatants,
+    activeEvent: state.activeEvent,
   }
 }
 
-export default connect(mapStateToProps, { fetchRetreatants })(RetreatantsPage);
+export default connect(mapStateToProps, { fetchEventRetreatants })(RetreatantsPage);

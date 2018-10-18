@@ -38,6 +38,7 @@ class NewRetreatant extends Component {
   }
 
   onSubmit(values) {
+    values.event_id = this.props.activeEvent;
     this.props.createRetreatant(values, () => {
       this.setState({ showSuccessModal: true })},
       () => {
@@ -66,7 +67,7 @@ class NewRetreatant extends Component {
             title="Success!"
             type="success"
             text="This retreatant was successfully added."
-            onConfirm={() => this.props.history.push('/retreatants')}
+            onConfirm={() => this.props.history.push('/retreatants/updated')}
           />
         </div>
         <div>
@@ -82,9 +83,14 @@ class NewRetreatant extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    activeEvent: state.activeEvent,
+  }
+}
 
 export default reduxForm({
   form: 'RetreatantsNewForm'
 })(
-  connect(null, { createRetreatant })(NewRetreatant)
+  connect(mapStateToProps, { createRetreatant })(NewRetreatant)
 );
