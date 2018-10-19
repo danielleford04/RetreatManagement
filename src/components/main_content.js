@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import EventsNavigation from '../containers/events_navigation.js';
-import SideBar from '../components/sidebar_div.js';
+import Sidebar from '../components/sidebar.js';
 import SelectedContent from '../components/selected_content.js';
 import RetreatantsPage from '../containers/retreatants_page.js';
 import Registration from '../components/registration.js';
@@ -20,7 +20,7 @@ class MainContent extends Component {
     return(
       <BrowserRouter>
       <div>
-      <SideBar />
+      <Sidebar />
         <div className="main-content">
           <EventsNavigation />
           <Switch>

@@ -8,12 +8,19 @@ class PhasePage extends Component {
     super(props, context);
     this.state = {
       lastActivePhase: this.props.activePhase,
+      activePhaseDetails: null,
     };
   }
   componentDidMount() {
     if (this.props.activePhase) {
       this.props.fetchPhaseInstructions(this.props.activePhase);
       this.props.fetchPhaseTasks(this.props.activePhase);
+
+      for (let phase of this.props.eventPhases) {
+        if (this.props.activePhase === phase._id) {
+          this.setState({ activePhaseDetails: phase })
+        }
+      }
     }
   }
   componentDidUpdate() {
@@ -21,6 +28,11 @@ class PhasePage extends Component {
     this.props.fetchPhaseInstructions(this.props.activePhase);
     this.props.fetchPhaseTasks(this.props.activePhase);
       this.setState({ lastActivePhase: this.props.activePhase })
+      for (let phase of this.props.eventPhases) {
+        if (this.props.activePhase === phase._id) {
+          this.setState({ activePhaseDetails: phase })
+        }
+      }
   }
   }
   renderInstructionList() {
@@ -50,7 +62,7 @@ class PhasePage extends Component {
   render() {
     return(
       <div>
-    <h3>Phase name </h3>
+    <h3>{this.state.activePhaseDetails&& this.state.activePhaseDetails.name ? this.state.activePhaseDetails.name : ''}</h3>
         <h5> General Instructions </h5>
         <ul className="list-group">
 
