@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchEventPhases, setActivePhase } from '../actions';
-//TODO styling change to indicate active link
+
 class VerticalNavigation extends Component {
   constructor(props, context) {
     super(props, context);

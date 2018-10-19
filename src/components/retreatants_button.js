@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class RetreatantsButton extends Component {
   render() {
     return(
       <div>
-        <a type="button" href="/retreatants" className="btn btn-info btn-sm">Retreatants</a>
+        <Link type="button" to="/retreatants" className="btn btn-info btn-sm">Retreatants</Link>
       </div>
     );
   }

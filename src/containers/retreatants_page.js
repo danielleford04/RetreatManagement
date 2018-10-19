@@ -10,6 +10,11 @@ class RetreatantsPage extends Component {
       lastActiveEvent: this.props.activeEvent,
     };
   }
+  componentDidMount() {
+    if (this.props.activeEvent) {
+      this.props.fetchEventRetreatants(this.props.activeEvent);
+    }
+  }
   componentDidUpdate() {
     console.log(1)
     if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
