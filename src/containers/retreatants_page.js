@@ -4,10 +4,18 @@ import { Link } from 'react-router-dom';
 import { fetchEventRetreatants } from '../actions';
 
 class RetreatantsPage extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      lastActiveEvent: this.props.activeEvent,
+    };
+  }
   componentDidUpdate() {
-    if (this.props.activeEvent) {
-       this.props.fetchEventRetreatants(this.props.activeEvent);
-     }
+    console.log(1)
+    if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
+    this.props.fetchEventRetreatants(this.props.activeEvent);
+      this.setState({ lastActiveEvent: this.props.activeEvent })
+  }
   }
 
   renderList() {

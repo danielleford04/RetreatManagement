@@ -6,6 +6,7 @@ const ROOT_URL = 'http://localhost:3000';
 
 export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const FETCH_PHASE_INSTRUCTIONS = 'FETCH_PHASE_INSTRUCTIONS';
+export const FETCH_PHASE_TASKS = 'FETCH_PHASE_TASKS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
@@ -19,7 +20,7 @@ export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
 export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 
-export function fetchEventRetreatants(event_id, callback) {
+export function fetchEventRetreatants(event_id) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
 
   return {
@@ -34,6 +35,16 @@ export function fetchPhaseInstructions(phase_id) {
 
   return {
     type: FETCH_PHASE_INSTRUCTIONS,
+    payload: request
+  };
+}
+
+export function fetchPhaseTasks(phase_id) {
+  console.log('actions index')
+  const request = axios.get(`${ROOT_URL}/tasks/phase/${phase_id}`);
+
+  return {
+    type: FETCH_PHASE_TASKS,
     payload: request
   };
 }

@@ -9,7 +9,8 @@ import PhaseReducer from './reducer_phase';
 import RetreatantsReducer from './reducer_retreatants';
 import StoredFormsReducer from './reducer_stored_forms';
 import EmailsReducer from './reducer_emails';
-import phaseInstructionsReducer from './reducer_phase_instructions';
+import PhaseInstructionsReducer from './reducer_phase_instructions';
+import PhaseTasksReducer from './reducer_phase_tasks';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   retreatants: RetreatantsReducer,
   storedForms: StoredFormsReducer,
   emails: EmailsReducer,
-  phaseInstructions: phaseInstructionsReducer,
+  phaseInstructions: PhaseInstructionsReducer,
+    phaseTasks: PhaseTasksReducer,
 });
 
 export default rootReducer;
