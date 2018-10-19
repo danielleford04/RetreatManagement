@@ -5,20 +5,24 @@ import ActiveEventReducer from './reducer_active_event';
 import ActivePhaseReducer from './reducer_active_phase';
 import EventsReducer from './reducer_events';
 import PhasesReducer from './reducer_phases';
+import PhaseReducer from './reducer_phase';
 import RetreatantsReducer from './reducer_retreatants';
 import StoredFormsReducer from './reducer_stored_forms';
 import EmailsReducer from './reducer_emails';
+import phaseInstructionsReducer from './reducer_phase_instructions';
 
 const rootReducer = combineReducers({
   form: formReducer,
   eventTasks: EventTasksReducer,
   eventPhases: PhasesReducer,
+  eventPhase: PhaseReducer,
   events: EventsReducer,
   activeEvent: ActiveEventReducer,
   activePhase: ActivePhaseReducer,
   retreatants: RetreatantsReducer,
   storedForms: StoredFormsReducer,
-  emails: EmailsReducer
+  emails: EmailsReducer,
+  phaseInstructions: phaseInstructionsReducer,
 });
 
 export default rootReducer;

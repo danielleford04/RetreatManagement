@@ -1,19 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { fetchEventRetreatants } from '../actions';
-
+import { fetchPhaseInstructions } from '../actions';
+//re-render when active phase changes
 class PhasePage extends Component {
+  componentDidMount() {
+    if (this.props.activePhase) {
+      this.props.fetchPhaseInstructions(this.props.activePhase);
+    }
+  }
+  // componentDidMount() {
+  //   if (this.props.activePhase) {
+  //     this.props.fetchPhase(this.props.activePhase);
+  //   }
+  // }
   // constructor(props, context) {
   //   super(props, context);
   //   this.state = {
-  //     lastActiveEvent: this.props.activeEvent,
+  //     phase: null,
   //   };
   // }
   // componentDidMount() {
-  //   if (this.props.activeEvent) {
-  //     this.props.fetchEventRetreatants(this.props.activeEvent);
+  //   for (let phase of this.props.eventPhases) {
+  //     console.log(phase._id, this.props.activePhase)
+  //     if (phase._id === this.props.activePhase) {
+  //       this.setState({ phase: phase })
+  //     }
   //   }
+    // if (this.props.activeEvent) {
+    //   this.props.fetchEventRetreatants(this.props.activeEvent);
+    // }
+  // }
+  // componentDidUpdate() {
+  //   if((this.props.activePhase !== this.state.phase._id)  ) {
+  //   // this.props.fetchEventPhases(this.props.activeEvent);
+  //   for (let phase of this.props.eventPhases) {
+  //     console.log(phase._id, this.props.activePhase)
+  //     if (phase._id === this.props.activePhase) {
+  //       this.setState({ phase: phase })
+  //     }
+  //   }
+  // }
   // }
   // componentDidUpdate() {
   //   if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
@@ -34,36 +61,30 @@ class PhasePage extends Component {
   //     );
   //   })
   // }
+  renderInstructionList() {
+    console.log(1, this.props.activePhase)
+    console.log(2, this.props.phaseInstructions)
+    return this.props.phaseInstructions.map((instruction) => {
+      return (
+        <li className="list-group-item" key={instruction._id}>
+          <h5>{instruction.name}</h5>
+          <small>{instruction.content}
+          </small>
+        </li>
+      );
+    })
+  }
 
   render() {
+    // console.log('phases',this.props.eventPhases)
+    // console.log('state',this.state)
     return(
       <div>
-        <h3> Registration </h3>
+    <h3>Phase name </h3>
         <h5> General Instructions </h5>
         <ul className="list-group">
-          <li className="list-group-item disabled">
-            <h5>Pre-Retreat (off site) Manager</h5>
-            <small>Manager’s email is listed on the flyers.<br/>
-            Potential participants will email manager.
-            </small>
-          </li>
-          <li className="list-group-item">
-            <h5>Managing Questions</h5>
-            <small>Manager replies and cc’s Terry or if she doesn’t know the answer forwards the email to Terry. <br/>Terry will respond to manager or answer the participant and cc the manager.
-            </small>
-          </li>
-          <li className="list-group-item">
-            <h5>Add Retreatant to Roster</h5>
-            <small>Name, email, 	phone number and city, special requests or needs, amount paid or scholarship</small>
-          </li>
-          <li className="list-group-item">
-            <h5>Cancellations</h5>
-            <small>Usually no refund is given.  If the yogi is insistent ask them to please contact Terry for special considerations for refund.</small>
-          </li>
-          <li className="list-group-item">
-            <h5></h5>
-            <small></small>
-          </li>
+
+{this.renderInstructionList()}
         </ul>
         <h5>Confirmation Email</h5>
         <p> Subject: Registration Confirmation for Terry Ray Daylong 4/22</p>
@@ -82,10 +103,13 @@ class PhasePage extends Component {
 
 function mapStateToProps(state) {
   return {
+    // eventPhase: state.eventPhase,
+    eventPhases: state.eventPhases,
     // retreatants: state.retreatants,
-    activeEvent: state.activeEvent,
+    activePhase: state.activePhase,
+    phaseInstructions: state.phaseInstructions,
   }
 }
 
-// export default connect(mapStateToProps, { fetchEventRetreatants })(PhasePage);
-export default connect(mapStateToProps)(PhasePage);
+export default connect(mapStateToProps, { fetchPhaseInstructions })(PhasePage);
+// export default connect(mapStateToProps)(PhasePage);

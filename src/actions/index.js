@@ -5,10 +5,12 @@ const API_KEY = 'd336b62acf09e0ddcfce3f02d89f52e0';
 const ROOT_URL = 'http://localhost:3000';
 
 export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
+export const FETCH_PHASE_INSTRUCTIONS = 'FETCH_PHASE_INSTRUCTIONS';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
+export const FETCH_PHASE = 'FETCH_PHASE';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
@@ -17,11 +19,21 @@ export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
 export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
 
-export function fetchEventRetreatants(event_id) {
+export function fetchEventRetreatants(event_id, callback) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
 
   return {
+
     type: FETCH_EVENT_RETREATANTS,
+    payload: request
+  };
+}
+export function fetchPhaseInstructions(phase_id) {
+  console.log('actions index')
+  const request = axios.get(`${ROOT_URL}/instructions/phase/${phase_id}`);
+
+  return {
+    type: FETCH_PHASE_INSTRUCTIONS,
     payload: request
   };
 }
@@ -109,6 +121,15 @@ export function setActivePhase(id) {
       type: SET_ACTIVE_PHASE,
       id,
     };
+}
+
+export function fetchPhase(id) {
+  const request = axios.get(`${ROOT_URL}/phases/${id}`);
+
+  return {
+    type: FETCH_PHASE,
+    payload: request
+  };
 }
 
 export function fetchStoredForms() {

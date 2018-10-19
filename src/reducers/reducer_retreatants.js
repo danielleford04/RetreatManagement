@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import { FETCH_EVENT_RETREATANTS } from '../actions/index';
 
 export default function(state = [], action) {
