@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { createTask, createInstruction } from '../actions';
-//TODO: phase ids for values, also success/error modals
+
 class NewTask extends Component {
   constructor(props, context) {
     super(props, context);

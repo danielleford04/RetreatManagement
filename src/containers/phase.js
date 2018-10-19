@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPhaseInstructions, fetchPhaseTasks } from '../actions';
-//re-render when active phase changes
+
 class PhasePage extends Component {
   constructor(props, context) {
     super(props, context);
@@ -17,7 +17,6 @@ class PhasePage extends Component {
     }
   }
   componentDidUpdate() {
-    console.log(1)
     if((this.props.activePhase !== this.state.lastActivePhase)  ) {
     this.props.fetchPhaseInstructions(this.props.activePhase);
     this.props.fetchPhaseTasks(this.props.activePhase);
@@ -87,4 +86,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks })(PhasePage);
-// export default connect(mapStateToProps)(PhasePage);

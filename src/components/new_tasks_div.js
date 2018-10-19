@@ -14,5 +14,3 @@ class NewTasksDiv extends Component {
 }
 
 export default NewTasksDiv;
-
-//TODO - change anchors (here and elsewhere? to LINK tags - see 'retreatants_page')

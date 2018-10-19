@@ -11,7 +11,6 @@ export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
-export const FETCH_PHASE = 'FETCH_PHASE';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
@@ -30,7 +29,6 @@ export function fetchEventRetreatants(event_id) {
   };
 }
 export function fetchPhaseInstructions(phase_id) {
-  console.log('actions index')
   const request = axios.get(`${ROOT_URL}/instructions/phase/${phase_id}`);
 
   return {
@@ -40,7 +38,6 @@ export function fetchPhaseInstructions(phase_id) {
 }
 
 export function fetchPhaseTasks(phase_id) {
-  console.log('actions index')
   const request = axios.get(`${ROOT_URL}/tasks/phase/${phase_id}`);
 
   return {
@@ -132,15 +129,6 @@ export function setActivePhase(id) {
       type: SET_ACTIVE_PHASE,
       id,
     };
-}
-
-export function fetchPhase(id) {
-  const request = axios.get(`${ROOT_URL}/phases/${id}`);
-
-  return {
-    type: FETCH_PHASE,
-    payload: request
-  };
 }
 
 export function fetchStoredForms() {

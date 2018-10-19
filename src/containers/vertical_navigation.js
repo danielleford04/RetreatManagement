@@ -17,7 +17,6 @@ class VerticalNavigation extends Component {
   }
   }
   renderList() {
-    console.log(this.props.activePhase)
     return this.props.eventPhases.map((phase) => {
       return (
         <li key={phase.name} className="nav-item">
