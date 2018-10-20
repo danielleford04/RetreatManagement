@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import EventsNavigation from '../containers/events_navigation.js';
 import Sidebar from '../components/sidebar.js';
-import SelectedContent from '../components/selected_content.js';
 import EventHome from '../containers/event_home.js';
 import RetreatantsPage from '../containers/retreatants_page.js';
 import Registration from '../components/registration.js';
@@ -27,7 +26,6 @@ class MainContent extends Component {
           <Switch>
             <Route path="/retreatants" component={RetreatantsPage} />
             <Route path="/add_retreatant" component={NewRetreatant} />
-            <Route path="/event_home" component={EventHome} />
             <Route path="/registration" component={Registration} />
             <Route path="/stored_forms" component={StoredForms} />
             <Route path="/new_form" component={NewForm} />
@@ -37,7 +35,7 @@ class MainContent extends Component {
             <Route path="/create_task" component={NewTask} />
             <Route path="/new_event" component={NewEvent} />
             <Route path="/instructions" component={PhaseInstructions} />
-            <Route path="/" component={SelectedContent} />
+            <Route path="/" component={EventHome} />
           </Switch>
         </div>
         </div>

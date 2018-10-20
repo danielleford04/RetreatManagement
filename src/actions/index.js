@@ -88,7 +88,7 @@ export function fetchEvents() {
 
 export function createEvent(values, callback, error) {
   const request = axios.post(`${ROOT_URL}/events`, values)
-    .then(() => callback())
+    .then((response) => callback(response.data))
     .catch(() => error());
 
   return {

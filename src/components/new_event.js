@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { createEvent } from '../actions';
+import { createEvent, setActiveEvent } from '../actions';
 
 class NewEvent extends Component {
   constructor(props, context) {
@@ -55,7 +55,8 @@ class NewEvent extends Component {
   }
 
   onSubmit(values) {
-    this.props.createEvent(values, () => {
+    this.props.createEvent(values, (response) => {
+      this.props.setActiveEvent(response._id)
       this.setState({ showSuccessModal: true })},
       () => {
         this.setState({ showErrorModal: true })
@@ -101,5 +102,5 @@ class NewEvent extends Component {
 export default reduxForm({
   form: 'EventNewForm'
 })(
-  connect(null, { createEvent })(NewEvent)
+  connect(null, { createEvent, setActiveEvent })(NewEvent)
 );

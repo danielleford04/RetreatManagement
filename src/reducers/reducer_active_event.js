@@ -3,6 +3,10 @@ import { FETCH_EVENTS, SET_ACTIVE_EVENT } from '../actions/index';
 export default function(state = null, action) {
   switch(action.type) {
     case FETCH_EVENTS:
+    if (state) {
+      return state;
+    }
+
     var now = new Date().toISOString();
     var futureEvents = [];
 
