@@ -64,7 +64,7 @@ class NewTask extends Component {
   renderTaskField(field) {
     return (
       <div className="form-group">
-        <label>Task:</label>
+        <label>Task Description:</label>
         <textarea className="form-control" {...field.input}/>
       </div>
     )
@@ -113,7 +113,7 @@ class NewTask extends Component {
           <Field name="name" component={this.renderNameField} />
           <Field name="content" component={this.renderTaskField} />
           {this.props.type === 'task' ? <Field name="due_date" component={this.renderDueDateField} /> : null}
-          <button type="submit" className="btn btn-primary">Create Event</button>
+          <button type="submit" className="btn btn-primary">Create Task</button>
         </form>
       </div>
       <div>

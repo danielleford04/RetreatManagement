@@ -12,7 +12,7 @@ class EventsNavigation extends Component {
     return this.props.events.map((event) => {
       return (
         <li key={event._id} className="nav-item ">
-          <a className={"nav-link" + (event._id === this.props.activeEvent ? ' active' : '')}  onClick={() =>this.props.setActiveEvent(event._id)} href="#">{event.name}</a>
+          <Link className={"nav-link" + (event._id === this.props.activeEvent ? ' active' : '')}  onClick={() =>this.props.setActiveEvent(event._id)} to="event_home">{event.name}</Link>
         </li>
       );
     })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchPhaseInstructions, fetchPhaseTasks } from '../actions';
+import { fetchPhaseInstructions, fetchPhaseTasks, updateTask } from '../actions';
 
 class PhasePage extends Component {
   constructor(props, context) {
@@ -50,13 +50,28 @@ class PhasePage extends Component {
   renderTaskList() {
     return this.props.phaseTasks.map((task) => {
       return (
-        <li className="list-group-item" key={task._id}>
+        <li className={"list-group-item" + (task.complete ? " disabled" : '')} key={task._id}>
+        <div>
+          <input className="form-check-input" onChange={()=>this.updateTaskCompetionStatus(task)} type="checkbox" value="" checked={task.complete} name={task._id+"-checkbox"} id={task._id+"-checkbox"}/>
+          <label className="form-check-label" htmlFor={task._id+"-checkbox"}>
+          <h6>{task.due_date}</h6>
+
+          </label>
+          </div>
           <h5>{task.name}</h5>
           <small>{task.content}
           </small>
         </li>
+
       );
     })
+  }
+
+  updateTaskCompetionStatus(task) {
+    const values = {task_id: task._id, complete: !task.complete}
+    this.props.updateTask(values, () => {
+      this.props.fetchPhaseTasks(this.props.activePhase);
+    });
   }
 
   render() {
@@ -97,4 +112,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks })(PhasePage);
+export default connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, updateTask })(PhasePage);
