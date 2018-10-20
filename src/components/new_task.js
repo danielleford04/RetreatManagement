@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { createTask, createInstruction } from '../actions';
@@ -11,6 +11,7 @@ class NewTask extends Component {
       showSuccessModal: false,
       showErrorModal: false,
     };
+    this.selector = formValueSelector('TaskNewForm');
   }
   componentWillMount () {
   this.props.initialize({
@@ -68,6 +69,14 @@ class NewTask extends Component {
       </div>
     )
   }
+  renderDueDateField(field) {
+    return (
+      <div className="form-group">
+        <label>Due Date:</label>
+        <input type="date" className="form-control" {...field.input}/>
+      </div>
+    )
+  }
 
   onSubmit(values) {
     for (let phase of this.props.eventPhases) {
@@ -91,6 +100,7 @@ class NewTask extends Component {
     });
   }
   }
+
   render() {
     const { handleSubmit } = this.props;
     return(
@@ -102,6 +112,7 @@ class NewTask extends Component {
           <Field name="type" component={this.renderTypeField} />
           <Field name="name" component={this.renderNameField} />
           <Field name="content" component={this.renderTaskField} />
+          {this.props.type === 'task' ? <Field name="due_date" component={this.renderDueDateField} /> : null}
           <button type="submit" className="btn btn-primary">Create Event</button>
         </form>
       </div>
@@ -129,6 +140,7 @@ class NewTask extends Component {
 }
 function mapStateToProps(state) {
   return {
+    type: (formValueSelector('TaskNewForm'))(state, 'type'),
     eventPhases: state.eventPhases,
   }
 }
