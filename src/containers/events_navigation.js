@@ -20,6 +20,22 @@ class EventsNavigation extends Component {
   }
   }
   renderList() {
+    //     var now = new Date().toISOString();
+    //     var futureEvents = [];
+    //
+    //     for (let event of this.props.events) {
+    //       if (event.start_date > now) {
+    //         futureEvents.push(event)
+    //       }
+    //     }
+    //     var futureEventsSorted = futureEvents.sort(function(a, b) {
+    //     var keyA = new Date(a.start_date),
+    //         keyB = new Date(b.start_date);
+    //     // Compare the 2 dates
+    //     if(keyA < keyB) return -1;
+    //     if(keyA > keyB) return 1;
+    //     return 0;
+    // });
     return this.props.events.map((event) => {
       return (
         <li key={event._id} className="nav-item ">
