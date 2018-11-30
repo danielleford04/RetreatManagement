@@ -14,40 +14,48 @@ class NewEmail extends Component {
   }
   renderNameField(field) {
     return (
-      <div className="form-group">
-        <label>Name:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Name:</label>
+        <div className="col-sm-10">
         <input type="text" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderDateField(field) {
     return (
-      <div className="form-group">
-        <label>Date to Send:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Date to Send:</label>
+        <div className="col-sm-10">
         <input type="date" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderBodyField(field) {
     return (
-      <div className="form-group">
-        <label>Email Body:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Email Body:</label>
+        <div className="col-sm-10">
         <textarea className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderSubjectField(field) {
     return (
-      <div className="form-group">
-        <label>Subject:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Subject:</label>
+        <div className="col-sm-10">
         <input type="text" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
 
   onSubmit(values) {
     values.event_id = this.props.activeEvent;
-    
+
     this.props.createEmail(values, () => {
       this.setState({ showSuccessModal: true })},
       () => {
@@ -66,7 +74,9 @@ class NewEmail extends Component {
           <Field name="date" component={this.renderDateField} />
           <Field name="subject" component={this.renderSubjectField} />
           <Field name="body" component={this.renderBodyField} />
-          <button type="submit" className="btn btn-primary">Create Email</button>
+          <div className="button-row">
+            <button type="submit" className="btn btn-primary">Create Email</button>
+          </div>
         </form>
       <p>To Do: <br/>Send Now or schedule option. <br/>Attach form with select for drop down of stored forms.<br/>Better datepicker.</p>
       </div>

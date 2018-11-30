@@ -21,37 +21,45 @@ class NewEvent extends Component {
 }
   renderNameField(field) {
     return (
-      <div className="form-group">
-        <label>Name:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Name:</label>
+        <div className="col-sm-10">
         <input type="text" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderDateField(field) {
     return (
-      <div className="form-group">
-        <label>Start Date:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Start Date:</label>
+        <div className="col-sm-10">
         <input type="date" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderRetreatantCountField(field) {
     return (
-      <div className="form-group">
-        <label>Event Capacity:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Event Capacity:</label>
+        <div className="col-sm-10">
         <input type="number" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderEventTypeField(field) {
     return (
-      <div className="form-group">
-         <label>Event Type:</label>
+      <div className="form-group row">
+         <label className="col-sm-2 col-form-label">Event Type:</label>
+         <div className="col-sm-10">
          <select className="form-control" {...field.input}>
            <option value="residential">Residential Retreat</option>
            <option value="day">Day Long</option>
            <option value="class">Class</option>
          </select>
+         </div>
        </div>
     )
   }
@@ -75,14 +83,15 @@ class NewEvent extends Component {
       <div>
       <div>
         <h3> Create Event </h3>
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form className="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field name="name" component={this.renderNameField} />
           <Field name="type" component={this.renderEventTypeField} />
           <Field name="start_date" component={this.renderDateField} />
           <Field name="retreatant_count" component={this.renderRetreatantCountField} />
-          <button type="submit" className="btn btn-primary">Create Event</button>
+          <div className="button-row">
+            <button type="submit" className="btn btn-primary">Create Event</button>
+          </div>
         </form>
-      <p>To Do: <br/>End date if residential <br/>Better datepicker.</p>
       </div>
       <div>
         <SweetAlert

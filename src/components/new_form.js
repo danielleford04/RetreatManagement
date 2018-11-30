@@ -15,17 +15,21 @@ class NewForm extends Component {
   }
   renderNameField(field) {
     return (
-      <div className="form-group">
-        <label>Name:</label>
-        <input type="text" className="form-control" {...field.input}/>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Name:</label>
+        <div className="col-sm-10">
+          <input type="text" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderNotesField(field) {
     return (
-      <div className="form-group">
-        <label>Notes:</label>
-        <textarea className="form-control" {...field.input}/>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Notes:</label>
+        <div className="col-sm-10">
+          <textarea className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
@@ -47,7 +51,9 @@ class NewForm extends Component {
           <Field name="name" component={this.renderNameField} />
           <Field name="file" component={FileUpload} />
           <Field name="notes" component={this.renderNotesField} />
-          <button type="submit" className="btn btn-primary">Upload Form</button>
+          <div className="button-row">
+            <button type="submit" className="btn btn-primary">Upload Form</button>
+          </div>
         </form>
       </div>
       <div>

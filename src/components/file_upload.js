@@ -15,8 +15,9 @@ export default class FieldFileInput  extends Component{
     const { input: { value } } = this.props
     const {input,label, required, meta, } = this.props  //whatever props you send to the component from redux-form Field
     return(
-     <div><label>File:</label>
-     <div>
+     <div className="form-group row">
+     <label className="col-sm-2 col-form-label">File:</label>
+     <div className="col-sm-10">
        <input
         type='file'
         // accept='.jpg, .png, .jpeg'

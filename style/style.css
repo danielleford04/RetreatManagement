@@ -63,6 +63,15 @@ vertical-align: middle;
 
 }
 
+form {
+  margin-top: 25px;
+}
+
+.button-row {
+  text-align: center;
+  margin-top: 40px;
+}
+
 .email-content-display {
   background-color: #eceeef;
   border-radius: .3rem;

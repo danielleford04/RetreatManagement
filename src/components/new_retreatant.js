@@ -14,25 +14,31 @@ class NewRetreatant extends Component {
   }
   renderNameField(field) {
     return (
-      <div className="form-group">
-        <label>Name:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Name:</label>
+        <div className="col-sm-10">
         <input type="text" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderEmailField(field) {
     return (
-      <div className="form-group">
-        <label>Email:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Email:</label>
+        <div className="col-sm-10">
         <input type="email" className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
   renderNoteField(field) {
     return (
-      <div className="form-group">
-        <label>Notes:</label>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">Notes:</label>
+        <div className="col-sm-10">
         <textarea className="form-control" {...field.input}/>
+        </div>
       </div>
     )
   }
@@ -58,7 +64,9 @@ class NewRetreatant extends Component {
           <Field name="name" component={this.renderNameField} />
           <Field name="email" component={this.renderEmailField} />
           <Field name="notes" component={this.renderNoteField} />
-          <button type="submit" className="btn btn-primary">Add Retreatant</button>
+          <div className="button-row">
+            <button type="submit" className="btn btn-primary">Add Retreatant</button>
+          </div>
         </form>
       </div>
         <div>
