@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
 import { isDatePast } from '../global/utilities';
@@ -63,6 +63,16 @@ class NewEvent extends Component {
        </div>
     )
   }
+  renderEndDateField(field) {
+    return (
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">End Date:</label>
+        <div className="col-sm-10">
+        <input type="date" className="form-control" {...field.input}/>
+        </div>
+      </div>
+    )
+  }
 
   onSubmit(values) {
     if (isDatePast(values.start_date)) {
@@ -88,6 +98,7 @@ class NewEvent extends Component {
           <Field name="type" component={this.renderEventTypeField} />
           <Field name="start_date" component={this.renderDateField} />
           <Field name="retreatant_count" component={this.renderRetreatantCountField} />
+          {this.props.type !== 'day' ? <Field name="end_date" component={this.renderEndDateField} /> : null}
           <div className="button-row">
             <button type="submit" className="btn btn-primary">Create Event</button>
           </div>
@@ -124,8 +135,13 @@ class NewEvent extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    type: (formValueSelector('EventNewForm'))(state, 'type'),
+  }
+}
 export default reduxForm({
   form: 'EventNewForm'
 })(
-  connect(null, { createEvent, setActiveEvent })(NewEvent)
+  connect(mapStateToProps, { createEvent, setActiveEvent })(NewEvent)
 );

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export function formatDisplayDateWithMoment(date) {
-return moment(date).format('MMMM Do, YYYY');
+return moment.utc(date).format('MMMM Do, YYYY');
 }
 
 export function isDatePast(date) {

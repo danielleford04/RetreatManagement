@@ -38,7 +38,7 @@ class EventsHome extends Component {
     return(
     <div>
     <h3>{this.state.event.name}  </h3>
-    <h5> {formatDisplayDateWithMoment(this.state.event.start_date)} </h5>
+    <h5> {formatDisplayDateWithMoment(this.state.event.start_date)} {this.state.event.end_date ? ' - ' + formatDisplayDateWithMoment(this.state.event.end_date) : null}</h5>
     <h5>{this.state.event.type}</h5>
     <p>idk. type? what phase currently in? upcoming to dos? </p>
 </div>)
