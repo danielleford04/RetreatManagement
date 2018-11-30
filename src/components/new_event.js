@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
+import { isDatePast } from '../global/utilities';
 import { createEvent, setActiveEvent } from '../actions';
 
 class NewEvent extends Component {
@@ -10,6 +11,7 @@ class NewEvent extends Component {
     this.state = {
       showSuccessModal: false,
       showErrorModal: false,
+      showDateValidationErrorModal: false,
     };
   }
   componentWillMount () {
@@ -55,6 +57,11 @@ class NewEvent extends Component {
   }
 
   onSubmit(values) {
+    if (isDatePast(values.start_date)) {
+      this.setState({ showDateValidationErrorModal: true })
+      return false;
+    }
+
     this.props.createEvent(values, (response) => {
       this.props.setActiveEvent(response._id)
       this.setState({ showSuccessModal: true })},
@@ -72,7 +79,7 @@ class NewEvent extends Component {
           <Field name="name" component={this.renderNameField} />
           <Field name="type" component={this.renderEventTypeField} />
           <Field name="start_date" component={this.renderDateField} />
-          <Field name="retreatantCount" component={this.renderRetreatantCountField} />
+          <Field name="retreatant_count" component={this.renderRetreatantCountField} />
           <button type="submit" className="btn btn-primary">Create Event</button>
         </form>
       <p>To Do: <br/>End date if residential <br/>Better datepicker.</p>
@@ -94,6 +101,15 @@ class NewEvent extends Component {
           text="There was an error creating this event. Please try again."
           onConfirm={() => this.setState({ showErrorModal: false })}
         />
+        </div>
+        <div>
+          <SweetAlert
+            show={this.state.showDateValidationErrorModal}
+            title="Error"
+            type="error"
+            text="You cannot create a date in the past. Please correct the date and try again."
+            onConfirm={() => this.setState({ showDateValidationErrorModal: false })}
+          />
       </div>
       </div>
     );

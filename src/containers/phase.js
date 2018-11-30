@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { formatDisplayDateWithMoment, isDatePast } from '../global/utilities';
 import { fetchPhaseInstructions, fetchPhaseTasks, updateTask } from '../actions';
 
 class PhasePage extends Component {
@@ -49,16 +50,16 @@ class PhasePage extends Component {
   }
   renderTaskList() {
     return this.props.phaseTasks.map((task) => {
+
       return (
-        <li className={"list-group-item" + (task.complete ? " disabled" : '')} key={task._id}>
+        <li className={"task-list list-group-item" + (task.complete ? " disabled" : '') + (!task.complete && isDatePast(task.due_date) ? " overdue" : '')} key={task._id}>
         <div>
           <input className="form-check-input" onChange={()=>this.updateTaskCompetionStatus(task)} type="checkbox" value="" checked={task.complete} name={task._id+"-checkbox"} id={task._id+"-checkbox"}/>
           <label className="form-check-label" htmlFor={task._id+"-checkbox"}>
-          <h6>{task.due_date}</h6>
+          <h6>{formatDisplayDateWithMoment(task.due_date)} - {task.name}</h6>
 
           </label>
           </div>
-          <h5>{task.name}</h5>
           <small>{task.content}
           </small>
         </li>
@@ -77,17 +78,20 @@ class PhasePage extends Component {
   render() {
     return(
       <div>
-    <h3>{this.state.activePhaseDetails&& this.state.activePhaseDetails.name ? this.state.activePhaseDetails.name : ''}</h3>
-        <h5> General Instructions </h5>
-        <ul className="list-group">
-
-{this.renderInstructionList()}
-        </ul>
-        <h5> Tasks </h5>
-        <ul className="list-group">
-
-{this.renderTaskList()}
-        </ul>
+        <h3>{this.state.activePhaseDetails&& this.state.activePhaseDetails.name ? this.state.activePhaseDetails.name : ''}</h3>
+        <div className="task-group">
+          <h5> General Instructions </h5>
+          <ul className="list-group">
+            {this.renderInstructionList()}
+          </ul>
+        </div>
+        <div className="task-group">
+          <h5> Tasks </h5>
+          <ul className="list-group">
+            {this.renderTaskList()}
+          </ul>
+        </div>
+        <div className="task-group">
         <h5>Confirmation Email</h5>
         <p> Subject: Registration Confirmation for Terry Ray Daylong 4/22</p>
         <div className="jumbotron">
@@ -97,7 +101,10 @@ class PhasePage extends Component {
         </p>
         </div>
         <p>Attached Files: Essential Retreat Information</p>
+        </div>
+        <div className="task-group">
         <p><br/>TODO:<br/>Confirmation email sent to who, what day. Also able to manually enter if sent out of app. Also ability to send now to someone.</p>
+        </div>
       </div>
     );
   }

@@ -1,14 +1,14 @@
 import { FETCH_EVENTS } from '../actions/index';
+import { isDatePast } from '../global/utilities';
 
 export default function(state = [], action) {
   switch(action.type) {
     case FETCH_EVENTS:
     //removes past events, and sorts events into chronological order
-    var now = new Date().toISOString();
     var futureEvents = [];
 
     for (let event of action.payload.data) {
-      if (event.start_date > now) {
+      if (!isDatePast(event.start_date)) {
         futureEvents.push(event)
       }
     }

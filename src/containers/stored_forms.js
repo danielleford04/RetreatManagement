@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { formatDisplayDateWithMoment } from '../global/utilities';
 import { fetchStoredForms } from '../actions';
 
 class StoredForms extends Component {
@@ -11,9 +12,9 @@ class StoredForms extends Component {
   renderList() {
     return this.props.storedForms.map((storedForm) => {
       return (
-        <tr key={storedForm.name} >
+        <tr key={storedForm._id} >
           <td>{storedForm.name}</td>
-          <td>{storedForm.upload_date}</td>
+          <td>{formatDisplayDateWithMoment(storedForm.upload_date)}</td>
           <td>{storedForm.note}</td>
         </tr>
       );

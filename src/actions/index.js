@@ -67,15 +67,37 @@ export function createRetreatant(values, callback, error) {
   }
 }
 
-export function createEmail(values, callback) {
-  const request = axios.post(`${ROOT_URL}/emails`, values)
-    .then(() => callback());
+// export function createEmail(values, callback, error) {
+//   const request = axios.post(`${ROOT_URL}/emails`, values)
+//     .then(() => callback())
+//.catch(() => error());
+//
+//   return {
+//     type: CREATE_EMAIL,
+//     payload: request
+//   }
+// }
+
+//send experiment
+export function createEmail(values, callback, error) {
+  // var mailOptions = {
+  //     from: '"Danielle" <danielleford04@gmail.com>', // sender address
+  //     to: 'danielleford04@gmail.com', // list of receivers
+  //     subject: 'A new survey has been submitted!', // Subject line
+  //     text: "Oops! Your email provider doesn't support html. View your updated report at localhost:3000/emailReport" , // plaintext body
+  // };
+values.body = values.body.replace(/\n/g, '<br>\n');
+  const request = axios.post(`${ROOT_URL}/emails/send`, values)
+    .then(() => callback())
+    .catch(() => error());
 
   return {
     type: CREATE_EMAIL,
     payload: request
   }
 }
+
+
 
 export function fetchEvents() {
   const request = axios.get(`${ROOT_URL}/events`);

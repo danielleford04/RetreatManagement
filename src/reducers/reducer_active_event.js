@@ -1,4 +1,5 @@
 import { FETCH_EVENTS, SET_ACTIVE_EVENT } from '../actions/index';
+import { isDatePast } from '../global/utilities';
 
 export default function(state = null, action) {
   switch(action.type) {
@@ -7,11 +8,10 @@ export default function(state = null, action) {
       return state;
     }
 
-    var now = new Date().toISOString();
     var futureEvents = [];
 
     for (let event of action.payload.data) {
-      if (event.start_date > now) {
+      if (!isDatePast(event.start_date)) {
         futureEvents.push(event)
       }
     }
