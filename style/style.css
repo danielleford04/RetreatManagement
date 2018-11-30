@@ -35,7 +35,11 @@
 }
 
 .list-group-item.overdue {
-  border: red solid 2px;
+  border: red solid 3px;
+}
+
+.list-group-item.overdue label {
+  color: red;
 }
 
 .task-group {
@@ -57,6 +61,13 @@ vertical-align: middle;
 .task-list small {
     margin-left: 25px;
 
+}
+
+.email-content-display {
+  background-color: #eceeef;
+  border-radius: .3rem;
+  padding: 25px;
+  margin-bottom: 20px;
 }
 
  @media(min-width:768px) {

@@ -41,7 +41,7 @@ class PhasePage extends Component {
     return this.props.phaseInstructions.map((instruction) => {
       return (
         <li className="list-group-item" key={instruction._id}>
-          <h5>{instruction.name}</h5>
+          <h6>{instruction.name}</h6>
           <small>{instruction.content}
           </small>
         </li>
@@ -92,15 +92,18 @@ class PhasePage extends Component {
           </ul>
         </div>
         <div className="task-group">
-        <h5>Confirmation Email</h5>
-        <p> Subject: Registration Confirmation for Terry Ray Daylong 4/22</p>
-        <div className="jumbotron">
-        <p> Thank you for your registration in The September 27 – October 1, 2017 meditation retreat at the YMCA of the Rockies.  Included is a list of essential retreat information that will help you prepare for the retreat.  <br/>
-        We will contact you again about 2 weeks prior to the beginning of the retreat with information about food and rides.
-        <br/>Metta,<br/>Danielle
-        </p>
+          <h5>Saved Emails</h5>
+        <div className="list-group-item">
+          <strong>Confirmation Email</strong>
+          <p> <strong>Subject:</strong> Registration Confirmation for Terry Ray Daylong 4/22</p>
+          <div className="email-content-display">
+          <p> Thank you for your registration in The September 27 – October 1, 2017 meditation retreat at the YMCA of the Rockies.  Included is a list of essential retreat information that will help you prepare for the retreat.  <br/>
+          We will contact you again about 2 weeks prior to the beginning of the retreat with information about food and rides.
+          <br/>Metta,<br/>Danielle
+          </p>
+          </div>
+          <p><strong>Attached Files:</strong> Essential Retreat Information</p>
         </div>
-        <p>Attached Files: Essential Retreat Information</p>
         </div>
         <div className="task-group">
         <p><br/>TODO:<br/>Confirmation email sent to who, what day. Also able to manually enter if sent out of app. Also ability to send now to someone.</p>
