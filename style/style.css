@@ -26,6 +26,12 @@
   border-color: #eceeef #eceeef #ddd;
 }
 
+#add-new-event button {
+  margin-bottom: 0;
+  background-color: lightgrey;
+  border-color: lightgrey;
+}
+
 .container {
   margin-left:0 !important;
 }
@@ -77,6 +83,10 @@ form {
   border-radius: .3rem;
   padding: 25px;
   margin-bottom: 20px;
+}
+
+.clickable {
+cursor: pointer;
 }
 
  @media(min-width:768px) {

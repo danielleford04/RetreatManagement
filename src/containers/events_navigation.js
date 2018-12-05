@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { returnFutureEvents } from '../global/utilities';
 import { fetchEvents, setActiveEvent } from '../actions';
 
 class EventsNavigation extends Component {
@@ -20,23 +21,7 @@ class EventsNavigation extends Component {
   }
   }
   renderList() {
-    //     var now = new Date().toISOString();
-    //     var futureEvents = [];
-    //
-    //     for (let event of this.props.events) {
-    //       if (event.start_date > now) {
-    //         futureEvents.push(event)
-    //       }
-    //     }
-    //     var futureEventsSorted = futureEvents.sort(function(a, b) {
-    //     var keyA = new Date(a.start_date),
-    //         keyB = new Date(b.start_date);
-    //     // Compare the 2 dates
-    //     if(keyA < keyB) return -1;
-    //     if(keyA > keyB) return 1;
-    //     return 0;
-    // });
-    return this.props.events.map((event) => {
+    return this.props.futureEvents.map((event) => {
       return (
         <li key={event._id} className="nav-item ">
           <Link className={"nav-link" + (event._id === this.props.activeEvent ? ' active' : '')}  onClick={() =>this.props.setActiveEvent(event._id)} to="/">{event.name}</Link>
@@ -47,15 +32,22 @@ class EventsNavigation extends Component {
 
   render() {
     return(
-      <ul className="nav nav-tabs" >
-        {this.renderList()}
-
-        <li className="nav-item" id="add-new-event">
-          <Link to="/new_event" className="nav-link">
-            New Event
-          </Link>
-        </li>
-      </ul>
+      <div>
+      <div className="scroller scroller-right"><i className="glyphicon glyphicon-chevron-right"></i></div>
+      <div className="scroller scroller-left"><i className="glyphicon glyphicon-chevron-left"></i></div>
+      <div className="wrapper">
+        <ul className="nav nav-tabs">
+          {this.renderList()}
+          <li className="nav-item" id="add-new-event">
+            <Link to="/new_event" className="">
+            <button className="btn btn-info">
+              Add Event
+              </button>
+            </Link>
+          </li>
+        </ul>
+        </div>
+        </div>
     );
   }
 }
@@ -64,6 +56,7 @@ function mapStateToProps(state) {
   return {
     events: state.events,
     activeEvent: state.activeEvent,
+    futureEvents: state.futureEvents,
   }
 }
 

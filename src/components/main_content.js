@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import EventsNavigation from '../containers/events_navigation.js';
 import Sidebar from '../components/sidebar.js';
 import EventHome from '../containers/event_home.js';
+import AllEvents from '../containers/all_events.js';
 import RetreatantsPage from '../containers/retreatants_page.js';
 import Registration from '../components/registration.js';
 import NewEmail from '../components/new_email.js';
@@ -34,6 +35,7 @@ class MainContent extends Component {
             <Route path="/sent_email" component={SentEmail} />
             <Route path="/create_task" component={NewTask} />
             <Route path="/new_event" component={NewEvent} />
+            <Route path="/all_events" component={AllEvents} />
             <Route path="/instructions" component={PhaseInstructions} />
             <Route path="/" component={EventHome} />
           </Switch>
