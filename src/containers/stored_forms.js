@@ -21,23 +21,38 @@ class StoredForms extends Component {
     })
   }
 
+  renderTable() {
+    return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th scope="col">File Name</th>
+          <th scope="col">Date Uploaded</th>
+          <th scope="col">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.renderList()}
+      </tbody>
+    </table>
+  );
+  }
+
+  renderNoStoredFormsMessage() {
+      return (
+        <div>
+          There are currently no saved files for this event.
+          <Link to="new_form"> Upload a file.</Link>
+        </div>
+      );
+  }
+
   render() {
     return(
       <div>
         <h3> Stored Forms </h3>
         <Link to="/new_form" className="btn btn-primary">Upload New Form</Link>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">File Name</th>
-              <th scope="col">Date Uploaded</th>
-              <th scope="col">Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderList()}
-          </tbody>
-        </table>
+        {this.props.storedForms.length ? this.renderTable() : this.renderNoStoredFormsMessage()}
       </div>
     );
   }

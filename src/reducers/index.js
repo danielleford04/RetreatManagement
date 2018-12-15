@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   storedForms: StoredFormsReducer,
   emails: EmailsReducer,
   phaseInstructions: PhaseInstructionsReducer,
-    phaseTasks: PhaseTasksReducer,
+  phaseTasks: PhaseTasksReducer,
 });
 
 export default rootReducer;

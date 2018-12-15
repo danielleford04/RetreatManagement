@@ -35,28 +35,54 @@ class RetreatantsPage extends Component {
     })
   }
 
+  renderTable() {
+    return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Meal Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.renderList()}
+      </tbody>
+    </table>
+  );
+  }
+
+  renderNoRetreatantMessage() {
+      return (
+        <div>
+          There are currently no retreatants registered for this event.
+        </div>
+      );
+  }
+
+  renderEventCapacity() {
+    if(this.props.activeEvent) {
+      for (let event of this.props.events) {
+        if (event._id === this.props.activeEvent) {
+          return event.retreatant_count;
+        }
+      }
+    } else {
+      return "Loading..."
+    }
+  }
+
   render() {
     return (
       <div>
       <h3> Retreatants </h3>
+      <div>
+      <strong> Event Capacity: </strong><small>{this.renderEventCapacity()}</small>
+      </div>
       <Link to="/add_retreatant" className="btn btn-primary">Add New Retreatant</Link>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Meal Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.renderList()}
-            </tbody>
-          </table>
-          <p>TODO:<br/>sample meal plan automatically done<br/>waitlist people<br/>keep track of $ or scholarships<br/>
-              <br/>even if no sample meal plan done, place to enter people for meal plan, button that says finalize meal plan which allows app to send out
-              <br /> delete retreatant
-              </p>
+      {this.props.retreatants.length ? this.renderTable() : this.renderNoRetreatantMessage()}
+
 
       </div>
     )
@@ -67,6 +93,7 @@ function mapStateToProps(state) {
   return {
     retreatants: state.retreatants,
     activeEvent: state.activeEvent,
+    events: state.events,
   }
 }
 

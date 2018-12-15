@@ -119,12 +119,19 @@ export function createEvent(values, callback, error) {
   }
 }
 
-export function fetchEventPhases(event_id) {
+export function fetchEventPhases(event_id, events) {
   const request = axios.get(`${ROOT_URL}/phases/event/${event_id}`);
-
+  let active_event_info = {};
+  for (let event of events) {
+    if (event._id === event_id) {
+      active_event_info = event;
+    }
+  }
   return {
     type: FETCH_EVENT_PHASES,
+    meta: { event_info: active_event_info },
     payload: request
+
   };
 }
 

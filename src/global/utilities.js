@@ -13,15 +13,34 @@ export function isDatePast(date) {
   return false;
 }
 
-export function returnFutureEvents(events) {
+export function isDateFuture(date) {
+  var now = new Date().toISOString();
+
+  if (date > now) {
+    return true;
+  }
+  return false;
+}
+
+export function isDateWithinLastMonth(date) {
+  var now = moment();
+
+
+  if (moment(date).isBefore(moment(now)) && moment(date).isAfter(moment(now).subtract(31, 'days')) ) {
+    return true;
+  }
+  return false;
+}
+
+export function returnRecentAndFutureEventsSortedChronologically(events) {
   var futureEvents = [];
 
   for (let event of events) {
-    if (!isDatePast(event.start_date)) {
+    if (isDateFuture(event.start_date) || isDateWithinLastMonth(event.start_date) || (event.end_date && isDateWithinLastMonth(end_date))) {
       futureEvents.push(event)
     }
   }
-  return futureEvents;
+  return sortChronologically(futureEvents);
 }
 
 export function sortChronologically(arr) {

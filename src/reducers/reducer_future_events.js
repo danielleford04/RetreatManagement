@@ -1,12 +1,11 @@
 import { FETCH_EVENTS } from '../actions/index';
-import { returnFutureEvents, sortChronologically } from '../global/utilities';
+import { returnRecentAndFutureEventsSortedChronologically } from '../global/utilities';
 
 export default function(state = [], action) {
   switch(action.type) {
     case FETCH_EVENTS:
-    var futureEvents = returnFutureEvents(action.payload.data);
-    var eventsSorted = sortChronologically(futureEvents);
-      return eventsSorted;
+    var futureEvents = returnRecentAndFutureEventsSortedChronologically(action.payload.data);
+      return futureEvents;
     default:
       return state;
   }

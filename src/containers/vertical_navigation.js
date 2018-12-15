@@ -12,7 +12,7 @@ class VerticalNavigation extends Component {
   }
   componentDidUpdate() {
     if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
-    this.props.fetchEventPhases(this.props.activeEvent);
+    this.props.fetchEventPhases(this.props.activeEvent, this.props.events);
       this.setState({ lastActiveEvent: this.props.activeEvent })
   }
   }
@@ -41,6 +41,7 @@ function mapStateToProps(state) {
     eventPhases: state.eventPhases,
     activeEvent: state.activeEvent,
     activePhase: state.activePhase,
+    events: state.events,
   }
 }
 
