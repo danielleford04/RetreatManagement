@@ -12,6 +12,23 @@ class NewEmail extends Component {
       showErrorModal: false,
     };
   }
+  renderPhaseField(field) {
+    return (
+      <div className="form-group row">
+         <label className="col-sm-2 col-form-label">Event Phase:</label>
+         <div className="col-sm-10">
+           <select className="form-control" {...field.input}>
+             <option value="Registration">Registration</option>
+             <option value="Preparation">Preparation</option>
+             <option value="Arrival">Arrival</option>
+             <option value="During">On Retreat</option>
+             <option value="Closing">Closing</option>
+             <option value="Follow Up">Follow Up</option>
+           </select>
+         </div>
+       </div>
+    )
+  }
   renderNameField(field) {
     return (
       <div className="form-group row">
@@ -56,6 +73,12 @@ class NewEmail extends Component {
   onSubmit(values) {
     values.event_id = this.props.activeEvent;
 
+    for (let phase of this.props.eventPhases) {
+      if (phase.name === values.phase) {
+        values.phase_id = phase._id;
+      }
+    }
+
     this.props.createEmail(values, () => {
       this.setState({ showSuccessModal: true })},
       () => {
@@ -70,6 +93,7 @@ class NewEmail extends Component {
       <div>
         <h3> Schedule an Email </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <Field name="phase" component={this.renderPhaseField} />
           <Field name="name" component={this.renderNameField} />
           <Field name="date" component={this.renderDateField} />
           <Field name="subject" component={this.renderSubjectField} />
@@ -104,8 +128,8 @@ class NewEmail extends Component {
 }
 function mapStateToProps(state) {
   return {
-    // type: (formValueSelector('TaskNewForm'))(state, 'type'),
     activeEvent: state.activeEvent,
+    eventPhases: state.eventPhases,
   }
 }
 export default reduxForm({

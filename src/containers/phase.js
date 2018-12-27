@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatDisplayDateWithMoment, isDatePast } from '../global/utilities';
-import { fetchPhaseInstructions, fetchPhaseTasks, updateTask } from '../actions';
+import { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, updateTask } from '../actions';
 
 class PhasePage extends Component {
   constructor(props, context) {
@@ -16,6 +16,7 @@ class PhasePage extends Component {
     if (this.props.activePhase) {
       this.props.fetchPhaseInstructions(this.props.activePhase);
       this.props.fetchPhaseTasks(this.props.activePhase);
+      this.props.fetchPhaseEmails(this.props.activePhase);
 
       for (let phase of this.props.eventPhases) {
         if (this.props.activePhase === phase._id) {
@@ -28,6 +29,7 @@ class PhasePage extends Component {
     if((this.props.activePhase !== this.state.lastActivePhase)  ) {
     this.props.fetchPhaseInstructions(this.props.activePhase);
     this.props.fetchPhaseTasks(this.props.activePhase);
+    this.props.fetchPhaseEmails(this.props.activePhase);
       this.setState({ lastActivePhase: this.props.activePhase })
       for (let phase of this.props.eventPhases) {
         if (this.props.activePhase === phase._id) {
@@ -96,6 +98,32 @@ class PhasePage extends Component {
     });
   }
 
+  renderEmails() {
+    if (this.props.phaseEmails.length === 0) {
+      return (
+        <li className="list-group-item">
+          <h6>No Saved Emails</h6>
+          <small>There are no emails saved for this phase of this event.
+          <Link to="new_email"> Create an email for this phase.</Link>
+          </small>
+        </li>
+      );
+    }
+
+    return this.props.phaseEmails.map((email) => {
+      return (
+        <li className="list-group-item" key={email._id}>
+        <strong>{email.name}</strong>
+        <p> <strong>Subject:</strong> {email.subject}</p>
+        <div className="email-content-display">
+        {email.body}
+        </div>
+        <p><strong>Attached Files:</strong> Essential Retreat Information</p>
+        </li>
+      );
+    })
+  }
+
   render() {
     return(
       <div>
@@ -114,16 +142,8 @@ class PhasePage extends Component {
         </div>
         <div className="task-group">
           <h5>Saved Emails</h5>
-        <div className="list-group-item">
-          <strong>Confirmation Email</strong>
-          <p> <strong>Subject:</strong> Registration Confirmation for Terry Ray Daylong 4/22</p>
-          <div className="email-content-display">
-          <p> Thank you for your registration in The September 27 – October 1, 2017 meditation retreat at the YMCA of the Rockies.  Included is a list of essential retreat information that will help you prepare for the retreat.  <br/>
-          We will contact you again about 2 weeks prior to the beginning of the retreat with information about food and rides.
-          <br/>Metta,<br/>Danielle
-          </p>
-          </div>
-          <p><strong>Attached Files:</strong> Essential Retreat Information</p>
+        <div className="task-group">
+          {this.renderEmails()}
         </div>
         </div>
         <div className="task-group">
@@ -140,7 +160,8 @@ function mapStateToProps(state) {
     activePhase: state.activePhase,
     phaseInstructions: state.phaseInstructions,
     phaseTasks: state.phaseTasks,
+    phaseEmails: state.phaseEmails,
   }
 }
 
-export default connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, updateTask })(PhasePage);
+export default connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, updateTask })(PhasePage);
