@@ -89,6 +89,10 @@ form {
 cursor: pointer;
 }
 
+.line-height-zero {
+  line-height: 0;
+}
+
  @media(min-width:768px) {
    .main-content {
      float:right;

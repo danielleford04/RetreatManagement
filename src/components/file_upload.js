@@ -18,7 +18,7 @@ export default class FieldFileInput  extends Component{
      <div className="form-group row">
      <label className="col-sm-2 col-form-label">File:</label>
      <div className="col-sm-10">
-       <input
+       <input className="line-height-zero"
         type='file'
         // accept='.jpg, .png, .jpeg'
         onChange={this.onChange}
