@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { isDatePast } from '../global/utilities';
+import { isDatePast, formatDisplayDateWithMoment } from '../global/utilities';
 import { createEvent, setActiveEvent } from '../actions';
 
 class NewEvent extends Component {
@@ -75,7 +75,11 @@ class NewEvent extends Component {
   }
 
   onSubmit(values) {
-    if (isDatePast(values.start_date)) {
+    if (isDatePast(formatDisplayDateWithMoment(values.start_date))) {
+      this.setState({ showDateValidationErrorModal: true })
+      return false;
+    }
+    if (values.end_date && (isDatePast(values.end_date) || values.end_date<values.start_date)) {
       this.setState({ showDateValidationErrorModal: true })
       return false;
     }
@@ -127,7 +131,7 @@ class NewEvent extends Component {
             show={this.state.showDateValidationErrorModal}
             title="Error"
             type="error"
-            text="You cannot create a date in the past. Please correct the date and try again."
+            text="You cannot an event with a start date in the past, or an end date before the start date. Please correct the date and try again."
             onConfirm={() => this.setState({ showDateValidationErrorModal: false })}
           />
       </div>

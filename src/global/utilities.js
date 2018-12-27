@@ -6,11 +6,12 @@ return moment.utc(date).format('MMMM Do, YYYY');
 
 export function isDatePast(date) {
   var now = new Date().toISOString();
+  var midnight_last_night = now.substring(0, 10) + "T00:00:00.000Z";
 
-  if (date < now) {
-    return true;
+  if (date > midnight_last_night || date == midnight_last_night) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 export function isDateFuture(date) {
@@ -37,6 +38,17 @@ export function returnRecentAndFutureEventsSortedChronologically(events) {
 
   for (let event of events) {
     if (isDateFuture(event.start_date) || isDateWithinLastMonth(event.start_date) || (event.end_date && isDateWithinLastMonth(end_date))) {
+      futureEvents.push(event)
+    }
+  }
+  return sortChronologically(futureEvents);
+}
+
+export function returnFutureEventsSortedChronologically(events) {
+  var futureEvents = [];
+
+  for (let event of events) {
+    if (!isDatePast(event.start_date)) {
       futureEvents.push(event)
     }
   }
