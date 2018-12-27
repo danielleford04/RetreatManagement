@@ -15,8 +15,8 @@ class PhasePage extends Component {
   componentDidMount() {
     if (this.props.activePhase) {
       this.props.fetchPhaseInstructions(this.props.activePhase);
-      this.props.fetchPhaseTasks(this.props.activePhase);
       this.props.fetchPhaseEmails(this.props.activePhase);
+      this.props.fetchPhaseTasks(this.props.activePhase);
 
       for (let phase of this.props.eventPhases) {
         if (this.props.activePhase === phase._id) {
@@ -28,8 +28,8 @@ class PhasePage extends Component {
   componentDidUpdate() {
     if((this.props.activePhase !== this.state.lastActivePhase)  ) {
     this.props.fetchPhaseInstructions(this.props.activePhase);
-    this.props.fetchPhaseTasks(this.props.activePhase);
     this.props.fetchPhaseEmails(this.props.activePhase);
+    this.props.fetchPhaseTasks(this.props.activePhase);
       this.setState({ lastActivePhase: this.props.activePhase })
       for (let phase of this.props.eventPhases) {
         if (this.props.activePhase === phase._id) {
@@ -61,7 +61,7 @@ class PhasePage extends Component {
     })
   }
   renderTaskList() {
-    if (this.props.phaseInstructions.length === 0) {
+    if (this.props.phaseTasks.length === 0) {
       return (
         <li className="list-group-item">
           <h6>No Tasks</h6>
