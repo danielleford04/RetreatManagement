@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, DropdownList, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { createEmail } from '../actions';
+import { fetchStoredForms, createEmail } from '../actions';
 
 class NewEmail extends Component {
   constructor(props, context) {
@@ -11,7 +11,15 @@ class NewEmail extends Component {
       showSuccessModal: false,
       showErrorModal: false,
     };
+    this.props.initialize({
+      phase: 'Registration'
+    });
   }
+  componentDidMount() {
+    this.props.fetchStoredForms();
+  }
+
+
   renderPhaseField(field) {
     return (
       <div className="form-group row">
@@ -69,15 +77,69 @@ class NewEmail extends Component {
       </div>
     )
   }
+  renderStoredFormSelectOption() {
+    return this.props.storedForms.map((storedForm) => {
+      return (
+        <option value={storedForm._id}>{storedForm.name}</option>
+      );
+    })
+  }
+  renderAttachmentField(field) {
+    return (
+      <div className="form-group row">
+         <label className="col-sm-2 col-form-label">Attachment:</label>
+         <div className="col-sm-10">
+           <select className="form-control" {...field.input}>
+           {
+                 templateList.result.map((type, index) => {
+                   return (<option value={templateList.entities.template[ type ].id}>{templateList.entities.template[ type ].name}</option>)
+                 })
+               }
+           </select>
+         </div>
+       </div>
+    )
+  }
+
+renderFieldSelect ({ data }){
+  if(data[0]._id !== null) {data.unshift({_id:null, name:"None"})}
+
+  return (
+    <div className="form-group row">
+       <label className="col-sm-2 col-form-label">Attachment:</label>
+       <div className="col-sm-10">
+       <Field
+         className="form-control"
+         name="attachment"
+         component="select">
+         {
+           data.map((form, index) => {
+             return (<option key={form._id} value={form._id}>{form.name}</option>)
+           })
+         }
+       </Field>
+       </div>
+     </div>
+  )
+
+  }
+
+  renderNoStoredFormsMessage() {
+      return (
+        <span>No files saved. Click 'new form' to upload a file.</span>
+      );
+  }
 
   onSubmit(values) {
-    values.event_id = this.props.activeEvent;
 
+    values.event_id = this.props.activeEvent;
     for (let phase of this.props.eventPhases) {
       if (phase.name === values.phase) {
         values.phase_id = phase._id;
       }
     }
+    if(values.attachment=="None"){values.attachment=null}
+    if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
 
     this.props.createEmail(values, () => {
       this.setState({ showSuccessModal: true })},
@@ -86,6 +148,7 @@ class NewEmail extends Component {
 
     });
   }
+
   render() {
     const { handleSubmit } = this.props;
     return(
@@ -98,6 +161,8 @@ class NewEmail extends Component {
           <Field name="date" component={this.renderDateField} />
           <Field name="subject" component={this.renderSubjectField} />
           <Field name="body" component={this.renderBodyField} />
+          {this.props.storedForms.length ? <Field name="attachment" component={this.renderFieldSelect} data={this.props.storedForms}/> : this.renderNoStoredFormsMessage() }
+
           <div className="button-row">
             <button type="submit" className="btn btn-primary">Create Email</button>
           </div>
@@ -130,10 +195,11 @@ function mapStateToProps(state) {
   return {
     activeEvent: state.activeEvent,
     eventPhases: state.eventPhases,
+    storedForms: state.storedForms,
   }
 }
 export default reduxForm({
   form: 'EmailNewForm'
 })(
-  connect(mapStateToProps, { createEmail })(NewEmail)
+  connect(mapStateToProps, { fetchStoredForms, createEmail })(NewEmail)
 );
