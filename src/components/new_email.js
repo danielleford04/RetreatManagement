@@ -167,7 +167,7 @@ renderFieldSelect ({ data }){
             <button type="submit" className="btn btn-primary">Create Email</button>
           </div>
         </form>
-      <p>To Do: <br/>Send Now or schedule option. <br/>Attach form with select for drop down of stored forms.<br/>Better datepicker.</p>
+      <p>To Do: <br/>Send Now or schedule option. <br/>Multiselect for stored forms.<br/>Better datepicker.</p>
       </div>
       <div>
         <SweetAlert

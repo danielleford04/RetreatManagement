@@ -1,13 +1,35 @@
-.nav-tabs {
-  margin: 15px !important;
+.events-nav {
+  border-bottom: 1px solid #ddd;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.wrapper {
+  display: inline-block;
+  width: 80%;
+  height:40px;
+  overflow: hidden;
+  margin-left: 15px;
+  margin-right: 15px;
+  vertical-align: bottom;
+  white-space: nowrap;
 }
 
-.nav {
-  margin-bottom: 15px;
+.nav-tabs {
+  border-bottom: 0px solid #ddd !important;
+}
+
+.nav-tabs .nav-item {
+  float: none !important;
+  display: inline-block !important;
 }
 
 .side-nav div {
   margin-top: 50px;
+}
+
+.scroller-arrow {
+  display:inline-block;
+  padding-bottom:6px;
 }
 
 .btn {
@@ -15,8 +37,8 @@
 }
 
 .btn-info {
-  background-color: #4A83CC;
-  border-color: #4A83CC;
+  background-color: #4E76CC !important;
+  border-color: #4E76CC !important;
 }
 
 #add-new-event {
@@ -28,8 +50,12 @@
 
 #add-new-event button {
   margin-bottom: 0;
-  background-color: lightgrey;
-  border-color: lightgrey;
+  border-bottom-left-radius: 0;
+border-bottom-right-radius: 0;
+background-color: white;
+border-color: lightgrey;
+border-bottom-color: lightgrey;
+color: #4E76CC;
 }
 
 .container {

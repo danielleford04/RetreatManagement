@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { returnFutureEvents } from '../global/utilities';
@@ -7,6 +8,7 @@ import { fetchEvents, setActiveEvent } from '../actions';
 class EventsNavigation extends Component {
   constructor(props, context) {
     super(props, context);
+    this.scroller = null;
     this.state = {
       lastActiveEvent: this.props.activeEvent,
     };
@@ -30,23 +32,33 @@ class EventsNavigation extends Component {
     })
   }
 
+  onClickLeft = () => {
+    ReactDOM.findDOMNode(this.scroller).scrollLeft -= 300;
+}
+onClickRight = () => {
+  this.scroller.scrollLeft += 300;
+}
+
   render() {
+    console.log(this.refs)
     return(
-      <div>
-      <div className="scroller scroller-right"><i className="glyphicon glyphicon-chevron-right"></i></div>
-      <div className="scroller scroller-left"><i className="glyphicon glyphicon-chevron-left"></i></div>
-      <div className="wrapper">
-        <ul className="nav nav-tabs">
+      <div className="events-nav">
+      <div className="scroller-arrow scroller-right" onClick={this.onClickLeft}><i className="fas fa-chevron-left"></i></div>
+
+
+        <ul className="wrapper nav nav-tabs" ref={ (ref) => this.scroller=ref }>
           {this.renderList()}
-          <li className="nav-item" id="add-new-event">
-            <Link to="/new_event" className="">
-            <button className="btn btn-info">
-              Add Event
-              </button>
-            </Link>
-          </li>
+
         </ul>
-        </div>
+
+        <div className="scroller-arrow scroller-left" onClick={this.onClickRight}><i className="fas fa-chevron-right"></i></div>
+        <span id="add-new-event">
+        <Link to="/new_event" className="">
+        <button className="btn">
+          Add Event
+          </button>
+        </Link>
+        </span>
         </div>
     );
   }

@@ -39,8 +39,9 @@ class EventsHome extends Component {
     <div>
     <h3>{this.state.event.name}  </h3>
     <h5> {formatDisplayDateWithMoment(this.state.event.start_date)} {this.state.event.end_date ? ' - ' + formatDisplayDateWithMoment(this.state.event.end_date) : null}</h5>
-    <h5>{this.state.event.type}</h5>
-    <p>idk. type? what phase currently in? upcoming to dos? </p>
+    <h5>Event type: {this.state.event.type}</h5>
+    <h5>Capacity: {this.state.event.retreatant_count}</h5>
+    <p>maybe also: what phase currently in? upcoming to dos? number of retreatants signed up?</p>
 </div>)
   }
 
