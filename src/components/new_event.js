@@ -96,7 +96,7 @@ class NewEvent extends Component {
     return(
       <div>
       <div>
-        <h3> Create Event </h3>
+        <h3> Add Event </h3>
         <form className="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field name="name" component={this.renderNameField} />
           <Field name="type" component={this.renderEventTypeField} />
@@ -104,7 +104,7 @@ class NewEvent extends Component {
           <Field name="retreatant_count" component={this.renderRetreatantCountField} />
           {this.props.type !== 'day' ? <Field name="end_date" component={this.renderEndDateField} /> : null}
           <div className="button-row">
-            <button type="submit" className="btn btn-primary">Create Event</button>
+            <button type="submit" className="btn btn-primary">Add Event</button>
           </div>
         </form>
       </div>

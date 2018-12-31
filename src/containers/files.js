@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { formatDisplayDateWithMoment } from '../global/utilities';
-import { fetchStoredForms } from '../actions';
+import { fetchFiles } from '../actions';
 
-class StoredForms extends Component {
+class Files extends Component {
   componentDidMount() {
-    this.props.fetchStoredForms();
+    this.props.fetchFiles();
   }
 
   renderList() {
-    return this.props.storedForms.map((storedForm) => {
+    return this.props.files.map((file) => {
       return (
-        <tr key={storedForm._id} >
-          <td>{storedForm.name}</td>
-          <td>{formatDisplayDateWithMoment(storedForm.upload_date)}</td>
-          <td>{storedForm.note}</td>
+        <tr key={file._id} >
+          <td>{file.name}</td>
+          <td>{formatDisplayDateWithMoment(file.upload_date)}</td>
+          <td>{file.note}</td>
         </tr>
       );
     })
@@ -38,11 +38,11 @@ class StoredForms extends Component {
   );
   }
 
-  renderNoStoredFormsMessage() {
+  renderNoFilesMessage() {
       return (
         <div>
           There are currently no saved files for this event.
-          <Link to="new_form"> Upload a file.</Link>
+          <Link to="new_file"> Upload a file.</Link>
         </div>
       );
   }
@@ -50,9 +50,9 @@ class StoredForms extends Component {
   render() {
     return(
       <div>
-        <h3> Stored Forms </h3>
-        <Link to="/new_form" className="btn btn-primary">Upload New Form</Link>
-        {this.props.storedForms.length ? this.renderTable() : this.renderNoStoredFormsMessage()}
+        <h3> Files </h3>
+        <Link to="/new_file" className="btn btn-primary">Upload New File</Link>
+        {this.props.files.length ? this.renderTable() : this.renderNoFilesMessage()}
       </div>
     );
   }
@@ -60,8 +60,8 @@ class StoredForms extends Component {
 
 function mapStateToProps(state) {
   return {
-    storedForms: state.storedForms,
+    files: state.files,
   }
 }
 
-export default connect(mapStateToProps, { fetchStoredForms })(StoredForms);
+export default connect(mapStateToProps, { fetchFiles })(Files);

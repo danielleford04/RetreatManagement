@@ -6,7 +6,7 @@ import EventsReducer from './reducer_events';
 import FutureEventsReducer from './reducer_future_events';
 import PhasesReducer from './reducer_phases';
 import RetreatantsReducer from './reducer_retreatants';
-import StoredFormsReducer from './reducer_stored_forms';
+import FilesReducer from './reducer_files';
 import EmailsReducer from './reducer_emails';
 import PhaseInstructionsReducer from './reducer_phase_instructions';
 import PhaseTasksReducer from './reducer_phase_tasks';
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   activeEvent: ActiveEventReducer,
   activePhase: ActivePhaseReducer,
   retreatants: RetreatantsReducer,
-  storedForms: StoredFormsReducer,
+  files: FilesReducer,
   emails: EmailsReducer,
   phaseInstructions: PhaseInstructionsReducer,
   phaseTasks: PhaseTasksReducer,

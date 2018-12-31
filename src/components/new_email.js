@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, DropdownList, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { fetchStoredForms, createEmail } from '../actions';
+import { fetchFiles, createEmail } from '../actions';
 
 class NewEmail extends Component {
   constructor(props, context) {
@@ -16,7 +16,7 @@ class NewEmail extends Component {
     });
   }
   componentDidMount() {
-    this.props.fetchStoredForms();
+    this.props.fetchFiles();
   }
 
 
@@ -77,10 +77,10 @@ class NewEmail extends Component {
       </div>
     )
   }
-  renderStoredFormSelectOption() {
-    return this.props.storedForms.map((storedForm) => {
+  renderFileSelectOption() {
+    return this.props.files.map((file) => {
       return (
-        <option value={storedForm._id}>{storedForm.name}</option>
+        <option value={file._id}>{file.name}</option>
       );
     })
   }
@@ -124,7 +124,7 @@ renderFieldSelect ({ data }){
 
   }
 
-  renderNoStoredFormsMessage() {
+  renderNoFilesMessage() {
       return (
         <span>No files saved. Click 'new form' to upload a file.</span>
       );
@@ -161,10 +161,10 @@ renderFieldSelect ({ data }){
           <Field name="date" component={this.renderDateField} />
           <Field name="subject" component={this.renderSubjectField} />
           <Field name="body" component={this.renderBodyField} />
-          {this.props.storedForms.length ? <Field name="attachment" component={this.renderFieldSelect} data={this.props.storedForms}/> : this.renderNoStoredFormsMessage() }
+          {this.props.files.length ? <Field name="attachment" component={this.renderFieldSelect} data={this.props.files}/> : this.renderNoFilesMessage() }
 
           <div className="button-row">
-            <button type="submit" className="btn btn-primary">Create Email</button>
+            <button type="submit" className="btn btn-primary">Add Email</button>
           </div>
         </form>
       <p>To Do: <br/>Send Now or schedule option. <br/>Multiselect for stored forms.<br/>Better datepicker.</p>
@@ -195,11 +195,11 @@ function mapStateToProps(state) {
   return {
     activeEvent: state.activeEvent,
     eventPhases: state.eventPhases,
-    storedForms: state.storedForms,
+    files: state.files,
   }
 }
 export default reduxForm({
   form: 'EmailNewForm'
 })(
-  connect(mapStateToProps, { fetchStoredForms, createEmail })(NewEmail)
+  connect(mapStateToProps, { fetchFiles, createEmail })(NewEmail)
 );

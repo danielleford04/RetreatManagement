@@ -118,7 +118,7 @@ class NewTask extends Component {
     return(
       <div>
       <div>
-        <h3> Create Task </h3>
+        <h3> Add Task </h3>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field name="phase" component={this.renderPhaseField} />
           <Field name="type" component={this.renderTypeField} />
@@ -126,7 +126,7 @@ class NewTask extends Component {
           <Field name="content" component={this.renderTaskField} />
           {this.props.type === 'task' ? <Field name="due_date" component={this.renderDueDateField} /> : null}
           <div className="button-row">
-            <button type="submit" className="btn btn-primary">Create Task</button>
+            <button type="submit" className="btn btn-primary">Add Task</button>
             </div>
         </form>
       </div>

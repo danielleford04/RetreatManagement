@@ -51,11 +51,11 @@
 #add-new-event button {
   margin-bottom: 0;
   border-bottom-left-radius: 0;
-border-bottom-right-radius: 0;
-background-color: white;
-border-color: lightgrey;
-border-bottom-color: lightgrey;
-color: #4E76CC;
+  border-bottom-right-radius: 0;
+  background-color: white;
+  border-color: lightgrey;
+  border-bottom-color: lightgrey;
+  color: #4E76CC;
 }
 
 .container {

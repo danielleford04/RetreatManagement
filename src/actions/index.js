@@ -18,8 +18,8 @@ export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
 export const CREATE_TASK = 'CREATE_TASK';
 export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
-export const FETCH_STORED_FORMS = 'FETCH_STORED_FORMS';
-export const CREATE_STORED_FORM = 'CREATE_STORED_FORM';
+export const FETCH_FILES = 'FETCH_FILES';
+export const CREATE_FILE = 'CREATE_FILE';
 
 export function fetchEventRetreatants(event_id) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
@@ -180,27 +180,27 @@ export function setActivePhase(id) {
     };
 }
 
-export function fetchStoredForms() {
-  const request = axios.get(`${ROOT_URL}/storedForms`);
+export function fetchFiles() {
+  const request = axios.get(`${ROOT_URL}/files`);
 
   return {
-    type: FETCH_STORED_FORMS,
+    type: FETCH_FILES,
     payload: request
   };
 }
 
-export function createStoredForm(values, callback, error) {
+export function createFile(values, callback, error) {
   const formData = new FormData();
     formData.append('file',values.file);
     formData.append('name',values.name);
     values.notes ? formData.append('note',values.notes) : null ;
 
-  const request = axios.post(`${ROOT_URL}/storedForms/`,  formData)
+  const request = axios.post(`${ROOT_URL}/files/`,  formData)
 
     .then(() => callback())
     .catch(() => error());
   return {
-    type: CREATE_STORED_FORM,
+    type: CREATE_FILE,
     payload: request
   }
 }

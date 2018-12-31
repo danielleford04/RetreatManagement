@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { createStoredForm } from '../actions';
+import { createFile } from '../actions';
 import  FileUpload  from '../components/file_upload.js';
 
 class NewForm extends Component {
@@ -35,7 +35,7 @@ class NewForm extends Component {
   }
 
   onSubmit(values) {
-    this.props.createStoredForm(values, () => {
+    this.props.createFile(values, () => {
       this.setState({ showSuccessModal: true })},
       () => {
         this.setState({ showErrorModal: true })
@@ -62,7 +62,7 @@ class NewForm extends Component {
           title="Success!"
           type="success"
           text="This file was successfully uploaded."
-          onConfirm={() => this.props.history.push('/stored_forms')}
+          onConfirm={() => this.props.history.push('/files')}
         />
       </div>
       <div>
@@ -81,5 +81,5 @@ class NewForm extends Component {
 export default reduxForm({
   form: 'FormNewForm'
 })(
-  connect(null, { createStoredForm })(NewForm)
+  connect(null, { createFile })(NewForm)
 );

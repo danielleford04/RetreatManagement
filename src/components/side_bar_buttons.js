@@ -6,7 +6,7 @@ class SideBarButtons extends Component {
     return(
       <div>
         <Link type="button" to="/retreatants" className="btn btn-info btn-sm">Retreatants</Link>
-        <Link type="button" to="/stored_forms" className="btn btn-info btn-sm">Stored Forms</Link>
+        <Link type="button" to="/files" className="btn btn-info btn-sm">Stored Forms</Link>
       </div>
     );
   }
