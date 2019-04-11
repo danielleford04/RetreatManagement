@@ -8,6 +8,9 @@
   background-color: navy;
   color: white;
   height: 40px;
+  line-height: 40px;
+  vertical-align: middle;
+  padding: 0 15px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -15,8 +18,9 @@
   text-align: center;;
 }
 
-.user-nav a {
+.user-nav a, .user-nav a:active, .user-nav a:hover, .user-nav a:visited, .user-nav a:focus {
   color: white;
+  text-decoration: none;
 }
 
 .user-name-link {
@@ -47,6 +51,10 @@
   margin-right: 15px;
   vertical-align: bottom;
   white-space: nowrap;
+}
+
+.hidden {
+  display: none;
 }
 
 .nav-tabs {

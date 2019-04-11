@@ -9,12 +9,13 @@ class UserNav extends Component {
     this.props.logout();
   };
   render() {
-    const { user } = this.props.authentication;
+    const { user, isAuthenticated } = this.props.authentication;
+    console.log(isAuthenticated)
     return(
       <div className="user-nav">
-        <Link className="user-name-link" to="/instructions">Username</Link>
+        <Link className={"user-name-link" + (!isAuthenticated ? " hidden" : '')} to="/instructions">Username</Link>
         <Link className="app-name-link" to="/">App name</Link>
-        <Link className="logout-link" onClick={this.onLogoutClick} to="/login">Logout</Link>
+        <Link className={"logout-link" + (!isAuthenticated ? " hidden" : '')} onClick={this.onLogoutClick} to="/login">Logout</Link>
       </div>
     );
   }
