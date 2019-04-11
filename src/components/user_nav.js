@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions';
 
-//TODO: add conditional rendering so username and logout only render if logged in
-
 class UserNav extends Component {
   onLogoutClick = e => {
     e.preventDefault();

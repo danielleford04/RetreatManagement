@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { login } from '../actions';
-import PropTypes from "prop-types";
-import classnames from "classnames";
 
 class Login extends Component {
   constructor() {
@@ -17,7 +15,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.authentication.isAuthenticated) {
-      this.props.history.push("/"); // push user to dashboard when they login
+      this.props.history.push("/");
     }
     if (nextProps.errors) {
       this.setState({
@@ -49,13 +47,9 @@ class Login extends Component {
   onSubmit(values) {
     values.event_id = this.props.activeEvent;
     this.props.login(values, () => {
-      // this.setState({ showSuccessModal: true })},
-      // () => {
-      //   this.setState({ showErrorModal: true })
 
     });
   }
-
 
   render() {
     const { handleSubmit } = this.props;

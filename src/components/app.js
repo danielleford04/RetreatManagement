@@ -5,10 +5,6 @@ import UserNav from '../components/user_nav.js';
 import Login from '../components/login.js';
 import PrivateRoute from '../components/private_route.js';
 
-import jwt_decode from "jwt-decode";
-import { setAuthToken } from "../global/utilities.js";
-import { setCurrentUser, logoutUser } from "../actions";
-
 export default class App extends Component {
   render() {
     return (

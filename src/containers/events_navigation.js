@@ -40,7 +40,6 @@ onClickRight = () => {
 }
 
   render() {
-    console.log(this.refs)
     return(
       <div className="events-nav">
       <div className="scroller-arrow scroller-right" onClick={this.onClickLeft}><i className="fas fa-chevron-left"></i></div>
