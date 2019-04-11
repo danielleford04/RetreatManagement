@@ -3,6 +3,41 @@
   margin-top:20px;
   margin-bottom:20px;
 }
+
+.user-nav {
+  background-color: navy;
+  color: white;
+  height: 40px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;;
+}
+
+.user-nav a {
+  color: white;
+}
+
+.user-name-link {
+  float: left;
+}
+
+.logout-link {
+  float: right;
+}
+
+.login-container {
+  position:fixed;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+}
+
+.main-container {
+  margin-top: 40px;
+}
+
 .wrapper {
   display: inline-block;
   width: 80%;

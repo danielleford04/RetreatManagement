@@ -1,4 +1,17 @@
 import moment from 'moment';
+import axios from "axios";
+
+// const setAuthToken = token => {
+export function setAuthToken(token) {
+  if (token) {
+    // Apply authorization token to every request if logged in
+    axios.defaults.headers.common["Authorization"] = token;
+  } else {
+    // Delete auth header
+    delete axios.defaults.headers.common["Authorization"];
+  }
+};
+// export default setAuthToken;
 
 export function formatDisplayDateWithMoment(date) {
 return moment.utc(date).format('MMMM Do, YYYY');
@@ -37,7 +50,7 @@ export function returnRecentAndFutureEventsSortedChronologically(events) {
   var futureEvents = [];
 
   for (let event of events) {
-    if (isDateFuture(event.start_date) || isDateWithinLastMonth(event.start_date) || (event.end_date && isDateWithinLastMonth(end_date))) {
+    if (isDateFuture(event.start_date) || isDateWithinLastMonth(event.start_date) || (event.end_date && isDateWithinLastMonth(event.end_date))) {
       futureEvents.push(event)
     }
   }

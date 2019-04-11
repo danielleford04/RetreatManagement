@@ -11,6 +11,8 @@ import EmailsReducer from './reducer_emails';
 import PhaseInstructionsReducer from './reducer_phase_instructions';
 import PhaseTasksReducer from './reducer_phase_tasks';
 import PhaseEmailsReducer from './reducer_phase_emails';
+import AuthenticationReducer from './reducer_authentication';
+import ErrorReducer from './reducer_error.js';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -24,7 +26,9 @@ const rootReducer = combineReducers({
   emails: EmailsReducer,
   phaseInstructions: PhaseInstructionsReducer,
   phaseTasks: PhaseTasksReducer,
-  phaseEmails: PhaseEmailsReducer
+  phaseEmails: PhaseEmailsReducer,
+  authentication: AuthenticationReducer,
+  errors: ErrorReducer,
 });
 
 export default rootReducer;

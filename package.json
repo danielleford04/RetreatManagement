@@ -28,18 +28,23 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-preset-stage-1": "^6.1.18",
+    "classnames": "^2.2.6",
+    "is-empty": "^1.2.0",
+    "jwt-decode": "^2.2.0",
     "lodash": "^3.10.1",
     "moment": "^2.22.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-fontawesome": "^1.6.1",
-    "react-redux": "4.3.0",
+    "react-redux": "^4.3.0",
     "react-router": "^2.0.1",
-    "react-router-dom": "^4.0.0",
+    "react-router-dom": "^4.3.1",
     "react-sparklines": "^1.6.0",
-    "redux": "^3.0.4",
+    "redux": "^3.7.2",
     "redux-form": "^6.6.3",
     "redux-promise": "^0.5.3",
-    "sweetalert2-react": "^0.7.2"
+    "redux-thunk": "^2.3.0",
+    "sweetalert2-react": "^0.7.2",
+    "symbol-observable": "^1.2.0"
   }
 }

@@ -15,13 +15,14 @@ import NewRetreatant from '../components/new_retreatant.js';
 import NewEvent from '../components/new_event.js';
 import SentEmail from '../components/sent_email.js';
 import PhaseInstructions from '../containers/phase.js';
+import UserNav from '../components/user_nav.js';
+import Login from '../components/login.js';
 
 class MainContent extends Component {
   render() {
     return(
-      <BrowserRouter>
-      <div>
-      <Sidebar />
+      <div className="main-container">
+        <Sidebar />
         <div className="main-content">
           <EventsNavigation />
           <Switch>
@@ -40,8 +41,7 @@ class MainContent extends Component {
             <Route path="/" component={EventHome} />
           </Switch>
         </div>
-        </div>
-      </BrowserRouter>
+      </div>
     );
   }
 }

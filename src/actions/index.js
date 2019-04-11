@@ -1,8 +1,14 @@
 import axios from 'axios';
+import { setAuthToken } from "../global/utilities.js";
+import jwt_decode from "jwt-decode";
 
 const API_KEY = 'd336b62acf09e0ddcfce3f02d89f52e0';
 // const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 const ROOT_URL = 'http://localhost:3000';
+
+export const GET_ERRORS = "GET_ERRORS";
+export const USER_LOADING = "USER_LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
 export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const FETCH_PHASE_INSTRUCTIONS = 'FETCH_PHASE_INSTRUCTIONS';
@@ -20,6 +26,64 @@ export const CREATE_TASK = 'CREATE_TASK';
 export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_FILES = 'FETCH_FILES';
 export const CREATE_FILE = 'CREATE_FILE';
+
+// Register User
+export const register = (userData, history) => dispatch => {
+  axios
+    .post(`${ROOT_URL}/users/register`, userData)
+    .then(res => history.push("/login")) // re-direct to login on successful register
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+// Login - get user token
+export const login = userData => dispatch => {
+  axios
+    .post(`${ROOT_URL}/users/login`, userData)
+    .then(res => {
+      // Save to localStorage
+// Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+// Set logged in user
+export const setCurrentUser = decoded => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: decoded
+  };
+};
+// User loading
+export const setUserLoading = () => {
+  return {
+    type: USER_LOADING
+  };
+};
+// Log user out
+export const logout = () => dispatch => {
+  // Remove token from local storage
+  localStorage.removeItem("jwtToken");
+  // Remove auth header for future requests
+  setAuthToken(false);
+  // Set current user to empty object {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+};
 
 export function fetchEventRetreatants(event_id) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);
