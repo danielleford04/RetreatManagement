@@ -9,6 +9,7 @@ const ROOT_URL = 'http://localhost:3000';
 export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const FETCH_USER_DATA = "FETCH_USER_DATA";
 
 export const FETCH_EVENT_RETREATANTS = 'FETCH_EVENT_RETREATANTS';
 export const FETCH_PHASE_INSTRUCTIONS = 'FETCH_PHASE_INSTRUCTIONS';
@@ -54,6 +55,7 @@ export const login = userData => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      dispatch(fetchUserData(decoded.id))
     })
     .catch(err =>
       dispatch({
@@ -84,6 +86,16 @@ export const logout = () => dispatch => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
+
+export function fetchUserData(user_id) {
+  const request = axios.get(`${ROOT_URL}/users/${user_id}`);
+
+  return {
+
+    type: FETCH_USER_DATA,
+    payload: request
+  };
+}
 
 export function fetchEventRetreatants(event_id) {
   const request = axios.get(`${ROOT_URL}/retreatants/event/${event_id}`);

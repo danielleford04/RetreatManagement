@@ -13,6 +13,7 @@ import PhaseTasksReducer from './reducer_phase_tasks';
 import PhaseEmailsReducer from './reducer_phase_emails';
 import AuthenticationReducer from './reducer_authentication';
 import ErrorReducer from './reducer_error.js';
+import UserReducer from './reducer_user.js';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   phaseEmails: PhaseEmailsReducer,
   authentication: AuthenticationReducer,
   errors: ErrorReducer,
+  user: UserReducer,
 });
 
 export default rootReducer;

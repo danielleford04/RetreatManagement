@@ -15,6 +15,7 @@ import NewRetreatant from '../components/new_retreatant.js';
 import NewEvent from '../components/new_event.js';
 import SentEmail from '../components/sent_email.js';
 import PhaseInstructions from '../containers/phase.js';
+import UserOverlay from '../containers/user_overlay.js';
 
 class MainContent extends Component {
   render() {
@@ -36,6 +37,7 @@ class MainContent extends Component {
             <Route path="/new_event" component={NewEvent} />
             <Route path="/all_events" component={AllEvents} />
             <Route path="/instructions" component={PhaseInstructions} />
+            <Route path="/user" component={UserOverlay} />
             <Route path="/" component={EventHome} />
           </Switch>
         </div>
