@@ -50,10 +50,10 @@ class UserOverlay extends Component {
                  </div>
               </div>
               <div className="phase-defaults">
-                <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
+                <button className="btn btn-link" type="button" onClick={() => this.setState({ showPhaseContent: !this.state.showPhaseContent })}>
                   Registration
                 </button>
-                <div className={"collapsable" + (this.props.showPhaseContent ? " show" : '')}>This is where tasks and instructions will go</div>
+                <div className={"collapsable" + (this.state.showPhaseContent ? " show" : '')}>This is where tasks and instructions will go</div>
               </div>
               <div className="phase-defaults">
                 <button className="btn btn-link" type="button">

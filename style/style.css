@@ -233,3 +233,7 @@ cursor: pointer;
   border-radius: 2px;
   margin: 5px auto;
 }
+
+.show {
+  display:block;
+}
