@@ -175,20 +175,61 @@ cursor: pointer;
 
 .overlay-container {
   position: fixed; /* Sit on top of the page content */
-/* display: none; /* Hidden by default */ */
-width: 100%; /* Full width (cover the whole page) */
-height: 100%; /* Full height (cover the whole page) */
-padding-top: 50px;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-cursor: pointer; /* Add a pointer on hover */
+  /* display: none; /* Hidden by default */ */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  padding-top: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
 }
 
 .overlay {
   width: 75%;
   margin: auto;
+}
+
+.overlay h4 {
+  text-align:center;
+  margin-bottom: 35px;
+}
+
+.overlay .jumbotron {
+  padding: 3rem 2rem;
+  width: 80%;
+  height: 90%;
+  overflow: scroll;
+  position: absolute;
+}
+
+.user-settings {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 50px
+}
+
+.default-settings {
+  margin: 50px auto;
+}
+
+.event-type-dropdown {
+  text-align: center;
+  width: 60%;
+  margin: auto;
+}
+
+.collapsable {
+  display:none;
+
+}
+
+.phase-defaults {
+  width:90%;
+  border: 1px solid darkgray;
+  border-radius: 2px;
+  margin: 5px auto;
 }
