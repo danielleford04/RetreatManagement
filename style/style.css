@@ -186,6 +186,24 @@ cursor: pointer;
   background-color: rgba(0,0,0,0.5); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
+  color: black;
+  text-align: left;
+}
+
+svg {
+  margin: 0 10px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.overlay-container .btn-link:focus {
+  text-decoration: none;
+  outline:none;
 }
 
 .overlay {
@@ -232,6 +250,7 @@ cursor: pointer;
   border: 1px solid darkgray;
   border-radius: 2px;
   margin: 5px auto;
+  padding: 10px;
 }
 
 .show {

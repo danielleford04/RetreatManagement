@@ -5,6 +5,12 @@ import UserNav from '../components/user_nav.js';
 import Login from '../components/login.js';
 import PrivateRoute from '../components/private_route.js';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleUp, faAngleDown, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faAngleUp, faAngleDown, faTimes)
+
 export default class App extends Component {
   render() {
     return (

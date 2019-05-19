@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-//TODO: close button that goesback to last page, also if you click outside of omdal back to last page
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+//TODO: close button that goesback to last page, also if you click outside of modal back to last page
 //add defaults to DB
 //wire in defaults
 //route to update defaults
@@ -11,23 +13,57 @@ class UserOverlay extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      showPhaseContent: false,
+      showRegistrationContent: false,
+      showPreparationContent: false,
+      showArrivalContent: false,
+      showDuringContent: false,
+      showClosingContent: false,
+      showFollowUpContent: false,
       // showErrorModal: false,
       // showDateValidationErrorModal: false,
     };
   }
-  togglePhaseContent() {
+  toggleRegistrationContent() {
     this.setState({
-        showPhaseContent: !this.state.showPhaseContent
+        showRegistrationContent: !this.state.showRegistrationContent
     });
 }
+togglePreparationContent() {
+  this.setState({
+      showPreparationContent: !this.state.showPreparationContent
+  });
+}
+toggleArrivalContent() {
+  this.setState({
+      showArrivalContent: !this.state.showArrivalContent
+  });
+}
+toggleDuringContent() {
+  this.setState({
+      showDuringContent: !this.state.showDuringContent
+  });
+}
+toggleClosingContent() {
+  this.setState({
+      showClosingContent: !this.state.showClosingContent
+  });
+}
+toggleFollowUpContent() {
+  this.setState({
+      showFollowUpContent: !this.state.showFollowUpContent
+  });
+}
+stopPropagation(e) {
+   e.stopPropagation();
+ };
 
   render() {
     return(
 
-      <div className="overlay-container">
-        <div className="overlay">
+      <div className="overlay-container" onClick={this.props.toggleUserOverlay}>
+        <div className="overlay" onClick={this.stopPropagation} >
           <div className="jumbotron">
+          <FontAwesomeIcon icon="times" className="close-icon" onClick={this.props.toggleUserOverlay} />
             <div className="user-settings">
               <h4> Settings </h4>
               <div>
@@ -50,40 +86,46 @@ class UserOverlay extends Component {
                  </div>
               </div>
               <div className="phase-defaults">
-                <button className="btn btn-link" type="button" onClick={() => this.setState({ showPhaseContent: !this.state.showPhaseContent })}>
+                <button className="btn btn-link" type="button" onClick={() => this.setState({ showRegistrationContent: !this.state.showRegistrationContent })}>
                   Registration
+                  <FontAwesomeIcon icon="angle-up" />
                 </button>
-                <div className={"collapsable" + (this.state.showPhaseContent ? " show" : '')}>This is where tasks and instructions will go</div>
+                <div className={"collapsable" + (this.state.showRegistrationContent ? " show" : '')}>This is where tasks and instructions will go</div>
               </div>
               <div className="phase-defaults">
-                <button className="btn btn-link" type="button">
+                <button className="btn btn-link" type="button" onClick={() => this.setState({ showPreparationContent: !this.state.showPreparationContent })}>
                   Preparation
+                  <FontAwesomeIcon icon="angle-up" />
                 </button>
-                <div className="collapsable">This is where tasks and instructions will go</div>
+                <div className={"collapsable" + (this.state.showPreparationContent ? " show" : '')}>This is where tasks and instructions will go</div>
               </div>
               <div className="phase-defaults">
-                <button className="btn btn-link" type="button">
+                <button className="btn btn-link" type="button" onClick={() => this.setState({ showArrivalContent: !this.state.showArrivalContent })}>
                   Arrival
+                  <FontAwesomeIcon icon="angle-up" />
                 </button>
-                <div className="collapsable">This is where tasks and instructions will go</div>
+                <div className={"collapsable" + (this.state.showArrivalContent ? " show" : '')} >This is where tasks and instructions will go</div>
                 </div>
                 <div className="phase-defaults">
-                  <button className="btn btn-link" type="button">
-                    Registration
+                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showDuringContent: !this.state.showDuringContent })}>
+                    During
+                    <FontAwesomeIcon icon="angle-up" />
                   </button>
-                  <div className="collapsable">This is where tasks and instructions will go</div>
+                  <div className={"collapsable" + (this.state.showDuringContent ? " show" : '')}>This is where tasks and instructions will go</div>
                 </div>
                 <div className="phase-defaults">
-                  <button className="btn btn-link" type="button">
-                    Preparation
+                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showClosingContent: !this.state.showClosingContent })}>
+                    Closing
+                    <FontAwesomeIcon icon="angle-up" />
                   </button>
-                  <div className="collapsable">This is where tasks and instructions will go</div>
+                  <div className={"collapsable" + (this.state.showClosingContent ? " show" : '')}>This is where tasks and instructions will go</div>
                 </div>
                 <div className="phase-defaults">
-                  <button className="btn btn-link" type="button">
-                    Arrival
+                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showFollowUpContent: !this.state.showFollowUpContent })}>
+                    Follow Up
+                    <FontAwesomeIcon icon="angle-up" />
                   </button>
-                  <div className="collapsable">This is where tasks and instructions will go</div>
+                  <div className={"collapsable" + (this.state.showFollowUpContent ? " show" : '')}>This is where tasks and instructions will go</div>
                 </div>
               </div>
             </div>
