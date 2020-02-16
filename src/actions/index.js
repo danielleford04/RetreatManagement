@@ -27,6 +27,8 @@ export const CREATE_TASK = 'CREATE_TASK';
 export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_FILES = 'FETCH_FILES';
 export const CREATE_FILE = 'CREATE_FILE';
+export const FETCH_DEFAULTS = 'FETCH_DEFAULTS';
+
 
 // Register User
 export const register = (userData, history) => dispatch => {
@@ -279,4 +281,14 @@ export function createFile(values, callback, error) {
     type: CREATE_FILE,
     payload: request
   }
+}
+
+export function fetchDefaults(user_id) {
+  const request = axios.get(`${ROOT_URL}/defaults/user/${user_id}`);
+
+  return {
+
+    type: FETCH_DEFAULTS,
+    payload: request
+  };
 }

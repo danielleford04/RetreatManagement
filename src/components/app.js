@@ -7,9 +7,9 @@ import PrivateRoute from '../components/private_route.js';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleUp, faAngleDown, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp, faAngleDown, faTimes, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faAngleUp, faAngleDown, faTimes)
+library.add(faAngleUp, faAngleDown, faTimes, faPlusCircle)
 
 export default class App extends Component {
   render() {

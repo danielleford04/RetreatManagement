@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import DefaultPhaseDropdown from '../components/default_phase_dropdown.js';
+import { fetchDefaults } from '../actions';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-//TODO: close button that goesback to last page, also if you click outside of modal back to last page
+//TODO:
 //add defaults to DB
 //wire in defaults
 //route to update defaults
@@ -22,42 +24,23 @@ class UserOverlay extends Component {
       // showErrorModal: false,
       // showDateValidationErrorModal: false,
     };
+    this.toggleContent = this.toggleContent.bind(this);
   }
-  toggleRegistrationContent() {
-    this.setState({
-        showRegistrationContent: !this.state.showRegistrationContent
-    });
-}
-togglePreparationContent() {
-  this.setState({
-      showPreparationContent: !this.state.showPreparationContent
-  });
-}
-toggleArrivalContent() {
-  this.setState({
-      showArrivalContent: !this.state.showArrivalContent
-  });
-}
-toggleDuringContent() {
-  this.setState({
-      showDuringContent: !this.state.showDuringContent
-  });
-}
-toggleClosingContent() {
-  this.setState({
-      showClosingContent: !this.state.showClosingContent
-  });
-}
-toggleFollowUpContent() {
-  this.setState({
-      showFollowUpContent: !this.state.showFollowUpContent
-  });
-}
+  componentDidMount() {
+      this.props.fetchDefaults(this.props.user._id);
+  }
+  toggleContent(name) {
+    let nameWithSpacesRemoved = name.replace(/\s/g, '');
+    let show_field_name = `show${nameWithSpacesRemoved}Content`;
+    this.setState({[show_field_name]: !this.state[show_field_name]})
+  }
+
 stopPropagation(e) {
    e.stopPropagation();
  };
 
   render() {
+    console.log(this.props)
     return(
 
       <div className="overlay-container" onClick={this.props.toggleUserOverlay}>
@@ -85,48 +68,30 @@ stopPropagation(e) {
                    </div>
                  </div>
               </div>
-              <div className="phase-defaults">
-                <button className="btn btn-link" type="button" onClick={() => this.setState({ showRegistrationContent: !this.state.showRegistrationContent })}>
-                  Registration
-                  <FontAwesomeIcon icon="angle-up" />
-                </button>
-                <div className={"collapsable" + (this.state.showRegistrationContent ? " show" : '')}>This is where tasks and instructions will go</div>
-              </div>
-              <div className="phase-defaults">
-                <button className="btn btn-link" type="button" onClick={() => this.setState({ showPreparationContent: !this.state.showPreparationContent })}>
-                  Preparation
-                  <FontAwesomeIcon icon="angle-up" />
-                </button>
-                <div className={"collapsable" + (this.state.showPreparationContent ? " show" : '')}>This is where tasks and instructions will go</div>
-              </div>
-              <div className="phase-defaults">
-                <button className="btn btn-link" type="button" onClick={() => this.setState({ showArrivalContent: !this.state.showArrivalContent })}>
-                  Arrival
-                  <FontAwesomeIcon icon="angle-up" />
-                </button>
-                <div className={"collapsable" + (this.state.showArrivalContent ? " show" : '')} >This is where tasks and instructions will go</div>
-                </div>
-                <div className="phase-defaults">
-                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showDuringContent: !this.state.showDuringContent })}>
-                    During
-                    <FontAwesomeIcon icon="angle-up" />
-                  </button>
-                  <div className={"collapsable" + (this.state.showDuringContent ? " show" : '')}>This is where tasks and instructions will go</div>
-                </div>
-                <div className="phase-defaults">
-                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showClosingContent: !this.state.showClosingContent })}>
-                    Closing
-                    <FontAwesomeIcon icon="angle-up" />
-                  </button>
-                  <div className={"collapsable" + (this.state.showClosingContent ? " show" : '')}>This is where tasks and instructions will go</div>
-                </div>
-                <div className="phase-defaults">
-                  <button className="btn btn-link" type="button" onClick={() => this.setState({ showFollowUpContent: !this.state.showFollowUpContent })}>
-                    Follow Up
-                    <FontAwesomeIcon icon="angle-up" />
-                  </button>
-                  <div className={"collapsable" + (this.state.showFollowUpContent ? " show" : '')}>This is where tasks and instructions will go</div>
-                </div>
+              <DefaultPhaseDropdown
+                name="Registration"
+                toggleContent={this.toggleContent}
+                show={this.state.showRegistrationContent}/>
+              <DefaultPhaseDropdown
+                name="Preparation"
+                toggleContent={this.toggleContent}
+                show={this.state.showPreparationContent}/>
+              <DefaultPhaseDropdown
+                name="Arrival"
+                toggleContent={this.toggleContent}
+                show={this.state.showArrivalContent}/>
+              <DefaultPhaseDropdown
+                name="During"
+                toggleContent={this.toggleContent}
+                show={this.state.showDuringContent}/>
+              <DefaultPhaseDropdown
+                name="Closing"
+                toggleContent={this.toggleContent}
+                show={this.state.showClosingContent}/>
+              <DefaultPhaseDropdown
+                name="Follow Up"
+                toggleContent={this.toggleContent}
+                show={this.state.showFollowUpContent}/>
               </div>
             </div>
 
@@ -138,8 +103,9 @@ stopPropagation(e) {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  defaults: state.defaults
 });
 export default connect(
-  mapStateToProps
+  mapStateToProps, { fetchDefaults }
 )(UserOverlay);

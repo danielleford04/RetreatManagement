@@ -109,6 +109,10 @@
   width: 150px;
 }
 
+.list-group-item {
+  z-index: -1;
+}
+
 .list-group-item.overdue {
   border: red solid 3px;
 }
@@ -221,6 +225,7 @@ svg {
   width: 80%;
   height: 90%;
   overflow: scroll;
+  z-index:5;
   position: absolute;
 }
 
@@ -253,6 +258,73 @@ svg {
   padding: 10px;
 }
 
+.phase-defaults input {
+  display: inline-block;
+}
+
+.phase-defaults-add-new .form-group {
+  display: inline-block;
+}
+
+.phase-defaults .form-group {
+  margin: 0 5px;
+}
+
+.phase-defaults select {
+  width: initial;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.phase-defaults .description-field {
+  width: 60%
+}
+
+.phase-defaults .subject-field {
+  width: 60%
+}
+
+.due-date-field .form-control {
+  width: initial;
+}
+
+.due-date-field input {
+  margin-right: 10px;
+}
+
+.phase-defaults .email-body-field {
+  display: block !important;
+}
+
+.saved-defaults h6 {
+  display: inline;
+  margin: 0 10px;
+}
+
+.saved-defaults .task-group .list-group-item {
+  padding:0;
+}
+
+.saved-defaults .email-content-display {
+  padding: 10px;
+}
+
+.list-group-item span {
+  margin-right: 10px;
+}
+
+.default-group {
+  margin-top: 20px;
+}
+
 .show {
   display:block;
+}
+
+.green {
+  color: green;
+}
+
+.italic {
+  font-style: italic;
 }
