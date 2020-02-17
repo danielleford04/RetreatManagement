@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   authentication: AuthenticationReducer,
   errors: ErrorReducer,
   user: UserReducer,
-  defaults: DefaultsReducer,
+  // defaults: DefaultsReducer,
 });
 
 export default rootReducer;

@@ -3,6 +3,7 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, updateTask} from '../actions';
 
 class DefaultPhaseDropdown extends Component {
   constructor(props, context) {
@@ -23,6 +24,8 @@ class DefaultPhaseDropdown extends Component {
   }
   togglePhaseContent = () => {
     this.props.toggleContent(this.props.name);
+    this.setState({selectedType: null});
+    this.setState({showAddDefault: false});
   }
   renderNameField(field) {
     return (
@@ -69,7 +72,7 @@ class DefaultPhaseDropdown extends Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.state)
+    // console.log(this.state)
     return(
         <div className="phase-defaults">
           <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
@@ -162,10 +165,13 @@ class DefaultPhaseDropdown extends Component {
 function mapStateToProps(state) {
   return {
     type: (formValueSelector('UpdateDefaultForm'))(state, 'selectedType'),
+    phaseInstructions: state.phaseInstructions,
+    phaseTasks: state.phaseTasks,
+    phaseEmails: state.phaseEmails,
   }
 }
 export default reduxForm({
   form: 'UpdateDefaultForm'
 })(
-  connect(mapStateToProps)(DefaultPhaseDropdown)
+  connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails })(DefaultPhaseDropdown)
 );

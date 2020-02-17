@@ -229,6 +229,23 @@ svg {
   position: absolute;
 }
 
+.overlay .create-defaults-div {
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  padding: 15px;
+}
+
+.overlay .create-defaults-button {
+  white-space: normal;
+  height: 75px;
+  width: 150px;
+  margin: 10px;
+}
+
 .user-settings {
   width: 60%;
   margin: auto;
