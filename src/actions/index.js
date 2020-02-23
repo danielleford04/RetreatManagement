@@ -28,7 +28,8 @@ export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_FILES = 'FETCH_FILES';
 export const CREATE_FILE = 'CREATE_FILE';
 // export const FETCH_DEFAULTS = 'FETCH_DEFAULTS';
-export const CREATE_DEFAULT = 'CREATE_DEFAULT'
+export const CREATE_DEFAULT = 'CREATE_DEFAULT';
+export const FETCH_DEFAULT_PHASES = 'FETCH_DEFAULT_PHASES';
 
 // Register User
 export const register = (userData, history) => dispatch => {
@@ -220,6 +221,22 @@ export function fetchEventPhases(event_id, events) {
     payload: request
 
   };
+}
+
+export function fetchDefaultPhases(event_id) {
+    const request = axios.get(`${ROOT_URL}/phases/event/${event_id}`);
+    // let active_event_info = {};
+    // for (let event of events) {
+    //     if (event._id === event_id) {
+    //         active_event_info = event;
+    //     }
+    // }
+    return {
+        type: FETCH_DEFAULT_PHASES,
+        // meta: { event_info: active_event_info },
+        payload: request
+
+    };
 }
 
 export function createTask(values, callback, error) {

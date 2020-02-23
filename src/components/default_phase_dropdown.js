@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, updateTask} from '../actions';
+import {fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, createTask, createInstruction, fetchFiles, createEmail} from '../actions';
 
 class DefaultPhaseDropdown extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       showAddDefault: false,
-      selectedType: null,
+      selectedType: "instruction",
     };
     this.toggleAddContent = this.toggleAddContent.bind(this);
   }
@@ -24,7 +24,7 @@ class DefaultPhaseDropdown extends Component {
   }
   togglePhaseContent = () => {
     this.props.toggleContent(this.props.name);
-    this.setState({selectedType: null});
+    this.setState({selectedType: 'instruction'});
     this.setState({showAddDefault: false});
   }
   renderNameField(field) {
@@ -64,15 +64,36 @@ class DefaultPhaseDropdown extends Component {
     )
   }
   onSubmit(values) {
-    values.event_id = this.props.activeEvent;
-    this.props.createRetreatant(values, () => {
-    console.log('submit')
+    console.log('submit', this.state)
+      values.phase_id = this.props.phaseId;
+    if (this.state.selectedType === "task") {
+        this.props.createTask(values, () => {
+            this.props.reset();
+            this.setState({showAddDefault: false});
 
-    });
+        });
+    } else if (this.state.selectedType === "instruction") {
+        this.props.createInstruction(values, () => {
+            this.props.reset();
+            this.setState({showAddDefault: false});
+
+        });
+    } else if (this.state.selectedType === "email") {
+      values.event_id = this.props.defaultId;
+        this.props.createEmail(values, () => {
+            console.log('submit email', values);
+            this.props.reset();
+            this.setState({showAddDefault: false});
+
+        });
+    }
+
+
   }
   render() {
     const { handleSubmit } = this.props;
-    // console.log(this.state)
+    // console.log('state',this.state)
+      console.log('props',this.props)
     return(
         <div className="phase-defaults">
           <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
@@ -94,7 +115,7 @@ class DefaultPhaseDropdown extends Component {
               { (this.state.showAddDefault && this.state.selectedType != "email") &&
                   <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
                       <Field name="name" component={this.renderNameField}/>
-                      <Field name="description" component={this.renderDescriptionField}/>
+                      <Field name="content" component={this.renderDescriptionField}/>
                       <button type="submit" className="btn btn-primary">Add</button>
                       {this.state.selectedType === 'task' &&
                         <Field name="due_date" component={this.renderDueDateField}/>
@@ -173,5 +194,5 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'UpdateDefaultForm'
 })(
-  connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails })(DefaultPhaseDropdown)
+  connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, createTask, createInstruction, fetchFiles, createEmail })(DefaultPhaseDropdown)
 );

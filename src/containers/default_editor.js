@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DefaultPhaseDropdown from '../components/default_phase_dropdown.js';
+import { fetchDefaultPhases } from '../actions';
 // import { fetchDefaults } from '../actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Link} from "react-router-dom";
 
 class DefaultEditor extends Component {
     constructor(props, context) {
@@ -15,14 +17,18 @@ class DefaultEditor extends Component {
             showDuringContent: false,
             showClosingContent: false,
             showFollowUpContent: false,
+            // selectedDefaultsId: null,
             // showErrorModal: false,
             // showDateValidationErrorModal: false,
         };
         this.toggleContent = this.toggleContent.bind(this);
     }
     componentDidMount() {
+        this.props.fetchDefaultPhases(this.props.selectedDefault.id);
+        // this.setState({selectedDefaultsId: this.props.defaults[0]._id})
         // this.props.fetchDefaults(this.props.user._id);
     }
+
     toggleContent(name) {
         let nameWithSpacesRemoved = name.replace(/\s/g, '');
         let show_field_name = `show${nameWithSpacesRemoved}Content`;
@@ -35,7 +41,11 @@ class DefaultEditor extends Component {
     typeNameMap() {
         return [{type:'residential',name:'Residential Retreat'}, {type: 'day', name: 'Day Long'}, {type: 'class', name: 'Class'}]
     }
-
+    nameWithSpacesRemoved(name) {
+        let nameWithSpacesRemoved = name.replace(/\s/g, '');
+        let show_field_name = `show${nameWithSpacesRemoved}Content`;
+        return show_field_name;
+    }
     renderSelectOptions() {
         let types_with_defaults_set = [];
         for (let event_type of this.props.defaults) {
@@ -50,6 +60,21 @@ class DefaultEditor extends Component {
         return types_with_defaults_set.map((event_type, index) => {
             return (
                 <option key={index} value={event_type.type}>{event_type.name}</option>
+            );
+        })
+    }
+
+    renderPhaseDropDowns() {
+        return this.props.defaultPhases.map((phase) => {
+            let stateShow = this.nameWithSpacesRemoved(phase.name)
+            return (
+                <DefaultPhaseDropdown
+                    key={phase.name}
+                    name={phase.name}
+                    phaseId={phase._id}
+                    defaultId={this.props.selectedDefault.id}
+                    toggleContent={this.toggleContent}
+                    show={this.state[stateShow]}/>
             );
         })
     }
@@ -70,30 +95,7 @@ class DefaultEditor extends Component {
                         </div>
                     </div>
                 </div>
-                <DefaultPhaseDropdown
-                    name="Registration"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showRegistrationContent}/>
-                <DefaultPhaseDropdown
-                    name="Preparation"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showPreparationContent}/>
-                <DefaultPhaseDropdown
-                    name="Arrival"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showArrivalContent}/>
-                <DefaultPhaseDropdown
-                    name="During"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showDuringContent}/>
-                <DefaultPhaseDropdown
-                    name="Closing"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showClosingContent}/>
-                <DefaultPhaseDropdown
-                    name="Follow Up"
-                    toggleContent={this.toggleContent}
-                    show={this.state.showFollowUpContent}/>
+                {this.renderPhaseDropDowns()}
             </div>
 
         );
@@ -102,11 +104,11 @@ class DefaultEditor extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    // defaults: state.defaults
+    defaultPhases: state.defaultPhases
 });
 // export default connect(
 //   mapStateToProps, { fetchDefaults }
 // )(UserOverlay);
 export default connect(
-    mapStateToProps, null
+    mapStateToProps, {fetchDefaultPhases}
 )(DefaultEditor);

@@ -14,6 +14,7 @@ import PhaseEmailsReducer from './reducer_phase_emails';
 import AuthenticationReducer from './reducer_authentication';
 import ErrorReducer from './reducer_error.js';
 import UserReducer from './reducer_user.js';
+import DefaultPhasesReducer from './reducer_default_phases.js';
 import DefaultsReducer from './reducer_defaults.js';
 
 const rootReducer = combineReducers({
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   errors: ErrorReducer,
   user: UserReducer,
   // defaults: DefaultsReducer,
+    defaultPhases: DefaultPhasesReducer,
 });
 
 export default rootReducer;

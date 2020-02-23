@@ -39,7 +39,7 @@ stopPropagation(e) {
  };
 
   render() {
-    console.log('user-overlay-props',this.props)
+    // console.log('user-overlay-props',this.props)
     return(
 
       <div className="overlay-container" onClick={this.props.toggleUserOverlay}>
@@ -57,7 +57,7 @@ stopPropagation(e) {
               </div>
             </div>
               { this.props.user.defaults.length > 0 &&
-                <DefaultEditor defaults={this.props.user.defaults}/>
+                <DefaultEditor defaults={this.props.user.defaults} selectedDefault={this.props.user.defaults[0]}/>
               }
             </div>
 
