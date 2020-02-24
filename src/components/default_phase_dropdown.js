@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector, reset } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, createTask, createInstruction, fetchFiles, createEmail} from '../actions';
+import SavedDefaultsDisplay from '../components/saved_defaults_display.js';
+import {setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createTask, createInstruction, fetchFiles, createEmail} from '../actions';
 
 class DefaultPhaseDropdown extends Component {
   constructor(props, context) {
@@ -19,11 +19,15 @@ class DefaultPhaseDropdown extends Component {
     selectedType: 'instruction'
   });
 }
+
   toggleAddContent(field_name) {
     this.setState({[field_name]: !this.state[field_name]})
   }
   togglePhaseContent = () => {
     this.props.toggleContent(this.props.name);
+    if (!this.props.show) {
+      this.props.setActiveDefaultPhase(this.props.phaseId)
+    }
     this.setState({selectedType: 'instruction'});
     this.setState({showAddDefault: false});
   }
@@ -64,7 +68,6 @@ class DefaultPhaseDropdown extends Component {
     )
   }
   onSubmit(values) {
-    console.log('submit', this.state)
       values.phase_id = this.props.phaseId;
     if (this.state.selectedType === "task") {
         this.props.createTask(values, () => {
@@ -92,7 +95,7 @@ class DefaultPhaseDropdown extends Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    // console.log('state',this.state)
+    console.log('state',this.state)
       console.log('props',this.props)
     return(
         <div className="phase-defaults">
@@ -129,55 +132,12 @@ class DefaultPhaseDropdown extends Component {
                   <button type="submit" className="btn btn-primary">Add</button>
                   <Field name="body" component={this.renderBodyField} />
                   <span className="italic"> All default emails are automatically set to send on first day of that phase, except for the default
-                  registration email, which is automatically sent to each retreatant when added they are added.
+                  registration email, which is automatically sent to each retreatant when they are added.
                   Send dates can be edited within each event. </span>
                 </form>
             }
-            <div className="saved-defaults">
-            //if there is nothing saved for this phase
-            You do not have any default instructions, tasks, or emails saved for this phase.
+            <SavedDefaultsDisplay phaseId={this.props.phaseId}/>
 
-            //list of instructions, tasks, email
-            <div className="task-group default-group">
-              <h5> Instructions </h5>
-              <ul className="list-group">
-              <li className="list-group-item" >
-                <h6>Name of instruction</h6>
-                <small>description
-                </small>
-              </li>
-              <li className="list-group-item" >
-                <h6>Name of instruction</h6>
-                <small>description
-                </small>
-              </li>
-              </ul>
-            </div>
-            <div className="task-group default-group">
-              <h5> Tasks </h5>
-              <ul className="list-group">
-              <li className="list-group-item" >
-                <h6>Name of task</h6>
-                <small>description
-                </small>
-              </li>
-              </ul>
-            </div>
-            <div className="default-group">
-              <h5>Emails</h5>
-            <div className="">
-              <li className="list-group-item">
-              <span> <strong>Name:</strong> name</span>
-              <span> <strong>Subject:</strong> subject of email</span>
-              <span><strong>Attached Files:</strong> Essential Retreat Information</span>
-              <div className="email-content-display">
-              Hi how are you this is an email
-              </div>
-
-              </li>
-            </div>
-            </div>
-          </div>
           </div>
         </div>
     );
@@ -186,13 +146,11 @@ class DefaultPhaseDropdown extends Component {
 function mapStateToProps(state) {
   return {
     type: (formValueSelector('UpdateDefaultForm'))(state, 'selectedType'),
-    phaseInstructions: state.phaseInstructions,
-    phaseTasks: state.phaseTasks,
-    phaseEmails: state.phaseEmails,
+      selectedDefaultPhaseId: state.selectedDefaultPhaseId,
   }
 }
 export default reduxForm({
   form: 'UpdateDefaultForm'
 })(
-  connect(mapStateToProps, { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, createTask, createInstruction, fetchFiles, createEmail })(DefaultPhaseDropdown)
+  connect(mapStateToProps, { setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createTask, createInstruction, fetchFiles, createEmail })(DefaultPhaseDropdown)
 );

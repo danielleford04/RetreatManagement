@@ -20,6 +20,7 @@ export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
+export const SET_ACTIVE_DEFAULT_PHASE = 'SET_ACTIVE_DEFAULT_PHASE';
 export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const FETCH_EVENT_PHASES = 'FETCH_EVENT_PHASES';
@@ -27,9 +28,11 @@ export const CREATE_TASK = 'CREATE_TASK';
 export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_FILES = 'FETCH_FILES';
 export const CREATE_FILE = 'CREATE_FILE';
-// export const FETCH_DEFAULTS = 'FETCH_DEFAULTS';
 export const CREATE_DEFAULT = 'CREATE_DEFAULT';
 export const FETCH_DEFAULT_PHASES = 'FETCH_DEFAULT_PHASES';
+export const FETCH_DEFAULT_PHASE_EMAILS = 'FETCH_DEFAULT_PHASE_EMAILS';
+export const FETCH_DEFAULT_PHASE_INSTRUCTIONS = 'FETCH_DEFAULT_PHASE_INSTRUCTIONS';
+export const FETCH_DEFAULT_PHASE_TASKS = 'FETCH_DEFAULT_PHASE_TASKS';
 
 // Register User
 export const register = (userData, history) => dispatch => {
@@ -275,6 +278,14 @@ export function setActivePhase(id) {
     };
 }
 
+export function setActiveDefaultPhase(id) {
+  console.log('action', id)
+    return {
+        type: SET_ACTIVE_DEFAULT_PHASE,
+        id,
+    };
+}
+
 export function fetchFiles() {
   const request = axios.get(`${ROOT_URL}/files`);
 
@@ -300,20 +311,38 @@ export function createFile(values, callback, error) {
   }
 }
 
-// export function fetchDefaults(user_id) {
-//   const request = axios.get(`${ROOT_URL}/defaults/user/${user_id}`);
-//
-//   return {
-//
-//     type: FETCH_DEFAULTS,
-//     payload: request
-//   };
-// }
-
 export function createDefault(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/defaults`, values);
     return {
         type: CREATE_DEFAULT,
         payload: request
     }
+}
+
+export function fetchDefaultPhaseInstructions(phase_id) {
+    const request = axios.get(`${ROOT_URL}/instructions/phase/${phase_id}`);
+
+    return {
+        type: FETCH_DEFAULT_PHASE_INSTRUCTIONS,
+        payload: request
+    };
+}
+
+export function fetchDefaultPhaseTasks(phase_id) {
+    const request = axios.get(`${ROOT_URL}/tasks/phase/${phase_id}`);
+
+    return {
+        type: FETCH_DEFAULT_PHASE_TASKS,
+        payload: request
+    };
+}
+
+export function fetchDefaultPhaseEmails(phase_id) {
+    const request = axios.get(`${ROOT_URL}/emails/phase/${phase_id}`);
+
+    return {
+
+        type: FETCH_DEFAULT_PHASE_EMAILS,
+        payload: request
+    };
 }

@@ -15,7 +15,10 @@ import AuthenticationReducer from './reducer_authentication';
 import ErrorReducer from './reducer_error.js';
 import UserReducer from './reducer_user.js';
 import DefaultPhasesReducer from './reducer_default_phases.js';
-import DefaultsReducer from './reducer_defaults.js';
+import ActiveDefaultPhaseReducer from './reducer_active_default_phase.js';
+import DefaultPhaseTaskReducer from './reducer_default_phase_tasks.js';
+import DefaultPhaseInstructionReducer from './reducer_default_phase_instructions.js';
+import DefaultPhaseEmailReducer from './reducer_default_phase_emails.js';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -33,8 +36,12 @@ const rootReducer = combineReducers({
   authentication: AuthenticationReducer,
   errors: ErrorReducer,
   user: UserReducer,
-  // defaults: DefaultsReducer,
-    defaultPhases: DefaultPhasesReducer,
+  defaultPhases: DefaultPhasesReducer,
+  selectedDefaultPhaseId: ActiveDefaultPhaseReducer,
+    selectedDefaultPhaseTasks: DefaultPhaseTaskReducer,
+    selectedDefaultPhaseInstructions: DefaultPhaseInstructionReducer,
+    selectedDefaultPhaseEmails: DefaultPhaseEmailReducer
+
 });
 
 export default rootReducer;

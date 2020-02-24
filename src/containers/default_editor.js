@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DefaultPhaseDropdown from '../components/default_phase_dropdown.js';
-import { fetchDefaultPhases } from '../actions';
-// import { fetchDefaults } from '../actions';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {Link} from "react-router-dom";
+import { fetchDefaultPhases, setActiveDefaultPhase } from '../actions';
 
 class DefaultEditor extends Component {
     constructor(props, context) {
@@ -17,16 +13,11 @@ class DefaultEditor extends Component {
             showDuringContent: false,
             showClosingContent: false,
             showFollowUpContent: false,
-            // selectedDefaultsId: null,
-            // showErrorModal: false,
-            // showDateValidationErrorModal: false,
         };
         this.toggleContent = this.toggleContent.bind(this);
     }
     componentDidMount() {
         this.props.fetchDefaultPhases(this.props.selectedDefault.id);
-        // this.setState({selectedDefaultsId: this.props.defaults[0]._id})
-        // this.props.fetchDefaults(this.props.user._id);
     }
 
     toggleContent(name) {
@@ -35,9 +26,6 @@ class DefaultEditor extends Component {
         this.setState({[show_field_name]: !this.state[show_field_name]})
     }
 
-    // stopPropagation(e) {
-    //     e.stopPropagation();
-    // };
     typeNameMap() {
         return [{type:'residential',name:'Residential Retreat'}, {type: 'day', name: 'Day Long'}, {type: 'class', name: 'Class'}]
     }
@@ -106,9 +94,7 @@ const mapStateToProps = state => ({
     user: state.user,
     defaultPhases: state.defaultPhases
 });
-// export default connect(
-//   mapStateToProps, { fetchDefaults }
-// )(UserOverlay);
+
 export default connect(
-    mapStateToProps, {fetchDefaultPhases}
+    mapStateToProps, {fetchDefaultPhases, setActiveDefaultPhase}
 )(DefaultEditor);

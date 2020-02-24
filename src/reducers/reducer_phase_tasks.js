@@ -12,7 +12,7 @@ export default function(state = [], action) {
     return 0;
     });
       return tasksSorted;
-      return action.payload.data;
+      // return action.payload.data;
     default:
       return state;
   }
