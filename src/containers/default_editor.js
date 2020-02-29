@@ -68,7 +68,6 @@ class DefaultEditor extends Component {
     }
 
     render() {
-        console.log('default-editor props',this.props)
         return(
 
             <div className="default-settings">

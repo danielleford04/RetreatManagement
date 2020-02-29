@@ -103,6 +103,7 @@ class SavedDefaultsDisplay extends Component {
         })
     }
     render() {
+        console.log(this.props)
         let total_items_in_phase = (this.props.selectedDefaultPhaseInstructions.length +
             this.props.selectedDefaultPhaseTasks.length +
             this.props.selectedDefaultPhaseEmails.length);

@@ -3,7 +3,7 @@ import { Field, reduxForm, formValueSelector, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SavedDefaultsDisplay from '../components/saved_defaults_display.js';
-import {setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createTask, createInstruction, fetchFiles, createEmail} from '../actions';
+import {setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createDefaultTask, createDefaultInstruction, fetchFiles, createDefaultEmail} from '../actions';
 
 class DefaultPhaseDropdown extends Component {
   constructor(props, context) {
@@ -70,20 +70,20 @@ class DefaultPhaseDropdown extends Component {
   onSubmit(values) {
       values.phase_id = this.props.phaseId;
     if (this.state.selectedType === "task") {
-        this.props.createTask(values, () => {
+        this.props.createDefaultTask(values, () => {
             this.props.reset();
             this.setState({showAddDefault: false});
 
         });
     } else if (this.state.selectedType === "instruction") {
-        this.props.createInstruction(values, () => {
+        this.props.createDefaultInstruction(values, () => {
             this.props.reset();
             this.setState({showAddDefault: false});
 
         });
     } else if (this.state.selectedType === "email") {
       values.event_id = this.props.defaultId;
-        this.props.createEmail(values, () => {
+        this.props.createDefaultEmail(values, () => {
             console.log('submit email', values);
             this.props.reset();
             this.setState({showAddDefault: false});
@@ -95,8 +95,7 @@ class DefaultPhaseDropdown extends Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    console.log('state',this.state)
-      console.log('props',this.props)
+
     return(
         <div className="phase-defaults">
           <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
@@ -156,5 +155,5 @@ function mapStateToProps(state) {
 export default reduxForm({
   form: 'UpdateDefaultForm'
 })(
-  connect(mapStateToProps, { setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createTask, createInstruction, fetchFiles, createEmail })(DefaultPhaseDropdown)
+  connect(mapStateToProps, { setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createDefaultTask, createDefaultInstruction, fetchFiles, createDefaultEmail })(DefaultPhaseDropdown)
 );

@@ -32,6 +32,9 @@ export const CREATE_INSTRUCTION = 'CREATE_INSTRUCTION';
 export const FETCH_FILES = 'FETCH_FILES';
 export const CREATE_FILE = 'CREATE_FILE';
 export const CREATE_DEFAULT = 'CREATE_DEFAULT';
+export const CREATE_DEFAULT_INSTRUCTION = 'CREATE_DEFAULT_INSTRUCTION';
+export const CREATE_DEFAULT_TASK = 'CREATE_DEFAULT_TASK';
+export const CREATE_DEFAULT_EMAIL = 'CREATE_DEFAULT_EMAIL';
 export const FETCH_DEFAULT_PHASES = 'FETCH_DEFAULT_PHASES';
 export const FETCH_DEFAULT_PHASE_EMAILS = 'FETCH_DEFAULT_PHASE_EMAILS';
 export const FETCH_DEFAULT_PHASE_INSTRUCTIONS = 'FETCH_DEFAULT_PHASE_INSTRUCTIONS';
@@ -285,6 +288,30 @@ export function createTask(values, callback, error) {
   }
 }
 
+export function createDefaultTask(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/tasks`, values);
+    return {
+        type: CREATE_DEFAULT_TASK,
+        payload: request
+    }
+}
+
+export function createDefaultInstruction(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/instructions`, values);
+    return {
+        type: CREATE_DEFAULT_INSTRUCTION,
+        payload: request
+    }
+}
+
+export function createDefaultEmail(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/emails`, values);
+    return {
+        type: CREATE_DEFAULT_EMAIL,
+        payload: request
+    }
+}
+
 export function createInstruction(values, callback, error) {
   const request = axios.post(`${ROOT_URL}/instructions`, values)
     .then(() => callback())
@@ -311,7 +338,6 @@ export function setActivePhase(id) {
 }
 
 export function setActiveDefaultPhase(id) {
-  console.log('action', id)
     return {
         type: SET_ACTIVE_DEFAULT_PHASE,
         id,
