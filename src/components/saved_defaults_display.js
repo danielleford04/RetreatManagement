@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createTask, createInstruction, fetchFiles, createEmail} from '../actions';
+import {fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, deleteInstruction, deleteTask, deleteEmail} from '../actions';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class SavedDefaultsDisplay extends Component {
     constructor(props, context) {
@@ -8,6 +10,9 @@ class SavedDefaultsDisplay extends Component {
         this.state = {
             lastActiveDefaultPhase: this.props.selectedDefaultPhaseId,
         };
+        this.deleteInstruction = this.deleteInstruction.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
+        this.deleteEmail = this.deleteEmail.bind(this);
     }
     componentDidMount() {
         if (this.props.phaseId === this.props.selectedDefaultPhaseId) {
@@ -30,10 +35,11 @@ class SavedDefaultsDisplay extends Component {
         } else {
             return this.props.selectedDefaultPhaseInstructions.map((instruction) => {
                 return (
-                    <li className="list-group-item" key={instruction.id}>
+                    <li className="list-group-item" key={instruction._id}>
                         <h6>{instruction.name}</h6>
                         <small>{instruction.content}
                         </small>
+                        <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteInstruction(instruction._id)}/>
                     </li>
                 );
             })
@@ -46,14 +52,30 @@ class SavedDefaultsDisplay extends Component {
         else {
             return this.props.selectedDefaultPhaseTasks.map((task) => {
                 return (
-                    <li className="list-group-item" key={task.id}>
+                    <li className="list-group-item" key={task._id} >
                         <h6>{task.name}</h6>
                         <small>{task.content}
                         </small>
+                        <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteTask(task._id)}/>
                     </li>
                 );
             })
         }
+    }
+    deleteTask(task_id){
+        this.props.deleteTask(task_id, () => {
+            this.props.fetchDefaultPhaseTasks(this.props.phaseId);
+        });
+    }
+    deleteInstruction(instruction_id){
+        this.props.deleteInstruction(instruction_id, () => {
+            this.props.fetchDefaultPhaseInstructions(this.props.phaseId);
+        });
+    }
+    deleteEmail(email_id){
+        this.props.deleteEmail(email_id, () => {
+            this.props.fetchDefaultPhaseEmails(this.props.phaseId);
+        });
     }
     renderEmails() {
         if (this.props.selectedDefaultPhaseEmails.length === 0) {
@@ -68,10 +90,11 @@ class SavedDefaultsDisplay extends Component {
 
         return this.props.selectedDefaultPhaseEmails.map((email) => {
             return (
-                <li className="list-group-item" key={email._id}>
+                <li className="list-group-item" key={email._id} >
                     <span> <strong>Name:</strong> {email.name}</span>
                     <span> <strong>Subject:</strong> {email.subject}</span>
                     <span><strong>Attached Files:</strong> Essential Retreat Information</span>
+                    <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteEmail(email._id)}/>
                     <div className="email-content-display">
                         Hi how are you this is an email
                     </div>
@@ -82,7 +105,7 @@ class SavedDefaultsDisplay extends Component {
     render() {
         let total_items_in_phase = (this.props.selectedDefaultPhaseInstructions.length +
             this.props.selectedDefaultPhaseTasks.length +
-            this.props.selectedDefaultPhaseEmails.length)
+            this.props.selectedDefaultPhaseEmails.length);
         return(
             <div className="saved-defaults">
                 { total_items_in_phase === 0 &&
@@ -123,5 +146,5 @@ function mapStateToProps(state) {
         selectedDefaultPhaseEmails: state.selectedDefaultPhaseEmails,
     }
 }
-export default connect(mapStateToProps, { fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails })(SavedDefaultsDisplay)
+export default connect(mapStateToProps, { fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, deleteInstruction, deleteTask, deleteEmail })(SavedDefaultsDisplay)
 

@@ -345,3 +345,11 @@ svg {
 .italic {
   font-style: italic;
 }
+
+.saved-defaults .close-icon {
+  color: red;
+}
+
+.saved-defaults .list-group-item {
+  z-index: 10;
+}

@@ -16,6 +16,9 @@ export const FETCH_PHASE_INSTRUCTIONS = 'FETCH_PHASE_INSTRUCTIONS';
 export const FETCH_PHASE_TASKS = 'FETCH_PHASE_TASKS';
 export const FETCH_PHASE_EMAILS = 'FETCH_PHASE_EMAILS';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const DELETE_INSTRUCTION = 'DELETE_INSTRUCTION';
+export const DELETE_TASK = 'DELETE_TASK';
+export const DELETE_EMAIL = 'DELETE_EMAIL';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
@@ -148,6 +151,35 @@ export function updateTask(values, callback) {
     type: UPDATE_TASK,
     payload: request
   }
+}
+export function deleteInstruction(instruction_id, callback) {
+    const request = axios.delete(`${ROOT_URL}/instructions/${instruction_id}`)
+        .then(() => callback())
+        .catch(() => error());
+    return {
+        type: DELETE_INSTRUCTION,
+        payload: request
+    }
+}
+
+export function deleteTask(task_id, callback) {
+    const request = axios.delete(`${ROOT_URL}/tasks/${task_id}`)
+        .then(() => callback())
+        .catch(() => error());
+    return {
+        type: DELETE_TASK,
+        payload: request
+    }
+}
+
+export function deleteEmail(email_id, callback) {
+    const request = axios.delete(`${ROOT_URL}/emails/${email_id}`)
+        .then(() => callback())
+        .catch(() => error());
+    return {
+        type: DELETE_EMAIL,
+        payload: request
+    }
 }
 
 export function createRetreatant(values, callback, error) {
