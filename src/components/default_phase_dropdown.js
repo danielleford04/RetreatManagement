@@ -115,11 +115,13 @@ class DefaultPhaseDropdown extends Component {
                 <FontAwesomeIcon icon="plus-circle" className="green" onClick={(e) => this.setState({showAddDefault: true})} />
               </div>
             </div>
+              <div>
               { (this.state.showAddDefault && this.state.selectedType != "email") &&
                   <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
                       <Field name="name" component={this.renderNameField}/>
                       <Field name="content" component={this.renderDescriptionField}/>
                       <button type="submit" className="btn btn-primary">Add</button>
+                      <FontAwesomeIcon icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
                       {this.state.selectedType === 'task' &&
                         <Field name="due_date" component={this.renderDueDateField}/>
                       }
@@ -130,12 +132,14 @@ class DefaultPhaseDropdown extends Component {
                   <Field name="name" component={this.renderNameField} />
                   <Field name="subject" component={this.renderSubjectField} />
                   <button type="submit" className="btn btn-primary">Add</button>
+                  <FontAwesomeIcon icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
                   <Field name="body" component={this.renderBodyField} />
                   <span className="italic"> All default emails are automatically set to send on first day of that phase, except for the default
                   registration email, which is automatically sent to each retreatant when they are added.
                   Send dates can be edited within each event. </span>
                 </form>
             }
+              </div>
             <SavedDefaultsDisplay phaseId={this.props.phaseId}/>
 
           </div>
