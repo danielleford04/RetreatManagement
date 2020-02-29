@@ -1,5 +1,5 @@
 
-import {FETCH_DEFAULT_PHASE_EMAILS, CREATE_DEFAULT_EMAIL, CREATE_DEFAULT_TASK} from '../actions/index';
+import {FETCH_DEFAULT_PHASE_EMAILS, CREATE_DEFAULT_EMAIL } from '../actions/index';
 
 export default function(state = [], action) {
     switch(action.type) {

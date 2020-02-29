@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DefaultPhaseDropdown from '../components/default_phase_dropdown.js';
-import { fetchDefaultPhases, setActiveDefaultPhase } from '../actions';
+import { fetchDefaultPhases} from '../actions';
 
 class DefaultEditor extends Component {
     constructor(props, context) {
@@ -13,16 +13,32 @@ class DefaultEditor extends Component {
             showDuringContent: false,
             showClosingContent: false,
             showFollowUpContent: false,
+            openedPhase: null,
+            lastActiveDefaultPhase: null,
         };
         this.toggleContent = this.toggleContent.bind(this);
+        this.updateLastActiveDefaultPhase = this.updateLastActiveDefaultPhase.bind(this);
     }
     componentDidMount() {
         this.props.fetchDefaultPhases(this.props.selectedDefault.id);
     }
-
+    updateLastActiveDefaultPhase(phaseId) {
+        this.setState({lastActiveDefaultPhase: phaseId});
+    }
     toggleContent(name) {
         let nameWithSpacesRemoved = name.replace(/\s/g, '');
         let show_field_name = `show${nameWithSpacesRemoved}Content`;
+        if(this.state[show_field_name] === false && this.state.openedPhase === null) {
+            this.setState({openedPhase: show_field_name})
+        }
+        if (this.state.openedPhase !== null && this.state[show_field_name] === true) {
+            this.setState({[this.state.openedPhase]: false});
+            this.setState({openedPhase: null})
+        }
+        if (this.state.openedPhase !== null && this.state[show_field_name] === false) {
+            this.setState({[this.state.openedPhase]: false});
+            this.setState({openedPhase: show_field_name})
+        }
         this.setState({[show_field_name]: !this.state[show_field_name]})
     }
 
@@ -62,6 +78,8 @@ class DefaultEditor extends Component {
                     phaseId={phase._id}
                     defaultId={this.props.selectedDefault.id}
                     toggleContent={this.toggleContent}
+                    lastActiveDefaultPhase={this.state.lastActiveDefaultPhase}
+                    updateLastActiveDefaultPhase={this.updateLastActiveDefaultPhase}
                     show={this.state[stateShow]}/>
             );
         })
@@ -91,9 +109,10 @@ class DefaultEditor extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    defaultPhases: state.defaultPhases
+    defaultPhases: state.defaultPhases,
+    selectedDefaultPhaseId: state.selectedDefaultPhaseId,
 });
 
 export default connect(
-    mapStateToProps, {fetchDefaultPhases, setActiveDefaultPhase}
+    mapStateToProps, {fetchDefaultPhases}
 )(DefaultEditor);

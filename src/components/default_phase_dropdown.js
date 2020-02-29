@@ -31,6 +31,7 @@ class DefaultPhaseDropdown extends Component {
     this.setState({selectedType: 'instruction'});
     this.setState({showAddDefault: false});
   }
+
   renderNameField(field) {
     return (
       <div className="form-group">
@@ -84,7 +85,6 @@ class DefaultPhaseDropdown extends Component {
     } else if (this.state.selectedType === "email") {
       values.event_id = this.props.defaultId;
         this.props.createDefaultEmail(values, () => {
-            console.log('submit email', values);
             this.props.reset();
             this.setState({showAddDefault: false});
 
@@ -139,7 +139,7 @@ class DefaultPhaseDropdown extends Component {
                 </form>
             }
               </div>
-            <SavedDefaultsDisplay phaseId={this.props.phaseId}/>
+            <SavedDefaultsDisplay phaseId={this.props.phaseId} lastActiveDefaultPhase={this.props.lastActiveDefaultPhase} updateLastActiveDefaultPhase={this.props.updateLastActiveDefaultPhase}/>
 
           </div>
         </div>

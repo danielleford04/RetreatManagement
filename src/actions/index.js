@@ -338,6 +338,7 @@ export function setActivePhase(id) {
 }
 
 export function setActiveDefaultPhase(id) {
+    console.log('set active default phase action')
     return {
         type: SET_ACTIVE_DEFAULT_PHASE,
         id,

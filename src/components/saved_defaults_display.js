@@ -8,7 +8,6 @@ class SavedDefaultsDisplay extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            lastActiveDefaultPhase: this.props.selectedDefaultPhaseId,
         };
         this.deleteInstruction = this.deleteInstruction.bind(this);
         this.deleteTask = this.deleteTask.bind(this);
@@ -16,17 +15,18 @@ class SavedDefaultsDisplay extends Component {
     }
     componentDidMount() {
         if (this.props.phaseId === this.props.selectedDefaultPhaseId) {
+
             this.props.fetchDefaultPhaseInstructions(this.props.phaseId);
             this.props.fetchDefaultPhaseEmails(this.props.phaseId);
             this.props.fetchDefaultPhaseTasks(this.props.phaseId);
         }
     }
     componentDidUpdate() {
-        if((this.props.selectedDefaultPhaseId !== this.state.lastActiveDefaultPhase) && (this.props.phaseId === this.props.selectedDefaultPhaseId)  ) {
+        if((this.props.selectedDefaultPhaseId !== this.props.lastActiveDefaultPhase) && (this.props.phaseId === this.props.selectedDefaultPhaseId)  ) {
             this.props.fetchDefaultPhaseInstructions(this.props.phaseId);
             this.props.fetchDefaultPhaseEmails(this.props.phaseId);
             this.props.fetchDefaultPhaseTasks(this.props.phaseId);
-            this.setState({ lastActiveDefaultPhase: this.props.selectedDefaultPhaseId })
+            this.props.updateLastActiveDefaultPhase(this.props.selectedDefaultPhaseId);
         }
     }
     renderInstructionList() {
@@ -103,7 +103,6 @@ class SavedDefaultsDisplay extends Component {
         })
     }
     render() {
-        console.log(this.props)
         let total_items_in_phase = (this.props.selectedDefaultPhaseInstructions.length +
             this.props.selectedDefaultPhaseTasks.length +
             this.props.selectedDefaultPhaseEmails.length);
