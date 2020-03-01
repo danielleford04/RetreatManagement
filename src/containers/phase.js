@@ -41,7 +41,7 @@ class PhasePage extends Component {
   renderInstructionList() {
     if (this.props.phaseInstructions.length === 0) {
       return (
-        <li className="list-group-item">
+        <li className="list-group-item no-item-message">
           <h6>No Instructions</h6>
           <small>There are no instructions saved for this phase of this event.
           <Link to="new_task"> Add an instruction for this phase.</Link>
@@ -63,10 +63,10 @@ class PhasePage extends Component {
   renderTaskList() {
     if (this.props.phaseTasks.length === 0) {
       return (
-        <li className="list-group-item">
+        <li className="list-group-item no-item-message">
           <h6>No Tasks</h6>
           <small>There are no tasks saved for this phase of this event.
-          <Link to="add_task"> Add a task for this phase.</Link>
+          <Link to="new_task"> Add a task for this phase.</Link>
           </small>
         </li>
       );
@@ -101,7 +101,7 @@ class PhasePage extends Component {
   renderEmails() {
     if (this.props.phaseEmails.length === 0) {
       return (
-        <li className="list-group-item">
+        <li className="list-group-item no-item-message">
           <h6>No Saved Emails</h6>
           <small>There are no emails saved for this phase of this event.
           <Link to="new_email"> Add an email for this phase.</Link>
