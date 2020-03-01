@@ -237,6 +237,7 @@ svg {
   text-align: center;
   margin: auto;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .overlay .create-defaults-button {
@@ -244,6 +245,11 @@ svg {
   height: 75px;
   width: 150px;
   margin: 10px;
+}
+
+.overlay h5 {
+  margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 .user-settings {
@@ -258,8 +264,32 @@ svg {
 
 .event-type-dropdown {
   text-align: center;
-  width: 60%;
+  width: 40%;
   margin: auto;
+}
+
+.event-type-dropdown-label {
+  padding: 0 !important;
+  text-align: right;
+  margin: 0;
+}
+
+.overlay .input-container {
+  margin-top: 8px;
+}
+
+.overlay form {
+  margin-top: 0;
+  padding: .75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.overlay .collapsable {
+  border-top: 1px solid lightgray;
+  padding: 15px;
 }
 
 .collapsable {
@@ -272,7 +302,6 @@ svg {
   border: 1px solid darkgray;
   border-radius: 2px;
   margin: 5px auto;
-  padding: 10px;
 }
 
 .phase-defaults input {
@@ -294,7 +323,7 @@ svg {
 }
 
 .phase-defaults .description-field {
-  width: 60%
+  width: 50%
 }
 
 .phase-defaults .subject-field {
@@ -302,28 +331,25 @@ svg {
 }
 
 .due-date-field .form-control {
-  width: initial;
+  width: 60px;
+  padding-right: 0;
+}
+
+.overlay .btn-primary {
+  margin-top: 0;
 }
 
 .due-date-field input {
   margin-right: 10px;
 }
 
+.cancel-new-default {
+  float: right;
+  margin-top: 10px;
+}
+
 .phase-defaults .email-body-field {
   display: block !important;
-}
-
-.saved-defaults h6 {
-  display: inline;
-  margin: 0 10px;
-}
-
-.saved-defaults .task-group .list-group-item {
-  padding:0;
-}
-
-.saved-defaults .email-content-display {
-  padding: 10px;
 }
 
 .list-group-item span {
@@ -352,4 +378,38 @@ svg {
 
 .saved-defaults .list-group-item {
   z-index: 10;
+}
+
+.create-default-helper-text {
+  font-size: 14px;
+  line-height: 1.3em;
+  width: 89%;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.add-default-container {
+  margin-bottom: 50px;
+}
+
+.default-task-title {
+  margin: 10px;
+}
+
+.default-task-description {
+  line-height: 1.2em;
+  margin-left: 10px;
+  margin-right: 50px;
+}
+
+.saved-defaults .task-group .list-group-item {
+  padding:0;
+}
+
+.saved-defaults .email-content-display {
+  padding: 10px;
+}
+
+.add-default-buttons {
+  float: right;
 }

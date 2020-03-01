@@ -36,10 +36,12 @@ class SavedDefaultsDisplay extends Component {
             return this.props.selectedDefaultPhaseInstructions.map((instruction) => {
                 return (
                     <li className="list-group-item" key={instruction._id}>
-                        <h6>{instruction.name}</h6>
-                        <small>{instruction.content}
-                        </small>
-                        <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteInstruction(instruction._id)}/>
+
+                            <h6 className="default-task-title">{instruction.name}</h6>
+                            <p className="small default-task-description">{instruction.content}
+                            </p>
+                            <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteInstruction(instruction._id)}/>
+
                     </li>
                 );
             })
@@ -53,9 +55,11 @@ class SavedDefaultsDisplay extends Component {
             return this.props.selectedDefaultPhaseTasks.map((task) => {
                 return (
                     <li className="list-group-item" key={task._id} >
-                        <h6>{task.name}</h6>
-                        <small>{task.content}
-                        </small>
+                        <div>
+                            <h6 className="default-task-title">{task.name}</h6>
+                            <p className="small default-task-description">{task.content}
+                            </p>
+                        </div>
                         <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteTask(task._id)}/>
                     </li>
                 );

@@ -92,8 +92,8 @@ class DefaultEditor extends Component {
                 <h4>Event Defaults</h4>
                 <div className="event-type-dropdown">
                     <div className="form-group row">
-                        <label className="col-sm-4 col-form-label">Event Type:</label>
-                        <div className="col-sm-8">
+                        <label className="col-sm-4 col-form-label event-type-dropdown-label">Event Type:</label>
+                        <div className="col-sm-8 input-container">
                             <select className="form-control">
                                 {this.renderSelectOptions()}
                             </select>

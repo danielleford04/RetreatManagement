@@ -50,7 +50,6 @@ class DefaultPhaseDropdown extends Component {
     return (
       <div className="form-group due-date-field">
         <input type="number" placeholder="Due Date" className="form-control" {...field.input}/>
-        <span className="italic">(Set your due date as the number of days before the event start date)</span>
       </div>
     )
   }
@@ -98,47 +97,60 @@ class DefaultPhaseDropdown extends Component {
 
     return(
         <div className="phase-defaults">
-          <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
-            {this.props.name}
-            <FontAwesomeIcon icon={(this.props.show ? "angle-up" : "angle-down")} />
-          </button>
+          <div className="phase-title">
+              <button className="btn btn-link" type="button" onClick={this.togglePhaseContent}>
+                {this.props.name}
+                <FontAwesomeIcon icon={(this.props.show ? "angle-up" : "angle-down")} />
+              </button>
+          </div>
           <div className={"collapsable" + (this.props.show ? " show" : '')}>
-            <div className="form-group row">
-              <div className="col-sm-4">
-                 <label className="col col-form-label">Add default:</label>
-                  <select className="form-control" onChange={(e) => this.setState({selectedType: e.target.value})}>
-                    <option value="instruction">Instruction</option>
-                    <option value="task">Task</option>
-                    <option value="email">Email</option>
-                  </select>
-                <FontAwesomeIcon icon="plus-circle" className="green" onClick={(e) => this.setState({showAddDefault: true})} />
-              </div>
+            <div className="add-default-container">
+                <div className="form-group row">
+                  <div className="col-sm-6">
+                     <label className="col col-form-label">Add Default</label>
+                      <select className="form-control" onChange={(e) => this.setState({selectedType: e.target.value})}>
+                        <option value="instruction">Instruction</option>
+                        <option value="task">Task</option>
+                        <option value="email">Email</option>
+                      </select>
+                    <FontAwesomeIcon icon="plus-circle" className="green" onClick={(e) => this.setState({showAddDefault: true})} />
+                  </div>
+                </div>
+                  <div className="new-default-form">
+                  { (this.state.showAddDefault && this.state.selectedType != "email") &&
+                      <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
+                          {this.state.selectedType === 'task' &&
+                            <p className="create-default-helper-text"> Set your due date as the number of days before the
+                              event start date</p>
+                          }
+                          <Field name="name" component={this.renderNameField}/>
+                          <Field name="content" component={this.renderDescriptionField}/>
+                          {this.state.selectedType === 'task' &&
+                          <Field name="due_date" component={this.renderDueDateField}/>
+                          }
+                          <div className="add-default-buttons">
+                            <button type="submit" className="btn btn-primary">Add</button>
+                            <FontAwesomeIcon className="cancel-new-default" icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
+                          </div>
+                      </form>
+                  }
+                  { (this.state.showAddDefault && this.state.selectedType === "email") &&
+                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
+                        <p className="create-default-helper-text"> All default emails are automatically set to send on first day of that phase, except for the default
+                            registration email, which is automatically sent to each retreatant when they are added.
+                            Send dates can be edited within each event. </p>
+                      <Field name="name" component={this.renderNameField} />
+                      <Field name="subject" component={this.renderSubjectField} />
+                      <div className="add-default-buttons">
+                        <button type="submit" className="btn btn-primary">Add</button>
+                        <FontAwesomeIcon icon="times" className="cancel-new-default" onClick={(e) => this.setState({showAddDefault: false})}/>
+                      </div>
+                      <Field name="body" component={this.renderBodyField} />
+
+                    </form>
+                }
+                  </div>
             </div>
-              <div>
-              { (this.state.showAddDefault && this.state.selectedType != "email") &&
-                  <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
-                      <Field name="name" component={this.renderNameField}/>
-                      <Field name="content" component={this.renderDescriptionField}/>
-                      <button type="submit" className="btn btn-primary">Add</button>
-                      <FontAwesomeIcon icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
-                      {this.state.selectedType === 'task' &&
-                        <Field name="due_date" component={this.renderDueDateField}/>
-                      }
-                  </form>
-              }
-              { (this.state.showAddDefault && this.state.selectedType === "email") &&
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="phase-defaults-add-new">
-                  <Field name="name" component={this.renderNameField} />
-                  <Field name="subject" component={this.renderSubjectField} />
-                  <button type="submit" className="btn btn-primary">Add</button>
-                  <FontAwesomeIcon icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
-                  <Field name="body" component={this.renderBodyField} />
-                  <span className="italic"> All default emails are automatically set to send on first day of that phase, except for the default
-                  registration email, which is automatically sent to each retreatant when they are added.
-                  Send dates can be edited within each event. </span>
-                </form>
-            }
-              </div>
             <SavedDefaultsDisplay phaseId={this.props.phaseId} lastActiveDefaultPhase={this.props.lastActiveDefaultPhase} updateLastActiveDefaultPhase={this.props.updateLastActiveDefaultPhase}/>
 
           </div>
