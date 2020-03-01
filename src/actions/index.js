@@ -290,6 +290,7 @@ export function createTask(values, callback, error) {
 
 export function createDefaultTask(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/tasks`, values);
+    callback();
     return {
         type: CREATE_DEFAULT_TASK,
         payload: request
@@ -298,6 +299,7 @@ export function createDefaultTask(values, callback, error) {
 
 export function createDefaultInstruction(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/instructions`, values);
+    callback();
     return {
         type: CREATE_DEFAULT_INSTRUCTION,
         payload: request
@@ -306,6 +308,7 @@ export function createDefaultInstruction(values, callback, error) {
 
 export function createDefaultEmail(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/emails`, values);
+    callback();
     return {
         type: CREATE_DEFAULT_EMAIL,
         payload: request

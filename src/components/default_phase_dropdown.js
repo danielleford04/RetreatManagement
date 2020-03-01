@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SavedDefaultsDisplay from '../components/saved_defaults_display.js';
 import {setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createDefaultTask, createDefaultInstruction, fetchFiles, createDefaultEmail} from '../actions';
+import SweetAlert from "sweetalert2-react";
 
 class DefaultPhaseDropdown extends Component {
   constructor(props, context) {
@@ -11,8 +12,10 @@ class DefaultPhaseDropdown extends Component {
     this.state = {
       showAddDefault: false,
       selectedType: "instruction",
+      showErrorModal: false,
     };
     this.toggleAddContent = this.toggleAddContent.bind(this);
+    this.hideAddDefaultAndClearForm = this.hideAddDefaultAndClearForm.bind(this);
   }
   componentWillMount () {
   this.props.initialize({
@@ -67,27 +70,46 @@ class DefaultPhaseDropdown extends Component {
       </div>
     )
   }
+  hideAddDefaultAndClearForm(){
+      this.props.reset();
+      this.setState({showAddDefault: false})
+  }
   onSubmit(values) {
       values.phase_id = this.props.phaseId;
     if (this.state.selectedType === "task") {
-        this.props.createDefaultTask(values, () => {
-            this.props.reset();
-            this.setState({showAddDefault: false});
+        if (values.name ===undefined || values.description === undefined || values.due_date === undefined) {
+            this.setState({ showErrorModal: true })
+            return;
+        } else {
+            this.props.createDefaultTask(values, () => {
+                this.props.reset();
+                this.setState({showAddDefault: false});
 
-        });
+            });
+        }
     } else if (this.state.selectedType === "instruction") {
-        this.props.createDefaultInstruction(values, () => {
-            this.props.reset();
-            this.setState({showAddDefault: false});
+        if (values.name ===undefined || values.description === undefined) {
+            this.setState({ showErrorModal: true })
+            return;
+        } else {
+            this.props.createDefaultInstruction(values, () => {
+                this.props.reset();
+                this.setState({showAddDefault: false});
 
-        });
+            });
+        }
     } else if (this.state.selectedType === "email") {
-      values.event_id = this.props.defaultId;
-        this.props.createDefaultEmail(values, () => {
-            this.props.reset();
-            this.setState({showAddDefault: false});
+        if (values.name ===undefined || values.subject === undefined || values.body === undefined) {
+            this.setState({ showErrorModal: true })
+            return;
+        } else {
+            values.event_id = this.props.defaultId;
+            this.props.createDefaultEmail(values, () => {
+                this.props.reset();
+                this.setState({showAddDefault: false});
 
-        });
+            });
+        }
     }
 
 
@@ -130,7 +152,7 @@ class DefaultPhaseDropdown extends Component {
                           }
                           <div className="add-default-buttons">
                             <button type="submit" className="btn btn-primary">Add</button>
-                            <FontAwesomeIcon className="cancel-new-default" icon="times" onClick={(e) => this.setState({showAddDefault: false})}/>
+                            <FontAwesomeIcon className="cancel-new-default" icon="times" onClick={this.hideAddDefaultAndClearForm}/>
                           </div>
                       </form>
                   }
@@ -143,7 +165,7 @@ class DefaultPhaseDropdown extends Component {
                       <Field name="subject" component={this.renderSubjectField} />
                       <div className="add-default-buttons">
                         <button type="submit" className="btn btn-primary">Add</button>
-                        <FontAwesomeIcon icon="times" className="cancel-new-default" onClick={(e) => this.setState({showAddDefault: false})}/>
+                        <FontAwesomeIcon icon="times" className="cancel-new-default" onClick={this.hideAddDefaultAndClearForm}/>
                       </div>
                       <Field name="body" component={this.renderBodyField} />
 
@@ -154,6 +176,15 @@ class DefaultPhaseDropdown extends Component {
             <SavedDefaultsDisplay phaseId={this.props.phaseId} lastActiveDefaultPhase={this.props.lastActiveDefaultPhase} updateLastActiveDefaultPhase={this.props.updateLastActiveDefaultPhase}/>
 
           </div>
+            <div>
+                <SweetAlert
+                    show={this.state.showErrorModal}
+                    title="Error"
+                    type="error"
+                    text="Please complete all fields."
+                    onConfirm={() => this.setState({ showErrorModal: false })}
+                />
+            </div>
         </div>
     );
   }
