@@ -11,7 +11,7 @@ export function setAuthToken(token) {
     delete axios.defaults.headers.common["Authorization"];
   }
 };
-// export default setAuthToken;
+// export default setAuthToken; 
 
 export function formatDisplayDateWithMoment(date) {
 return moment.utc(date).format('MMMM Do, YYYY');
