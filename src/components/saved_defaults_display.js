@@ -57,6 +57,7 @@ class SavedDefaultsDisplay extends Component {
                     <li className="list-group-item" key={task._id} >
                         <div>
                             <h6 className="default-task-title">{task.name}</h6>
+                            <p className="small bold default-task-due-date">Due {task.default_due_date} day(s) before the event start date</p>
                             <p className="small default-task-description">{task.content}
                             </p>
                         </div>

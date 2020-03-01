@@ -396,6 +396,13 @@ svg {
   margin: 10px;
 }
 
+.default-task-due-date {
+  line-height: 1.2em;
+  margin-left: 10px;
+  margin-right: 50px;
+  margin-bottom: 5px;
+}
+
 .default-task-description {
   line-height: 1.2em;
   margin-left: 10px;

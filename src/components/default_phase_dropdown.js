@@ -77,7 +77,7 @@ class DefaultPhaseDropdown extends Component {
   onSubmit(values) {
       values.phase_id = this.props.phaseId;
     if (this.state.selectedType === "task") {
-        if (values.name ===undefined || values.description === undefined || values.due_date === undefined) {
+        if (values.name ===undefined || values.content === undefined || values.default_due_date === undefined) {
             this.setState({ showErrorModal: true })
             return;
         } else {
@@ -88,7 +88,7 @@ class DefaultPhaseDropdown extends Component {
             });
         }
     } else if (this.state.selectedType === "instruction") {
-        if (values.name ===undefined || values.description === undefined) {
+        if (values.name ===undefined || values.content === undefined) {
             this.setState({ showErrorModal: true })
             return;
         } else {
@@ -148,7 +148,7 @@ class DefaultPhaseDropdown extends Component {
                           <Field name="name" component={this.renderNameField}/>
                           <Field name="content" component={this.renderDescriptionField}/>
                           {this.state.selectedType === 'task' &&
-                          <Field name="due_date" component={this.renderDueDateField}/>
+                          <Field name="default_due_date" component={this.renderDueDateField}/>
                           }
                           <div className="add-default-buttons">
                             <button type="submit" className="btn btn-primary">Add</button>
