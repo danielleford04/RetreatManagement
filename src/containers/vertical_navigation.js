@@ -10,6 +10,10 @@ class VerticalNavigation extends Component {
       lastActiveEvent: this.props.activeEvent,
     };
   }
+  componentDidMount(){
+      this.props.fetchEventPhases(this.props.activeEvent, this.props.events);
+      this.setState({ lastActiveEvent: this.props.activeEvent })
+  }
   componentDidUpdate() {
     if((this.props.activeEvent !== this.state.lastActiveEvent)  ) {
     this.props.fetchEventPhases(this.props.activeEvent, this.props.events);
@@ -27,6 +31,7 @@ class VerticalNavigation extends Component {
   }
 
   render() {
+    console.log('vertical nav', this.props)
     return(
       <ul className="nav flex-column">
         {this.renderList()}

@@ -226,7 +226,7 @@ export function createEmail(values, callback, error) {
 // }
 
 export function fetchEvents() {
-  const request = axios.get(`${ROOT_URL}/events`);
+  const request = axios.get(`${ROOT_URL}/events/user`);
 
   return {
     type: FETCH_EVENTS,

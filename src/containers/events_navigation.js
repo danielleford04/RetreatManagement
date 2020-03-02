@@ -34,12 +34,13 @@ class EventsNavigation extends Component {
 
   onClickLeft = () => {
     ReactDOM.findDOMNode(this.scroller).scrollLeft -= 300;
-}
-onClickRight = () => {
-  this.scroller.scrollLeft += 300;
-}
+  }
+  onClickRight = () => {
+    this.scroller.scrollLeft += 300;
+  }
 
   render() {
+    if (this.props.events.length > 0) {
     return(
       <div className="events-nav">
       <div className="scroller-arrow scroller-right" onClick={this.onClickLeft}><i className="fas fa-chevron-left"></i></div>
@@ -59,7 +60,9 @@ onClickRight = () => {
         </Link>
         </span>
         </div>
-    );
+    ); } else {
+      return (<div className="events-nav"></div>)
+    }
   }
 }
 
