@@ -31,7 +31,6 @@ class VerticalNavigation extends Component {
   }
 
   render() {
-    console.log('vertical nav', this.props)
     return(
       <ul className="nav flex-column">
         {this.renderList()}
