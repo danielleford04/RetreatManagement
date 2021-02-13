@@ -25,7 +25,7 @@ class UserNav extends Component {
     return(
       <div className="user-nav">
         <a className={"user-name-link" + (!isAuthenticated ? " hidden" : '')} onClick={() => this.setState({ showUserOverlay: true })}>Username</a>
-        <Link className="app-name-link" to="/">App name</Link>
+        <Link className="app-name-link" to="/"><img src={"../../style/images/logoHorizontal.png"} height={"35px"} /></Link>
         <Link className={"logout-link" + (!isAuthenticated ? " hidden" : '')} onClick={this.onLogoutClick} to="/login">Logout</Link>
         {this.state.showUserOverlay &&
         <UserOverlay toggleUserOverlay={this.toggleUserOverlay}
