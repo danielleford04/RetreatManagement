@@ -23,12 +23,20 @@ class Login extends Component {
       });
     }
   }
+
+    componentDidMount() {
+        // If logged in and user navigates to Login page, should redirect them to dashboard
+        if (this.props.authentication.isAuthenticated) {
+            this.props.history.push("/");
+        }
+    }
+
   renderPasswordField(field) {
     return (
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Password:</label>
         <div className="col-sm-10">
-        <input type="text" className="form-control" {...field.input}/>
+        <input type="password" className="form-control" {...field.input}/>
         </div>
       </div>
     )

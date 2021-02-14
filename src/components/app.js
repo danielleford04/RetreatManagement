@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import MainContent from '../components/main_content.js';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import UserNav from '../components/user_nav.js';
 import Login from '../components/login.js';
 import PrivateRoute from '../components/private_route.js';
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "../global/utilities.js";
+import {setCurrentUser, logout } from "../actions";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,7 +15,31 @@ import { faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle } from '@f
 
 library.add(faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle)
 
-export default class App extends Component {
+
+class App extends Component {
+componentDidMount() {
+    // Check for token to keep user logged in
+    if (localStorage.jwtToken) {
+        // Set auth token header auth
+        const token = localStorage.jwtToken;
+        setAuthToken(token);
+        // Decode token and get user info and exp
+        console.log(1,token)
+        const decoded = jwt_decode(token);
+        console.log(2,decoded)
+        // Set user and isAuthenticated
+        this.props.setCurrentUser(decoded);
+// Check for expired token
+        const currentTime = Date.now() / 1000; // to get in milliseconds
+        if (decoded.exp < currentTime) {
+            // Logout user
+            this.props.logout();
+            // Redirect to login
+            window.location.href = "./login";
+        }
+    }
+}
+
   render() {
     return (
       <BrowserRouter>
@@ -26,3 +54,4 @@ export default class App extends Component {
     );
   }
 }
+export default connect(null, { setCurrentUser, logout })(App)

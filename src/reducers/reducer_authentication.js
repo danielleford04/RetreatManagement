@@ -7,8 +7,10 @@ const initialState = {
   loading: false
 };
 export default function(state = initialState, action) {
+  console.log('what', action.type)
   switch (action.type) {
     case SET_CURRENT_USER:
+      console.log('reducer')
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
