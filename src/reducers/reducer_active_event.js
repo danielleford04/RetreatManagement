@@ -9,6 +9,10 @@ export default function(state = null, action) {
     }
     var futureEvents = returnFutureEventsSortedChronologically(action.payload.data);
 
+    if(!futureEvents[0]) {
+      return null;
+    }
+
       return futureEvents[0]._id;
       case SET_ACTIVE_EVENT:
       return action.id;
