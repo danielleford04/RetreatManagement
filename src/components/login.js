@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { login, register } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -9,7 +9,8 @@ class Login extends Component {
   this.state = {
     email: "",
     password: "",
-    errors: {}
+    errors: {},
+    register: false,
   };
 }
 
@@ -24,7 +25,7 @@ class Login extends Component {
     }
   }
 
-    componentDidMount() {
+  componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.authentication.isAuthenticated) {
             this.props.history.push("/");
@@ -41,6 +42,16 @@ class Login extends Component {
       </div>
     )
   }
+    renderPassword2Field(field) {
+        return (
+            <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Confirm Password:</label>
+                <div className="col-sm-10">
+                    <input type="password" className="form-control" {...field.input}/>
+                </div>
+            </div>
+        )
+    }
   renderEmailField(field) {
     return (
       <div className="form-group row">
@@ -51,26 +62,72 @@ class Login extends Component {
       </div>
     )
   }
+    renderFirstNameField(field) {
+        return (
+            <div className="form-group row">
+                <label className="col-sm-2 col-form-label">First Name:</label>
+                <div className="col-sm-10">
+                    <input type="text" className="form-control"  {...field.input}/>
+                </div>
+            </div>
+        )
+    }
+    renderLastNameField(field) {
+        return (
+            <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Last Name:</label>
+                <div className="col-sm-10">
+                    <input type="text" className="form-control"  {...field.input}/>
+                </div>
+            </div>
+        )
+    }
 
   onSubmit(values) {
-    values.event_id = this.props.activeEvent;
-    this.props.login(values, () => {
+      if(!this.state.register) {
+          values.event_id = this.props.activeEvent;
+          this.props.login(values, () => {
 
-    });
+          });
+      } else {
+          values.event_id = this.props.activeEvent;
+          this.props.register(values, () => {
+
+          });
+      }
   }
 
   render() {
     const { handleSubmit } = this.props;
+      const register = this.state.register;
+      let form;
+
+      if (register) {
+          form = <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+              <Field name="email" component={this.renderEmailField} />
+              <Field name="first_name" component={this.renderFirstNameField} />
+              <Field name="last_name" component={this.renderLastNameField} />
+              <Field name="password" component={this.renderPasswordField} />
+              <Field name="password2" component={this.renderPassword2Field} />
+              <div className="button-row">
+                  <button onClick={() => this.setState({ register: false })} className="btn btn-secondary">Login</button>
+                  <button type="submit" className="btn btn-primary">Register</button>
+              </div>
+          </form>
+      } else {
+          form = <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+              <Field name="email" component={this.renderEmailField} />
+              <Field name="password" component={this.renderPasswordField} />
+              <div className="button-row">
+                  <button type="submit" className="btn btn-primary">Login</button>
+                  <button onClick={() => this.setState({ register: true })} className="btn btn-secondary">Register</button>
+              </div>
+          </form>
+      }
     return(
       <div className="login-container">
         <div className="jumbotron">
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field name="email" component={this.renderEmailField} />
-          <Field name="password" component={this.renderPasswordField} />
-          <div className="button-row">
-            <button type="submit" className="btn btn-primary">Login</button>
-          </div>
-        </form>
+            {form}
         </div>
       </div>
     );
@@ -83,5 +140,5 @@ const mapStateToProps = state => ({
 export default reduxForm({
   form: 'LoginForm'
 })(
-  connect(mapStateToProps, { login })(Login)
+  connect(mapStateToProps, { login, register })(Login)
 );

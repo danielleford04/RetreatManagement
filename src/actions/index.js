@@ -44,7 +44,7 @@ export const FETCH_DEFAULT_PHASE_TASKS = 'FETCH_DEFAULT_PHASE_TASKS';
 export const register = (userData, history) => dispatch => {
   axios
     .post(`${ROOT_URL}/users/register`, userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then((response) => dispatch(login({email: userData.email, password: userData.password})))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
