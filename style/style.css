@@ -25,6 +25,7 @@
 
 .user-name-link {
   float: left;
+  cursor: pointer;
 }
 
 .logout-link {

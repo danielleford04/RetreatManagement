@@ -7,7 +7,7 @@ import Login from '../components/login.js';
 import PrivateRoute from '../components/private_route.js';
 import jwt_decode from "jwt-decode";
 import { setAuthToken } from "../global/utilities.js";
-import {setCurrentUser, logout } from "../actions";
+import {setCurrentUser, logout, fetchUserData} from "../actions";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,6 +27,7 @@ componentDidMount() {
         const decoded = jwt_decode(token);
         // Set user and isAuthenticated
         this.props.setCurrentUser(decoded);
+        this.props.fetchUserData(decoded.id);
 // Check for expired token
         const currentTime = Date.now() / 1000; // to get in milliseconds
         if (decoded.exp < currentTime) {
@@ -52,4 +53,4 @@ componentDidMount() {
     );
   }
 }
-export default connect(null, { setCurrentUser, logout })(App)
+export default connect(null, { setCurrentUser, logout, fetchUserData })(App)

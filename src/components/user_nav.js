@@ -22,9 +22,10 @@ class UserNav extends Component {
   }
   render() {
     const { user, isAuthenticated } = this.props.authentication;
+    console.log(this.props.user)
     return(
       <div className="user-nav">
-        <a className={"user-name-link" + (!isAuthenticated ? " hidden" : '')} onClick={() => this.setState({ showUserOverlay: true })}>Username</a>
+        <a className={"user-name-link" + (!isAuthenticated ? " hidden" : '')} onClick={() => this.setState({ showUserOverlay: true })}>{this.props.user.first_name}</a>
         <Link className="app-name-link" to="/"><img src={"../../style/images/logoHorizontal.png"} height={"35px"} /></Link>
         <Link className={"logout-link" + (!isAuthenticated ? " hidden" : '')} onClick={this.onLogoutClick} to="/login">Logout</Link>
         {this.state.showUserOverlay &&
@@ -36,7 +37,8 @@ class UserNav extends Component {
   }
 }
 const mapStateToProps = state => ({
-  authentication: state.authentication
+  authentication: state.authentication,
+  user: state.user
 });
 export default connect(
   mapStateToProps,
