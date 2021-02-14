@@ -24,9 +24,7 @@ componentDidMount() {
         const token = localStorage.jwtToken;
         setAuthToken(token);
         // Decode token and get user info and exp
-        console.log(1,token)
         const decoded = jwt_decode(token);
-        console.log(2,decoded)
         // Set user and isAuthenticated
         this.props.setCurrentUser(decoded);
 // Check for expired token
