@@ -22,7 +22,6 @@ class UserNav extends Component {
   }
   render() {
     const { user, isAuthenticated } = this.props.authentication;
-    console.log(this.props.user)
     return(
       <div className="user-nav">
         <a className={"user-name-link" + (!isAuthenticated ? " hidden" : '')} onClick={() => this.setState({ showUserOverlay: true })}>{this.props.user.first_name}</a>

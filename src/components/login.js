@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { login, register } from '../actions';
-import classnames from "classnames";
 import SweetAlert from "sweetalert2-react";
 
 class Login extends Component {
@@ -71,16 +70,9 @@ class Login extends Component {
     return (
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Email:</label>
-          <span className="red-text">
-                  {errors.email}
-              {errors.emailnotfound}
-                </span>
         <div className="col-sm-10">
         <input type="email"
                className="form-control"  {...field.input}
-               className={classnames("form-control", {
-                   invalid: errors.email || errors.emailnotfound
-               })}
         />
         </div>
       </div>
@@ -124,12 +116,11 @@ class Login extends Component {
   render() {
     const { handleSubmit } = this.props;
       const register = this.state.register;
-      const errors = this.state;
       let form;
 
       if (register) {
           form = <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-              <Field name="email" component={this.renderEmailField(this.state.errors)} />
+              <Field name="email" component={this.renderEmailField} />
               <Field name="first_name" component={this.renderFirstNameField} />
               <Field name="last_name" component={this.renderLastNameField} />
               <Field name="password" component={this.renderPasswordField} />
