@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { login, register } from '../actions';
+import classnames from "classnames";
+import SweetAlert from "sweetalert2-react";
 
 class Login extends Component {
   constructor() {
@@ -11,6 +13,9 @@ class Login extends Component {
     password: "",
     errors: {},
     register: false,
+    showErrorModal: false,
+    wereThereErrorsBeforeLastUpdate: false,
+    errorMessage: ""
   };
 }
 
@@ -32,6 +37,16 @@ class Login extends Component {
         }
     }
 
+    componentDidUpdate() {
+      if(this.state.wereThereErrorsBeforeLastUpdate === false && JSON.stringify(this.state.errors) !== '{}') {
+          this.setState({showErrorModal: true});
+          this.setState({wereThereErrorsBeforeLastUpdate: true});
+          let objectIndex0 = Object.keys(this.state.errors)[0];
+          this.setState({errorMessage: this.state.errors[Object.keys(this.state.errors)[0]]})
+      }
+    }
+
+
   renderPasswordField(field) {
     return (
       <div className="form-group row">
@@ -52,12 +67,21 @@ class Login extends Component {
             </div>
         )
     }
-  renderEmailField(field) {
+  renderEmailField(field, errors) {
     return (
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Email:</label>
+          <span className="red-text">
+                  {errors.email}
+              {errors.emailnotfound}
+                </span>
         <div className="col-sm-10">
-        <input type="email" className="form-control"  {...field.input}/>
+        <input type="email"
+               className="form-control"  {...field.input}
+               className={classnames("form-control", {
+                   invalid: errors.email || errors.emailnotfound
+               })}
+        />
         </div>
       </div>
     )
@@ -84,6 +108,7 @@ class Login extends Component {
     }
 
   onSubmit(values) {
+      this.setState({wereThereErrorsBeforeLastUpdate: false});
       if(!this.state.register) {
           values.event_id = this.props.activeEvent;
           this.props.login(values, () => {
@@ -92,7 +117,6 @@ class Login extends Component {
       } else {
           values.event_id = this.props.activeEvent;
           this.props.register(values, () => {
-
           });
       }
   }
@@ -100,11 +124,12 @@ class Login extends Component {
   render() {
     const { handleSubmit } = this.props;
       const register = this.state.register;
+      const errors = this.state;
       let form;
 
       if (register) {
           form = <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-              <Field name="email" component={this.renderEmailField} />
+              <Field name="email" component={this.renderEmailField(this.state.errors)} />
               <Field name="first_name" component={this.renderFirstNameField} />
               <Field name="last_name" component={this.renderLastNameField} />
               <Field name="password" component={this.renderPasswordField} />
@@ -129,10 +154,20 @@ class Login extends Component {
         <div className="jumbotron">
             {form}
         </div>
+          <div>
+              <SweetAlert
+                  show={this.state.showErrorModal}
+                  title="Error"
+                  type="error"
+                  text={this.state.errorMessage}
+                  onConfirm={() => this.setState({ showErrorModal: false })}
+              />
+          </div>
       </div>
     );
   }
 }
+
 const mapStateToProps = state => ({
   authentication: state.authentication,
   errors: state.errors
