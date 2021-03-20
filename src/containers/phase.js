@@ -111,6 +111,7 @@ class PhasePage extends Component {
     }
 
     return this.props.phaseEmails.map((email) => {
+        if (this.props.phaseEmails.type !== "confirmation")
       return (
         <li className="list-group-item" key={email._id}>
         <strong>{email.name}</strong>
@@ -127,7 +128,7 @@ class PhasePage extends Component {
     renderConfirmationEmail() {
 
         return this.props.phaseEmails.map((email) => {
-            if (this.props.phaseEmails.type = "confirmation") {
+            if (this.props.phaseEmails.type === "confirmation") {
                 return (
                     <li className="list-group-item" key={email._id}>
                         <p><strong>Subject:</strong> {email.subject}</p>
