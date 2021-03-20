@@ -124,7 +124,28 @@ class PhasePage extends Component {
     })
   }
 
+    renderConfirmationEmail() {
+
+        return this.props.phaseEmails.map((email) => {
+            if (this.props.phaseEmails.type = "confirmation") {
+                return (
+                    <li className="list-group-item" key={email._id}>
+                        <p><strong>Subject:</strong> {email.subject}</p>
+                        <div className="email-content-display">
+                            {email.body}
+                        </div>
+                        <p><strong>Attached Files:</strong> Essential Retreat Information</p>
+                    </li>
+                );
+            }
+        })
+    }
+
   render() {
+      console.log(1,this.state.activePhaseDetails)
+      console.log(2,this.props.phaseEmails)
+      let isRegistration = false;
+      if (this.state.activePhaseDetails&& this.state.activePhaseDetails.name  === "Registration") { isRegistration = true;}
     return(
       <div>
         <h3>{this.state.activePhaseDetails&& this.state.activePhaseDetails.name ? this.state.activePhaseDetails.name : ''}</h3>
@@ -140,6 +161,16 @@ class PhasePage extends Component {
             {this.renderTaskList()}
           </ul>
         </div>
+          { isRegistration &&
+          <div className="task-group">
+              <h5>Confirmation Email</h5>
+              <p>This email is automatically sent to any attendee when they are added to the attendee list.</p>
+              <div className="task-group">
+                  {this.renderConfirmationEmail()}
+              </div>
+          </div>
+
+          }
         <div className="task-group">
           <h5>Saved Emails</h5>
         <div className="task-group">
