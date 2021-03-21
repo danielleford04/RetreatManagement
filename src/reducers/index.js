@@ -19,6 +19,7 @@ import ActiveDefaultPhaseReducer from './reducer_active_default_phase.js';
 import DefaultPhaseTaskReducer from './reducer_default_phase_tasks.js';
 import DefaultPhaseInstructionReducer from './reducer_default_phase_instructions.js';
 import DefaultPhaseEmailReducer from './reducer_default_phase_emails.js';
+import ConfirmationEmailReducer from './reducer_confirmation_email';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -40,7 +41,8 @@ const rootReducer = combineReducers({
   selectedDefaultPhaseId: ActiveDefaultPhaseReducer,
     selectedDefaultPhaseTasks: DefaultPhaseTaskReducer,
     selectedDefaultPhaseInstructions: DefaultPhaseInstructionReducer,
-    selectedDefaultPhaseEmails: DefaultPhaseEmailReducer
+    selectedDefaultPhaseEmails: DefaultPhaseEmailReducer,
+    confirmationEmail: ConfirmationEmailReducer
 
 });
 

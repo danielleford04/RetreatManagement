@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DefaultEditor from '../containers/default_editor.js';
 import SetDefaultsControl from '../components/set_defaults_control.js';
+import ConfirmationEmailEditor from '../components/confirmation_email_editor';
 import { createEvent } from '../actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

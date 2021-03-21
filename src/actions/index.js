@@ -39,6 +39,7 @@ export const FETCH_DEFAULT_PHASES = 'FETCH_DEFAULT_PHASES';
 export const FETCH_DEFAULT_PHASE_EMAILS = 'FETCH_DEFAULT_PHASE_EMAILS';
 export const FETCH_DEFAULT_PHASE_INSTRUCTIONS = 'FETCH_DEFAULT_PHASE_INSTRUCTIONS';
 export const FETCH_DEFAULT_PHASE_TASKS = 'FETCH_DEFAULT_PHASE_TASKS';
+export const FETCH_CONFIRMATION_EMAIL = 'FETCH_CONFIRMATION_EMAIL';
 
 // Register User
 export const register = (userData, history) => dispatch => {
@@ -341,7 +342,6 @@ export function setActivePhase(id) {
 }
 
 export function setActiveDefaultPhase(id) {
-    console.log('set active default phase action')
     return {
         type: SET_ACTIVE_DEFAULT_PHASE,
         id,
@@ -405,6 +405,16 @@ export function fetchDefaultPhaseEmails(phase_id) {
     return {
 
         type: FETCH_DEFAULT_PHASE_EMAILS,
+        payload: request
+    };
+}
+
+export function fetchConfirmationEmail(event_id) {
+    const request = axios.get(`${ROOT_URL}/emails/confirmation/${event_id}`);
+
+    return {
+
+        type: FETCH_CONFIRMATION_EMAIL,
         payload: request
     };
 }

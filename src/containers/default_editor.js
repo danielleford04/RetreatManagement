@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DefaultPhaseDropdown from '../components/default_phase_dropdown.js';
-import { fetchDefaultPhases} from '../actions';
+import { fetchDefaultPhases } from '../actions';
+import ConfirmationEmailEditor from "../components/confirmation_email_editor";
 
 class DefaultEditor extends Component {
     constructor(props, context) {
@@ -21,6 +22,7 @@ class DefaultEditor extends Component {
     }
     componentDidMount() {
         this.props.fetchDefaultPhases(this.props.selectedDefault.id);
+
     }
     updateLastActiveDefaultPhase(phaseId) {
         this.setState({lastActiveDefaultPhase: phaseId});
@@ -100,6 +102,7 @@ class DefaultEditor extends Component {
                         </div>
                     </div>
                 </div>
+                <ConfirmationEmailEditor selectedDefault={this.props.selectedDefault.id}/>
                 {this.renderPhaseDropDowns()}
             </div>
 

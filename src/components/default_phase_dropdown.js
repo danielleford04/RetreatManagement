@@ -3,7 +3,7 @@ import { Field, reduxForm, formValueSelector, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SavedDefaultsDisplay from '../components/saved_defaults_display.js';
-import {setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createDefaultTask, createDefaultInstruction, fetchFiles, createDefaultEmail} from '../actions';
+import { setActiveDefaultPhase, fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, createDefaultTask, createDefaultInstruction, fetchFiles, createDefaultEmail } from '../actions';
 import SweetAlert from "sweetalert2-react";
 
 class DefaultPhaseDropdown extends Component {

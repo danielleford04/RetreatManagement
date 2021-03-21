@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, deleteInstruction, deleteTask, deleteEmail} from '../actions';
+import { fetchDefaultPhaseInstructions, fetchDefaultPhaseTasks, fetchDefaultPhaseEmails, deleteInstruction, deleteTask, deleteEmail } from '../actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import EmailDisplay from "./email_display";
 
 class SavedDefaultsDisplay extends Component {
     constructor(props, context) {
@@ -83,7 +84,14 @@ class SavedDefaultsDisplay extends Component {
         });
     }
     renderEmails() {
-        if (this.props.selectedDefaultPhaseEmails.length === 0) {
+        let emails_not_confirmation = [];
+        for (let email of this.props.selectedDefaultPhaseEmails) {
+            if (email.type !== 'confirmation') {
+                emails_not_confirmation.push(email)
+            }
+        }
+
+        if (emails_not_confirmation.length === 0) {
             return (
                 <li className="list-group-item">
                     <h6>No Saved Emails</h6>
@@ -93,18 +101,8 @@ class SavedDefaultsDisplay extends Component {
             );
         }
 
-        return this.props.selectedDefaultPhaseEmails.map((email) => {
-            return (
-                <li className="list-group-item" key={email._id} >
-                    <span> <strong>Name:</strong> {email.name}</span>
-                    <span> <strong>Subject:</strong> {email.subject}</span>
-                    <span><strong>Attached Files:</strong> Essential Retreat Information</span>
-                    <FontAwesomeIcon icon="times" className="close-icon" onClick={()=>this.deleteEmail(email._id)}/>
-                    <div className="email-content-display">
-                        Hi how are you this is an email
-                    </div>
-                </li>
-            );
+        return emails_not_confirmation.map((email) => {
+            return <EmailDisplay email={email}/>
         })
     }
     render() {

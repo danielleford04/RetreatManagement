@@ -306,6 +306,12 @@ svg {
   margin: 5px auto;
 }
 
+.default-confirmation-editor {
+  border: 1px solid darkgray;
+  border-radius: 2px;
+  margin: 20px auto;
+}
+
 .phase-defaults input {
   display: inline-block;
 }
@@ -434,4 +440,12 @@ svg {
 .welcome-message {
   text-align: center;
   padding-top: 50px;
+}
+
+.default-confirmation-display {
+  margin-top: 20px;
+}
+
+.default-confirmation-display p {
+  line-height: 1;
 }

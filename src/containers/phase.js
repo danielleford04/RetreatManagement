@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatDisplayDateWithMoment, isDatePast } from '../global/utilities';
 import { fetchPhaseInstructions, fetchPhaseTasks, fetchPhaseEmails, updateTask } from '../actions';
+import EmailDisplay from "../components/email_display";
 
 class PhasePage extends Component {
   constructor(props, context) {
@@ -99,7 +100,13 @@ class PhasePage extends Component {
   }
 
   renderEmails() {
-    if (this.props.phaseEmails.length === 0) {
+      let emails_not_confirmation = [];
+      for (let email of this.props.phaseEmails) {
+          if (email.type !== 'confirmation') {
+              emails_not_confirmation.push(email)
+          }
+      }
+    if (emails_not_confirmation.length === 0) {
       return (
         <li className="list-group-item no-item-message">
           <h6>No Saved Emails</h6>
@@ -111,40 +118,23 @@ class PhasePage extends Component {
     }
 
     return this.props.phaseEmails.map((email) => {
-        if (this.props.phaseEmails.type !== "confirmation")
-      return (
-        <li className="list-group-item" key={email._id}>
-        <strong>{email.name}</strong>
-        <p> <strong>Subject:</strong> {email.subject}</p>
-        <div className="email-content-display">
-        {email.body}
-        </div>
-        <p><strong>Attached Files:</strong> Essential Retreat Information</p>
-        </li>
-      );
+        if (email.type !== "confirmation") {
+            return <EmailDisplay email={email}/>
+        }
     })
+
   }
 
     renderConfirmationEmail() {
 
         return this.props.phaseEmails.map((email) => {
-            if (this.props.phaseEmails.type === "confirmation") {
-                return (
-                    <li className="list-group-item" key={email._id}>
-                        <p><strong>Subject:</strong> {email.subject}</p>
-                        <div className="email-content-display">
-                            {email.body}
-                        </div>
-                        <p><strong>Attached Files:</strong> Essential Retreat Information</p>
-                    </li>
-                );
+            if (email.type == "confirmation") {
+                return <EmailDisplay email={email}/>
             }
         })
     }
 
   render() {
-      console.log(1,this.state.activePhaseDetails)
-      console.log(2,this.props.phaseEmails)
       let isRegistration = false;
       if (this.state.activePhaseDetails&& this.state.activePhaseDetails.name  === "Registration") { isRegistration = true;}
     return(
