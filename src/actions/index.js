@@ -21,6 +21,7 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const DELETE_EMAIL = 'DELETE_EMAIL';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
+export const UPDATE_EMAIL = 'UPDATE_EMAIL';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
 export const SET_ACTIVE_DEFAULT_PHASE = 'SET_ACTIVE_DEFAULT_PHASE';
@@ -207,24 +208,16 @@ export function createEmail(values, callback, error) {
   }
 }
 
-//send experiment
-// export function createEmail(values, callback, error) {
-//   // var mailOptions = {
-//   //     from: '"Danielle" <danielleford04@gmail.com>', // sender address
-//   //     to: 'danielleford04@gmail.com', // list of receivers
-//   //     subject: 'A new survey has been submitted!', // Subject line
-//   //     text: "Oops! Your email provider doesn't support html. View your updated report at localhost:3000/emailReport" , // plaintext body
-//   // };
-// values.body = values.body.replace(/\n/g, '<br>\n');
-//   const request = axios.post(`${ROOT_URL}/emails/send`, values)
-//     .then(() => callback())
-//     .catch(() => error());
-//
-//   return {
-//     type: CREATE_EMAIL,
-//     payload: request
-//   }
-// }
+export function updateEmail(values, callback, error) {
+    const request = axios.put(`${ROOT_URL}/emails/${values.email_id}`, values)
+        .then(() => callback())
+        .catch(() => error());
+
+    return {
+        type: UPDATE_EMAIL,
+        payload: request
+    }
+}
 
 export function fetchEvents() {
   const request = axios.get(`${ROOT_URL}/events/user`);

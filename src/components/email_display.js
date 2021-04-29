@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createDefault, fetchFiles } from '../actions';
+import { updateEmail, fetchFiles } from '../actions';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Field, formValueSelector, reduxForm} from "redux-form";
 
@@ -51,7 +51,8 @@ class EmailDisplay extends Component {
             this.setState({ has_email_loaded: true })
             this.props.initialize({
                 subject: this.props.email.subject,
-                body: this.props.email.body
+                body: this.props.email.body,
+                name: this.props.email.name
             });
         }
     }
@@ -59,7 +60,16 @@ class EmailDisplay extends Component {
     toggleIsEditorOpen() {
         this.setState({is_editor_open: !this.state.is_editor_open})
     }
-
+    renderNameField(field) {
+        return (
+            <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Name:</label>
+                <div className="col-sm-10">
+                    <input type="text" className="form-control" {...field.input}/>
+                </div>
+            </div>
+        )
+    }
     renderSubjectField(field) {
         console.log(field)
         return (
@@ -83,22 +93,52 @@ class EmailDisplay extends Component {
         )
     }
 
+    renderSavedEmail(email) {
+        return (
+            <div>
+                    <strong>{email.name}</strong> <FontAwesomeIcon icon="edit" onClick={this.toggleIsEditorOpen} />
+                    <p><strong>Subject:</strong> {email.subject}</p>
+                    <div className="email-content-display">
+                        {email.body}
+                    </div>
+                    <p><strong>Attached Files:</strong> {this.state.attachment_names}</p>
+            </div>
+        )
+    }
+
+    renderEmailEditor(email) {
+        return (
+            <div>
+
+                <Field name="name" component={this.renderNameField} />
+                <Field name="subject" component={this.renderSubjectField} />
+                    <Field name="body" component={this.renderBodyField} />
+                    <p><strong>Attached Files:</strong> {this.state.attachment_names}</p>
+                <div><button type="submit" className="btn btn-primary">Save Changes</button> <FontAwesomeIcon icon="times" onClick={this.toggleIsEditorOpen}/></div>
+
+            </div>
+        )
+    }
+
     onSubmit(values) {
+        values.email_id = this.props.email._id;
 
-        values.event_id = this.props.activeEvent;
-        for (let phase of this.props.eventPhases) {
-            if (phase.name === values.phase) {
-                values.phase_id = phase._id;
-            }
-        }
-        if(values.attachment=="None"){values.attachment=null}
-        if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
+        // values.event_id = this.props.activeEvent;
+        // for (let phase of this.props.eventPhases) {
+        //     if (phase.name === values.phase) {
+        //         values.phase_id = phase._id;
+        //     }
+        // }
+        // if(values.attachment=="None"){values.attachment=null}
+        // if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
 
-        this.props.createEmail(values, () => {
-                this.setState({ showSuccessModal: true })},
+        this.props.updateEmail(values, () => {
+                // this.setState({ showSuccessModal: true })
+            console.log('success')
+            },
             () => {
-                this.setState({ showErrorModal: true })
-
+                // this.setState({ showErrorModal: true })
+                    console.log('error')
             });
     }
 
@@ -109,12 +149,7 @@ class EmailDisplay extends Component {
         return (
             <li className="list-group-item" key={this.props.email._id}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
-                    <strong>{this.props.email.name}</strong> {!this.state.is_editor_open ? <FontAwesomeIcon icon="edit" onClick={this.toggleIsEditorOpen} /> : (<div><button type="submit" className="btn btn-primary">Save Changes</button> <FontAwesomeIcon icon="times" onClick={this.toggleIsEditorOpen}/></div>)}
-                    {!this.state.is_editor_open ? <p><strong>Subject:</strong> {this.props.email.subject}</p> : <Field name="subject" placeholder={this.props.email.subject} component={this.renderSubjectField} /> }
-                    {!this.state.is_editor_open ? <div className="email-content-display">
-                        {this.props.email.body}
-                    </div> : <Field name="body" component={this.renderBodyField} /> }
-                    <p><strong>Attached Files:</strong> {this.state.attachment_names}</p>
+                {!this.state.is_editor_open ? this.renderSavedEmail(this.props.email) : this.renderEmailEditor(this.props.email)}
                 </form>
             </li>
         );
@@ -131,6 +166,6 @@ export default reduxForm({
     enableReinitialize: true,
     keepDirtyOnReinitialize : true
 }) (connect(
-    mapStateToProps, { fetchFiles }
+    mapStateToProps, { fetchFiles, updateEmail }
 )(EmailDisplay));
 
