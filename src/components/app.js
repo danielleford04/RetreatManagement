@@ -11,9 +11,9 @@ import {setCurrentUser, logout, fetchUserData} from "../actions";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle)
+library.add(faAngleUp, faAngleDown, faTimes, faPlusCircle, faTimesCircle, faEdit)
 
 
 class App extends Component {
