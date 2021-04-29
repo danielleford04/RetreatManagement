@@ -14,7 +14,8 @@ class EmailDisplay extends Component {
             have_files_loaded: false,
             have_checked_attachments: false,
             is_editor_open: false,
-            has_email_loaded: false
+            has_email_loaded: false,
+            email: null
         };
         this.toggleIsEditorOpen = this.toggleIsEditorOpen.bind(this);
     }
@@ -23,6 +24,7 @@ class EmailDisplay extends Component {
         if (this.props.files.length > 0){
             this.setState({ have_files_loaded: true })
         }
+
         if (this.state.have_files_loaded === false) {
             this.props.fetchFiles();
             this.setState({ have_files_loaded: true })
@@ -30,15 +32,16 @@ class EmailDisplay extends Component {
 
     }
     componentDidUpdate() {
-        if(this.props.files.length !== this.state.last_files.length) {
+        if((this.props.files.length !== this.state.last_files.length) || (this.state.email !== this.props.email )) {
             this.setState({ last_files: this.props.files })
+            this.setState({ email: this.props.email })
             if (this.props.email.attachment && this.props.email.attachment.length > 0) {
                 let attachments = [];
                 let attachments_string;
                 for (let attachment_id of this.props.email.attachment) {
                     for (let file of this.props.files) {
                         if (attachment_id === file._id) {
-                            attachments.push(file.file_name)
+                            attachments.push(file.name)
                         }
                     }
                 }
@@ -93,6 +96,35 @@ class EmailDisplay extends Component {
         )
     }
 
+    renderFieldSelect ({ data }){
+        if(data[0]._id !== null) {data.unshift({_id:null, name:"None"})}
+
+        return (
+            <div className="form-group row">
+                <label className="col-sm-2 col-form-label">Attachment:</label>
+                <div className="col-sm-10">
+                    <Field
+                        className="form-control"
+                        name="attachment"
+                        component="select">
+                        {
+                            data.map((form, index) => {
+                                return (<option key={form._id} value={form._id}>{form.name}</option>)
+                            })
+                        }
+                    </Field>
+                </div>
+            </div>
+        )
+
+    }
+
+    renderNoFilesMessage() {
+        return (
+            <span>No files saved. Click 'new form' to upload a file.</span>
+        );
+    }
+
     renderSavedEmail(email) {
         return (
             <div>
@@ -106,7 +138,7 @@ class EmailDisplay extends Component {
         )
     }
 
-    renderEmailEditor(email) {
+    renderEmailEditor(email, files) {
         return (
             <div>
 
@@ -114,6 +146,8 @@ class EmailDisplay extends Component {
                 <Field name="subject" component={this.renderSubjectField} />
                     <Field name="body" component={this.renderBodyField} />
                     <p><strong>Attached Files:</strong> {this.state.attachment_names}</p>
+                {files.length ? <Field name="attachment" component={this.renderFieldSelect} data={files}/> : this.renderNoFilesMessage() }
+
                 <div><button type="submit" className="btn btn-primary">Save Changes</button> <FontAwesomeIcon icon="times" onClick={this.toggleIsEditorOpen}/></div>
 
             </div>
@@ -149,7 +183,7 @@ class EmailDisplay extends Component {
         return (
             <li className="list-group-item" key={this.props.email._id}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
-                {!this.state.is_editor_open ? this.renderSavedEmail(this.props.email) : this.renderEmailEditor(this.props.email)}
+                {!this.state.is_editor_open ? this.renderSavedEmail(this.props.email) : this.renderEmailEditor(this.props.email, this.props.files)}
                 </form>
             </li>
         );

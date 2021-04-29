@@ -77,29 +77,29 @@ class NewEmail extends Component {
       </div>
     )
   }
-  renderFileSelectOption() {
-    return this.props.files.map((file) => {
-      return (
-        <option value={file._id}>{file.name}</option>
-      );
-    })
-  }
-  renderAttachmentField(field) {
-    return (
-      <div className="form-group row">
-         <label className="col-sm-2 col-form-label">Attachment:</label>
-         <div className="col-sm-10">
-           <select className="form-control" {...field.input}>
-           {
-                 templateList.result.map((type, index) => {
-                   return (<option value={templateList.entities.template[ type ].id}>{templateList.entities.template[ type ].name}</option>)
-                 })
-               }
-           </select>
-         </div>
-       </div>
-    )
-  }
+  // renderFileSelectOption() {
+  //   return this.props.files.map((file) => {
+  //     return (
+  //       <option value={file._id}>{file.name}</option>
+  //     );
+  //   })
+  // }
+  // renderAttachmentField(field) {
+  //   return (
+  //     <div className="form-group row">
+  //        <label className="col-sm-2 col-form-label">Attachment:</label>
+  //        <div className="col-sm-10">
+  //          <select className="form-control" {...field.input}>
+  //          {
+  //                templateList.result.map((type, index) => {
+  //                  return (<option value={templateList.entities.template[ type ].id}>{templateList.entities.template[ type ].name}</option>)
+  //                })
+  //              }
+  //          </select>
+  //        </div>
+  //      </div>
+  //   )
+  // }
 
 renderFieldSelect ({ data }){
   if(data[0]._id !== null) {data.unshift({_id:null, name:"None"})}
