@@ -210,8 +210,10 @@ export function createEmail(values, callback, error) {
 
 export function updateEmail(values, callback, error) {
     const request = axios.put(`${ROOT_URL}/emails/${values.email_id}`, values)
-        .then(() => callback())
-        .catch(() => error());
+        request.then(() => callback())
+        request.catch(() => error());
+
+    console.log('request',request)
 
     return {
         type: UPDATE_EMAIL,

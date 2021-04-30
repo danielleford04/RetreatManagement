@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateEmail, fetchFiles } from '../actions';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Field, formValueSelector, reduxForm} from "redux-form";
+import SweetAlert from "sweetalert2-react";
 
 
 class EmailDisplay extends Component {
@@ -17,7 +18,8 @@ class EmailDisplay extends Component {
             have_checked_attachments: false,
             is_editor_open: false,
             has_email_loaded: false,
-            email: null
+            email: null,
+            showErrorModal: false
         };
         this.toggleIsEditorOpen = this.toggleIsEditorOpen.bind(this);
     }
@@ -171,8 +173,7 @@ class EmailDisplay extends Component {
                 console.log('success')
             },
             () => {
-                // this.setState({ showErrorModal: true })
-                console.log('error')
+                this.setState({ showErrorModal: true })
             });
     }
 
@@ -205,24 +206,31 @@ class EmailDisplay extends Component {
         }
 
         this.props.updateEmail(values, () => {
-                // this.setState({ showSuccessModal: true })
-            console.log('success')
+                this.setState({ is_editor_open: false })
             },
             () => {
-                // this.setState({ showErrorModal: true })
-                    console.log('error')
+            this.setState({ showErrorModal: true })
             });
     }
 
 
     render() {
         const { handleSubmit } = this.props;
-        console.log('render email',this.props.email)
+        console.log(this.props)
         return (
             <li className="list-group-item" key={this.props.email._id}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
                 {!this.state.is_editor_open ? this.renderSavedEmail(this.props.email) : this.renderEmailEditor(this.props.email, this.props.files)}
                 </form>
+                <div>
+                    <SweetAlert
+                        show={this.state.showErrorModal}
+                        title="Error"
+                        type="error"
+                        text="There was an error saving your changes. Please try again."
+                        onConfirm={() => this.setState({ showErrorModal: false })}
+                    />
+                </div>
             </li>
         );
     }

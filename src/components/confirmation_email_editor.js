@@ -121,7 +121,7 @@ class ConfirmationEmailEditor extends Component {
                 </div>
                 <div className={"collapsable" + (this.state.showEditor ? " show" : '')}>
                     <p>This email is automatically sent to any attendee when they are added to the attendee list for this event.</p>
-                    <EmailDisplay email={this.props.confirmationEmail}/>
+                    <EmailDisplay email={this.props.confirmationEmail} key={this.props.confirmationEmail._id}/>
                 </div>
                 <div>
                     <SweetAlert
