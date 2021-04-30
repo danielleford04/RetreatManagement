@@ -181,7 +181,7 @@ cursor: pointer;
 
 .overlay-container {
   position: fixed; /* Sit on top of the page content */
-  /* display: none; /* Hidden by default */ */
+  /* display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   padding-top: 50px;
@@ -448,4 +448,20 @@ svg {
 
 .default-confirmation-display p {
   line-height: 1;
+}
+
+.email-display-button-row {
+  text-align: right;
+}
+
+.saved-attachment-container {
+  padding: 20px;
+}
+
+.saved-attachment {
+  display: inline-block;
+  border: darkgray 1px solid;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-right: 10px;
 }

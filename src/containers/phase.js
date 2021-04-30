@@ -119,7 +119,7 @@ class PhasePage extends Component {
 
     return this.props.phaseEmails.map((email) => {
         if (email.type !== "confirmation") {
-            return <EmailDisplay email={email}/>
+            return <EmailDisplay email={email} key={email._id}/>
         }
     })
 

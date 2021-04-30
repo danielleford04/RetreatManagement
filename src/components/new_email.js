@@ -140,6 +140,7 @@ renderFieldSelect ({ data }){
     }
     if(values.attachment=="None"){values.attachment=null}
     if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
+    console.log(values)
 
     this.props.createEmail(values, () => {
       this.setState({ showSuccessModal: true })},

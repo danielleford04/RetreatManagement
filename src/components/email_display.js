@@ -10,6 +10,7 @@ class EmailDisplay extends Component {
         super(props, context);
         this.state = {
             attachment_names: 'None',
+            attachment_details: [],
             last_files: this.props.files,
             have_files_loaded: false,
             have_checked_attachments: false,
@@ -37,16 +38,19 @@ class EmailDisplay extends Component {
             this.setState({ email: this.props.email })
             if (this.props.email.attachment && this.props.email.attachment.length > 0) {
                 let attachments = [];
+                let attachment_details = [];
                 let attachments_string;
                 for (let attachment_id of this.props.email.attachment) {
                     for (let file of this.props.files) {
                         if (attachment_id === file._id) {
                             attachments.push(file.name)
+                            attachment_details.push({name: file.name, id: file._id})
                         }
                     }
                 }
                 attachments_string = attachments.join(", ");
                 this.setState({ attachment_names: attachments_string })
+                this.setState({ attachment_details: attachment_details})
             }
         }
 
@@ -74,7 +78,6 @@ class EmailDisplay extends Component {
         )
     }
     renderSubjectField(field) {
-        console.log(field)
         return (
             <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Subject:</label>
@@ -101,8 +104,8 @@ class EmailDisplay extends Component {
 
         return (
             <div className="form-group row">
-                <label className="col-sm-2 col-form-label">Attachment:</label>
-                <div className="col-sm-10">
+                <label className="col-sm-3 col-form-label">Add Attachment:</label>
+                <div className="col-sm-9">
                     <Field
                         className="form-control"
                         name="attachment"
@@ -138,6 +141,40 @@ class EmailDisplay extends Component {
         )
     }
 
+    renderSavedAttachments() {
+        return this.state.attachment_details.map((attachment) => {
+            return (
+                <div className="saved-attachment" key={attachment.id}>
+                    {attachment.name} <FontAwesomeIcon className="cancel-new-default" icon="times" onClick={()=>this.removeAttachment(attachment.id)}/>
+                </div>
+            );
+        })
+    }
+
+    removeAttachment(attachment_to_remove) {
+        let values = { email_id: this.props.email._id }
+
+        let current_attachments = this.props.email.attachment;
+        let updated_attachments = [];
+
+        for (let attachment of current_attachments) {
+            if (attachment !== attachment_to_remove) {
+                updated_attachments.push(attachment)
+            }
+        }
+
+        values.attachment = updated_attachments;
+
+        this.props.updateEmail(values, () => {
+                // this.setState({ showSuccessModal: true })
+                console.log('success')
+            },
+            () => {
+                // this.setState({ showErrorModal: true })
+                console.log('error')
+            });
+    }
+
     renderEmailEditor(email, files) {
         return (
             <div>
@@ -145,10 +182,10 @@ class EmailDisplay extends Component {
                 <Field name="name" component={this.renderNameField} />
                 <Field name="subject" component={this.renderSubjectField} />
                     <Field name="body" component={this.renderBodyField} />
-                    <p><strong>Attached Files:</strong> {this.state.attachment_names}</p>
+                {email.attachment && email.attachment.length ? <div className="saved-attachment-container"><span>Attached Files:</span> {this.renderSavedAttachments()} </div> : null }
                 {files.length ? <Field name="attachment" component={this.renderFieldSelect} data={files}/> : this.renderNoFilesMessage() }
 
-                <div><button type="submit" className="btn btn-primary">Save Changes</button> <FontAwesomeIcon icon="times" onClick={this.toggleIsEditorOpen}/></div>
+                <div className="email-display-button-row"><button type="submit" className="btn btn-primary">Save Changes</button> <button type="submit" className="btn btn-secondary" onClick={this.toggleIsEditorOpen}>Cancel</button></div>
 
             </div>
         )
@@ -156,15 +193,15 @@ class EmailDisplay extends Component {
 
     onSubmit(values) {
         values.email_id = this.props.email._id;
+        if (values.attachment && this.props.files) {
+            let attachments = [];
+            attachments.push(values.attachment)
+            for (let file of this.props.email.attachment) {
 
-        // values.event_id = this.props.activeEvent;
-        // for (let phase of this.props.eventPhases) {
-        //     if (phase.name === values.phase) {
-        //         values.phase_id = phase._id;
-        //     }
-        // }
-        // if(values.attachment=="None"){values.attachment=null}
-        // if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
+                attachments.push(file)
+            }
+            values.attachment = attachments;
+        }
 
         this.props.updateEmail(values, () => {
                 // this.setState({ showSuccessModal: true })
@@ -179,7 +216,7 @@ class EmailDisplay extends Component {
 
     render() {
         const { handleSubmit } = this.props;
-        console.log('render',this.props.files)
+        console.log('render email',this.props.email)
         return (
             <li className="list-group-item" key={this.props.email._id}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >
@@ -196,7 +233,7 @@ const mapStateToProps = state => ({
 });
 
 export default reduxForm({
-    form: 'EmailUpdateForm',
+    form: `EmailEditorForm-${this.props.email._id}`,
     enableReinitialize: true,
     keepDirtyOnReinitialize : true
 }) (connect(
