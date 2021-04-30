@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { updateEmail, fetchFiles } from '../actions';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -227,16 +228,18 @@ class EmailDisplay extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     files: state.files,
     type: (formValueSelector('EmailUpdateForm'))(state, 'type'),
+    form: `EmailEditorForm-${ownProps.email._id}`
 });
 
-export default reduxForm({
-    form: `EmailEditorForm-${this.props.email._id}`,
-    enableReinitialize: true,
-    keepDirtyOnReinitialize : true
-}) (connect(
-    mapStateToProps, { fetchFiles, updateEmail }
-)(EmailDisplay));
-
+export default compose(
+    connect(
+        mapStateToProps, { fetchFiles, updateEmail }
+    ),
+    reduxForm({
+        enableReinitialize: true,
+        keepDirtyOnReinitialize : true
+    })
+)(EmailDisplay);
