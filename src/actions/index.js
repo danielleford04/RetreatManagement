@@ -213,8 +213,6 @@ export function updateEmail(values, callback, error) {
         request.then(() => callback())
         request.catch(() => error());
 
-    console.log('request',request)
-
     return {
         type: UPDATE_EMAIL,
         payload: request

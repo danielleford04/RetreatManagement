@@ -216,7 +216,6 @@ class EmailDisplay extends Component {
 
     render() {
         const { handleSubmit } = this.props;
-        console.log(this.props)
         return (
             <li className="list-group-item" key={this.props.email._id}>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} >

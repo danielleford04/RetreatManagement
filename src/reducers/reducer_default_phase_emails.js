@@ -9,8 +9,16 @@ export default function(state = [], action) {
             var new_email = action.payload.data;
             return [...state, new_email];
         case UPDATE_EMAIL:
-            console.log('state', state)
-            console.log('action', action)
+            let updated_email = action.payload.data;
+            let new_state = [];
+            for (let email of state) {
+                if (email._id !== updated_email._id) {
+                    new_state.push(email)
+                } else {
+                    new_state.push(updated_email)
+                }
+            }
+            return new_state;
         default:
             return state;
     }
