@@ -42,6 +42,8 @@ export const FETCH_DEFAULT_PHASE_INSTRUCTIONS = 'FETCH_DEFAULT_PHASE_INSTRUCTION
 export const FETCH_DEFAULT_PHASE_TASKS = 'FETCH_DEFAULT_PHASE_TASKS';
 export const FETCH_CONFIRMATION_EMAIL = 'FETCH_CONFIRMATION_EMAIL';
 
+export const VERIFY_EMAIL_ADDRESS = 'VERIFY_EMAIL_ADDRESS';
+
 // Register User
 export const register = (userData, history) => dispatch => {
   axios
@@ -206,6 +208,17 @@ export function createEmail(values, callback, error) {
     type: CREATE_EMAIL,
     payload: request
   }
+}
+
+export function verifyEmail(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/emails/verify`, values)
+        .then(() => callback())
+        .catch(() => error());
+
+    return {
+        type: VERIFY_EMAIL_ADDRESS,
+        payload: request
+    }
 }
 
 export function updateEmail(values, callback, error) {

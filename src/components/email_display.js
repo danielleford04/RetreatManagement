@@ -182,8 +182,9 @@ class EmailDisplay extends Component {
             <div>
 
                 <Field name="name" component={this.renderNameField} />
+                <h6>{"To use variables in your email and subject: Event name: {eventName}, event dates: {eventDate}"}</h6>
                 <Field name="subject" component={this.renderSubjectField} />
-                    <Field name="body" component={this.renderBodyField} />
+                <Field name="body" component={this.renderBodyField} />
                 {email.attachment && email.attachment.length ? <div className="saved-attachment-container"><span>Attached Files:</span> {this.renderSavedAttachments()} </div> : null }
                 {files.length ? <Field name="attachment" component={this.renderFieldSelect} data={files}/> : this.renderNoFilesMessage() }
 

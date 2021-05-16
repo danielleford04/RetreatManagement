@@ -160,7 +160,9 @@ renderFieldSelect ({ data }){
           <Field name="phase" component={this.renderPhaseField} />
           <Field name="name" component={this.renderNameField} />
           <Field name="date" component={this.renderDateField} />
-          <Field name="subject" component={this.renderSubjectField} />
+            <h6>{"To use variables in your email and subject: Event name: {eventName}, event dates: {eventDate}"}</h6>
+
+            <Field name="subject" component={this.renderSubjectField} />
           <Field name="body" component={this.renderBodyField} />
           {this.props.files.length ? <Field name="attachment" component={this.renderFieldSelect} data={this.props.files}/> : this.renderNoFilesMessage() }
 
