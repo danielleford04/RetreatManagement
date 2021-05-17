@@ -62,7 +62,7 @@ export const login = userData => dispatch => {
     .post(`${ROOT_URL}/users/login`, userData)
     .then(res => {
       // Save to localStorage
-// Set token to localStorage
+      // Set token to localStorage
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
@@ -93,6 +93,7 @@ export const setUserLoading = () => {
     type: USER_LOADING
   };
 };
+
 // Log user out
 export const logout = () => dispatch => {
   // Remove token from local storage

@@ -13,6 +13,7 @@ class Login extends Component {
     errors: {},
     register: false,
     showErrorModal: false,
+    showEmailWarningModal: false,
     wereThereErrorsBeforeLastUpdate: false,
     errorMessage: ""
   };
@@ -20,6 +21,9 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.authentication.isAuthenticated) {
+        if (this.props.user.sender_email_pending) {
+            this.setState({ showEmailWarningModal: true })
+        }
       this.props.history.push("/");
     }
     if (nextProps.errors) {
@@ -154,6 +158,15 @@ class Login extends Component {
                   onConfirm={() => this.setState({ showErrorModal: false })}
               />
           </div>
+          <div>
+              <SweetAlert
+                  show={this.state.showEmailWarningModal}
+                  title="Sender Email Unverified"
+                  type="warning"
+                  html='The email address you entered to send emails from has not been verified. Please go to your email address and confirm your email in the email from Amazon Web Services. You will not be able to send emails from this address until it is verified. <br><br> You can change the sender email for your account in the user defaults section.'
+                  onConfirm={() => this.setState({ showEmailWarningModal: false })}
+              />
+          </div>
       </div>
     );
   }
@@ -161,7 +174,8 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   authentication: state.authentication,
-  errors: state.errors
+  errors: state.errors,
+  user: state.user
 });
 export default reduxForm({
   form: 'LoginForm'
