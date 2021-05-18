@@ -255,7 +255,7 @@ svg {
 }
 
 .user-settings {
-  width: 60%;
+  width: 70%;
   margin: auto;
   margin-bottom: 50px
 }
@@ -464,4 +464,16 @@ svg {
   border-radius: 5px;
   padding-left: 10px;
   margin-right: 10px;
+}
+
+.user-settings h6 {
+  font-size: 11px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.user-details-p {
+  margin-bottom: 5px;
+  line-height: 14px;
+  margin-top: 10px;
 }

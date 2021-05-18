@@ -43,6 +43,7 @@ export const FETCH_DEFAULT_PHASE_TASKS = 'FETCH_DEFAULT_PHASE_TASKS';
 export const FETCH_CONFIRMATION_EMAIL = 'FETCH_CONFIRMATION_EMAIL';
 
 export const VERIFY_EMAIL_ADDRESS = 'VERIFY_EMAIL_ADDRESS';
+export const CHECK_EMAIL_VERIFICATION_STATUS = 'CHECK_EMAIL_VERIFICATION_STATUS';
 
 // Register User
 export const register = (userData, history) => dispatch => {
@@ -218,6 +219,15 @@ export function verifyEmail(values, callback, error) {
 
     return {
         type: VERIFY_EMAIL_ADDRESS,
+        payload: request
+    }
+}
+
+export function checkEmailVerificationStatus(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/emails/verification-status`, values)
+
+    return {
+        type: CHECK_EMAIL_VERIFICATION_STATUS,
         payload: request
     }
 }
