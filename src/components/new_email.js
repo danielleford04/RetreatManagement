@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, DropdownList, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert2-react';
-import { fetchFiles, createEmail } from '../actions';
+import { fetchFiles, createEmail, sendEmailNow } from '../actions';
 
 class NewEmail extends Component {
   constructor(props, context) {
@@ -133,21 +133,28 @@ renderFieldSelect ({ data }){
   onSubmit(values) {
 
     values.event_id = this.props.activeEvent;
-    for (let phase of this.props.eventPhases) {
-      if (phase.name === values.phase) {
-        values.phase_id = phase._id;
-      }
-    }
+    // for (let phase of this.props.eventPhases) {
+    //   if (phase.name === values.phase) {
+    //     values.phase_id = phase._id;
+    //   }
+    // }
     if(values.attachment=="None"){values.attachment=null}
     if(values.attachment && values.attachment !== null) {values.attachment=[values.attachment]}
     console.log(values)
 
-    this.props.createEmail(values, () => {
-      this.setState({ showSuccessModal: true })},
-      () => {
-        this.setState({ showErrorModal: true })
+    // this.props.createEmail(values, () => {
+    //   this.setState({ showSuccessModal: true })},
+    //   () => {
+    //     this.setState({ showErrorModal: true })
+    //
+    // });
+      values.sender_email_verified = this.props.user.sender_email_verified;
+      this.props.sendEmailNow(values, () => {
+            this.setState({ showSuccessModal: true })},
+            () => {
+              this.setState({ showErrorModal: true })
 
-    });
+          });
   }
 
   render() {
@@ -199,10 +206,11 @@ function mapStateToProps(state) {
     activeEvent: state.activeEvent,
     eventPhases: state.eventPhases,
     files: state.files,
+      user: state.user
   }
 }
 export default reduxForm({
   form: 'EmailNewForm'
 })(
-  connect(mapStateToProps, { fetchFiles, createEmail })(NewEmail)
+  connect(mapStateToProps, { fetchFiles, createEmail, sendEmailNow })(NewEmail)
 );

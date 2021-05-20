@@ -22,6 +22,7 @@ export const DELETE_EMAIL = 'DELETE_EMAIL';
 export const CREATE_RETREATANT = 'CREATE_RETREATANT';
 export const CREATE_EMAIL = 'CREATE_EMAIL';
 export const UPDATE_EMAIL = 'UPDATE_EMAIL';
+export const SEND_EMAIL_NOW = 'SEND_EMAIL_NOW';
 export const SET_ACTIVE_EVENT = 'SET_ACTIVE_EVENT';
 export const SET_ACTIVE_PHASE = 'SET_ACTIVE_PHASE';
 export const SET_ACTIVE_DEFAULT_PHASE = 'SET_ACTIVE_DEFAULT_PHASE';
@@ -212,6 +213,17 @@ export function createEmail(values, callback, error) {
   }
 }
 
+export function sendEmailNow(values, callback, error) {
+    const request = axios.post(`${ROOT_URL}/emails/send`, values)
+        .then(() => callback())
+        .catch(() => error());
+
+    return {
+        type: SEND_EMAIL_NOW,
+        payload: request
+    }
+}
+
 export function verifyEmail(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/emails/verify`, values)
         .then(() => callback())
@@ -225,6 +237,7 @@ export function verifyEmail(values, callback, error) {
 
 export function checkEmailVerificationStatus(values, callback, error) {
     const request = axios.post(`${ROOT_URL}/emails/verification-status`, values)
+
 
     return {
         type: CHECK_EMAIL_VERIFICATION_STATUS,

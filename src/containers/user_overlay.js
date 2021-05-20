@@ -70,6 +70,7 @@ class UserOverlay extends Component {
 
 
   render() {
+        console.log(this.props.user)
     return(
 
       <div className="overlay-container" onClick={this.props.toggleUserOverlay}>

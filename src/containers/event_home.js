@@ -47,7 +47,7 @@ class EventsHome extends Component {
   render() {
     return(
       <div>
-      {this.state.event ? this.renderEventDetails() : <h5 className="welcome-message"> Welcome to (app name). You don't have any events saved. <Link to="new_event"> Create a new event.</Link></h5>}
+      {this.state.event ? this.renderEventDetails() : <h5 className="welcome-message"> Welcome to MindfulManager. You don't have any events saved. <Link to="new_event"> Create a new event.</Link></h5>}
       </div>
     );
   }
